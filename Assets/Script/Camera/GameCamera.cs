@@ -14,6 +14,11 @@ namespace Megaton
             Ins = this;
         }
 
+        public void Update()
+        {
+            MoveForward(0.05f);    
+        }
+
         public void MoveForward(float offset)
         {
             transform.position += new Vector3(0, 0, offset);

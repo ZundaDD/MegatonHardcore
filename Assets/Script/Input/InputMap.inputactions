@@ -1,5 +1,5 @@
 {
-    "name": "InputSystem_Actions",
+    "name": "InputMap",
     "maps": [
         {
             "name": "Player",
@@ -108,6 +108,15 @@
                     "name": "Right-3",
                     "type": "Button",
                     "id": "3800aa56-f991-4c27-af9f-6fce1ea08bd8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "05af18ae-3127-4688-b14b-1c9fd9803d4a",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -244,6 +253,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Mouse-M",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b36201aa-eaac-4577-9593-e47fd9eafd26",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

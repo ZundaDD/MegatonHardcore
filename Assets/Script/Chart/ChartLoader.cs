@@ -10,6 +10,7 @@ namespace Megaton
     {
         public string ChartPath;
         public string ChartName = "chart.txt";
+
         /// <summary>
         /// 构造一个谱面加载器
         /// </summary>
