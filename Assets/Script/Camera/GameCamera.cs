@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Megaton
@@ -8,6 +9,7 @@ namespace Megaton
     public class GameCamera : MonoBehaviour
     {
         public static GameCamera Ins { get; private set; }
+        public List<Command> Commands;
 
         private void Awake()
         {

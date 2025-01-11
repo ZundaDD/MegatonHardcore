@@ -10,6 +10,15 @@ namespace Megaton
     {
         public ChartInfo Info;
         public ChartMusic Music;
-        public List<Note> Content;
+        public List<Command> Content;
+
+        /// <summary>
+        /// 解析指令
+        /// </summary>
+        /// <param name="command">谱面单行内容</param>
+        public void ParseCommand(string command)
+        {
+
+        }
     }
 }

@@ -2,3 +2,7 @@ Title=Hainuwele
 Composer=ETIA.
 BPM=113
 
+ST
+
+ED
+

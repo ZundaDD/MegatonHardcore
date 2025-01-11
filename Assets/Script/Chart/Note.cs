@@ -1,16 +1,9 @@
 using UnityEngine;
 
-public class Note : MonoBehaviour
+namespace Megaton
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class Note : Command
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

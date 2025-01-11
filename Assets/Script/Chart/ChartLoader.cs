@@ -26,7 +26,6 @@ namespace Megaton
         /// <summary>
         /// 给定路径加载谱面
         /// </summary>
-        /// <param name="Path">路径</param>
         /// <returns>对应谱面</returns>
         public Chart Path2Chart()
         {
@@ -40,8 +39,8 @@ namespace Megaton
                 while (!sr.EndOfStream && line != "ST") line = sr.ReadLine();
                 while (!sr.EndOfStream && line != "ED")
                 {
-
                     line = sr.ReadLine();
+                    chart.ParseCommand(line);
                 }
 
             }
@@ -51,7 +50,6 @@ namespace Megaton
         /// <summary>
         /// 给定路径加载谱面信息
         /// </summary>
-        /// <param name="Path">路径</param>
         /// <returns>对应的谱面信息</returns>
         public ChartInfo Path2Info()
         {
@@ -65,21 +63,11 @@ namespace Megaton
                     string[] kvpair = line.Split('=');
                     if (kvpair.Length == 2 && kvpair[0] != string.Empty)
                     {
-                        switch (kvpair[0])
-                        {
-                            case "Title":
-                                info.Title = kvpair[1];
-                                break;
-                            case "Composer":
-                                info.Composer = kvpair[1];
-                                break;
-                            case "BPM":
-                                info.BPM = int.Parse(kvpair[1]);
-                                break;
-                        }
+                        info.SetProperty(kvpair[0], kvpair[1]);
                     }
                     line = sr.ReadLine();
                 }
+                info.RootDir = ChartPath;
 
             }
             return info;
