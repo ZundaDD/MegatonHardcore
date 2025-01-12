@@ -42,24 +42,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Left-5",
-                    "type": "Button",
-                    "id": "e0246817-89db-4174-99eb-707c7114066d",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Left-6",
-                    "type": "Button",
-                    "id": "322f1faf-7955-4d02-a9ec-b69f11f68d76",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Mouse-L",
                     "type": "Button",
                     "id": "7eb83f3f-ea5d-4f74-bed1-f2ef4949e5f5",
@@ -170,30 +152,8 @@
                 },
                 {
                     "name": "",
-                    "id": "392c04e3-1e69-4391-a1c6-ce7adbbbf8d5",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Left-5",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a9678360-264a-4741-a59c-5af10304213b",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Left-6",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "7128a531-19a8-4c22-95da-b41eebaebe4c",
-                    "path": "",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -204,7 +164,7 @@
                 {
                     "name": "",
                     "id": "b5e85799-b3dc-4715-b629-883c85914186",
-                    "path": "",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

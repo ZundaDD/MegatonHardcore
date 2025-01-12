@@ -21,6 +21,8 @@ namespace Megaton
             MoveForward(0.05f);    
         }
 
+        public static void LoadCommands(List<Command> commands) => Ins.Commands = commands;
+
         public void MoveForward(float offset)
         {
             transform.position += new Vector3(0, 0, offset);

@@ -64,24 +64,6 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Left-5"",
-                    ""type"": ""Button"",
-                    ""id"": ""e0246817-89db-4174-99eb-707c7114066d"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Left-6"",
-                    ""type"": ""Button"",
-                    ""id"": ""322f1faf-7955-4d02-a9ec-b69f11f68d76"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Mouse-L"",
                     ""type"": ""Button"",
                     ""id"": ""7eb83f3f-ea5d-4f74-bed1-f2ef4949e5f5"",
@@ -192,30 +174,8 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""392c04e3-1e69-4391-a1c6-ce7adbbbf8d5"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Left-5"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a9678360-264a-4741-a59c-5af10304213b"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Left-6"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""7128a531-19a8-4c22-95da-b41eebaebe4c"",
-                    ""path"": """",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -226,7 +186,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""b5e85799-b3dc-4715-b629-883c85914186"",
-                    ""path"": """",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -877,8 +837,6 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         m_Player_Left2 = m_Player.FindAction("Left-2", throwIfNotFound: true);
         m_Player_Left3 = m_Player.FindAction("Left-3", throwIfNotFound: true);
         m_Player_Left4 = m_Player.FindAction("Left-4", throwIfNotFound: true);
-        m_Player_Left5 = m_Player.FindAction("Left-5", throwIfNotFound: true);
-        m_Player_Left6 = m_Player.FindAction("Left-6", throwIfNotFound: true);
         m_Player_MouseL = m_Player.FindAction("Mouse-L", throwIfNotFound: true);
         m_Player_MouseM = m_Player.FindAction("Mouse-M", throwIfNotFound: true);
         m_Player_MouseR = m_Player.FindAction("Mouse-R", throwIfNotFound: true);
@@ -969,8 +927,6 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Left2;
     private readonly InputAction m_Player_Left3;
     private readonly InputAction m_Player_Left4;
-    private readonly InputAction m_Player_Left5;
-    private readonly InputAction m_Player_Left6;
     private readonly InputAction m_Player_MouseL;
     private readonly InputAction m_Player_MouseM;
     private readonly InputAction m_Player_MouseR;
@@ -986,8 +942,6 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         public InputAction @Left2 => m_Wrapper.m_Player_Left2;
         public InputAction @Left3 => m_Wrapper.m_Player_Left3;
         public InputAction @Left4 => m_Wrapper.m_Player_Left4;
-        public InputAction @Left5 => m_Wrapper.m_Player_Left5;
-        public InputAction @Left6 => m_Wrapper.m_Player_Left6;
         public InputAction @MouseL => m_Wrapper.m_Player_MouseL;
         public InputAction @MouseM => m_Wrapper.m_Player_MouseM;
         public InputAction @MouseR => m_Wrapper.m_Player_MouseR;
@@ -1016,12 +970,6 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
             @Left4.started += instance.OnLeft4;
             @Left4.performed += instance.OnLeft4;
             @Left4.canceled += instance.OnLeft4;
-            @Left5.started += instance.OnLeft5;
-            @Left5.performed += instance.OnLeft5;
-            @Left5.canceled += instance.OnLeft5;
-            @Left6.started += instance.OnLeft6;
-            @Left6.performed += instance.OnLeft6;
-            @Left6.canceled += instance.OnLeft6;
             @MouseL.started += instance.OnMouseL;
             @MouseL.performed += instance.OnMouseL;
             @MouseL.canceled += instance.OnMouseL;
@@ -1059,12 +1007,6 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
             @Left4.started -= instance.OnLeft4;
             @Left4.performed -= instance.OnLeft4;
             @Left4.canceled -= instance.OnLeft4;
-            @Left5.started -= instance.OnLeft5;
-            @Left5.performed -= instance.OnLeft5;
-            @Left5.canceled -= instance.OnLeft5;
-            @Left6.started -= instance.OnLeft6;
-            @Left6.performed -= instance.OnLeft6;
-            @Left6.canceled -= instance.OnLeft6;
             @MouseL.started -= instance.OnMouseL;
             @MouseL.performed -= instance.OnMouseL;
             @MouseL.canceled -= instance.OnMouseL;
@@ -1272,8 +1214,6 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         void OnLeft2(InputAction.CallbackContext context);
         void OnLeft3(InputAction.CallbackContext context);
         void OnLeft4(InputAction.CallbackContext context);
-        void OnLeft5(InputAction.CallbackContext context);
-        void OnLeft6(InputAction.CallbackContext context);
         void OnMouseL(InputAction.CallbackContext context);
         void OnMouseM(InputAction.CallbackContext context);
         void OnMouseR(InputAction.CallbackContext context);

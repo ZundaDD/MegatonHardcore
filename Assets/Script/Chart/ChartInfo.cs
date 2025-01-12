@@ -9,6 +9,7 @@ namespace Megaton
         public string Title = "Null";
         public string Composer = "Null";
         public string RootDir = "Null";
+        public PlayMode PlayMode = PlayMode.L2R2;
         public int BPM = -50;
 
         public void SetProperty(string key, string value)
@@ -23,6 +24,9 @@ namespace Megaton
                     break;
                 case "BPM":
                     BPM = int.Parse(value);
+                    break;
+                case "PlayMode":
+                    PlayMode = (PlayMode) Enum.Parse(typeof(PlayMode), value);
                     break;
             }
         }

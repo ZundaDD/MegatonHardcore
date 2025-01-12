@@ -8,6 +8,7 @@ namespace Megaton
     public class Rail : MonoBehaviour
     {
         [NonSerialized] public List<Note> Notes;
+        [NonSerialized] public List<Command> Commands;
         
         [SerializeField] private bool on;
         public bool On => on;

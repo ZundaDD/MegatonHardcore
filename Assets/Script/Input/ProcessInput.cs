@@ -15,7 +15,6 @@ namespace Megaton
         {
             input = new();
             input.Player.Disable();
-            BindRail();
         }
 
 
@@ -28,7 +27,7 @@ namespace Megaton
             var input = Ins.input;
             switch(GameVar.Ins.PlayMode)
             {
-                case PlayMode._2L2R:
+                case PlayMode.L2R2:
                     input.Player.Left1.started += RailCollection.Ins.Rails[RailEnum.Left1].Tap;
                     input.Player.Left1.canceled += RailCollection.Ins.Rails[RailEnum.Left1].Release;
                     input.Player.Left2.started += RailCollection.Ins.Rails[RailEnum.Left2].Tap;

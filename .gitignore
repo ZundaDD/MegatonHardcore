@@ -10,3 +10,4 @@ UserSettings/
 *.csproj
 *.sln
 .vs/
+Temp/

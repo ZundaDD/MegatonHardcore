@@ -20,5 +20,23 @@ namespace Megaton
         {
 
         }
+
+        /// <summary>
+        /// 获取摄像头指令
+        /// </summary>
+        /// <returns>指令列表</returns>
+        public List<Command> GetCameraCommands()
+        {
+            return Content;
+        }
+
+        /// <summary>
+        /// 获取各个轨道指令
+        /// </summary>
+        /// <returns>指令列表字典</returns>
+        public Dictionary<RailEnum,List<Command>> GetRailCommands()
+        {
+            return new();
+        }
     }
 }
