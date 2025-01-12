@@ -11,18 +11,21 @@ namespace Megaton
 
         public InputMap input;
 
-        public ProcessInput()
+        private ProcessInput()
         {
             input = new();
-            input.Player.Enable();
+            input.Player.Disable();
             BindRail();
         }
+
+
 
         /// <summary>
         /// 绑定轨道
         /// </summary>
-        public void BindRail()
+        public static void BindRail()
         {
+            var input = Ins.input;
             switch(GameVar.Ins.PlayMode)
             {
                 case PlayMode._2L2R:
