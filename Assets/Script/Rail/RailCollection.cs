@@ -26,7 +26,10 @@ namespace Megaton
                 if (rcompo == null)
                     Debug.LogError("Wrong GameObject With Tag \"Rail\" And No Rail Component");
                 else
+                {
                     Ins.Rails.Add(rcompo.Id, rcompo);
+                    Debug.Log($"Rail {rcompo.Id} Loaded");
+                }
             }
         }
 

@@ -27,5 +27,6 @@ namespace Megaton
         /// 当前游玩的谱面
         /// </summary>
         public Chart CurPlay = null;
+
     }
 }

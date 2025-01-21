@@ -12,6 +12,6 @@ namespace Megaton
     /// </summary>
     public class Command
     {
-        public double ExactTime;
+        public float ExactTime;
     }
 }
