@@ -5,30 +5,29 @@ using UnityEngine.InputSystem;
 
 namespace Megaton
 {
-    public class Rail : MonoBehaviour
+    /// <summary>
+    /// 轨道的抽象类
+    /// </summary>
+    public abstract class Rail : MonoBehaviour
     {
-        [NonSerialized] public List<Note> Notes;
-        [NonSerialized] public List<Command> Commands;
-        
-        [SerializeField] private bool on;
-        public bool On => on;
-        
-        [SerializeField] public RailEnum Id;
+        public List<Note> Notes;
+        public List<Command> Commands;
+        public RailEnum Id;
 
         /// <summary>
         /// 按下
         /// </summary>
-        public void Tap(InputAction.CallbackContext ctx)
-        {
-            on = true;
-        }
+        public abstract void Tap(InputAction.CallbackContext ctx);
+
+        /// <summary>
+        /// 按住
+        /// </summary>
+        /// <param name="ctx"></param>
+        public abstract void Hold(InputAction.CallbackContext ctx);
 
         /// <summary>
         /// 松开
         /// </summary>
-        public void Release(InputAction.CallbackContext ctx)
-        {
-            on = false;
-        }
+        public abstract void Release(InputAction.CallbackContext ctx);
     }
 }

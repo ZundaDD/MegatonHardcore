@@ -1,24 +1,28 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Megaton
 {
     public class RailCollection : MonoBehaviour
     {
-        static RailCollection ins;
-        public static RailCollection Ins => ins;
 
-        public Dictionary<RailEnum, Rail> Rails = new();
+        private Dictionary<RailEnum, Rail> rails = new();
 
-        private void Awake()
+        public Rail this[RailEnum index]
         {
-            ins = this;
+            get
+            {
+                if (rails.ContainsKey(index)) return rails[index];
+                else throw new Exception($"Index {index} Not Found!");
+            }
         }
+
 
         /// <summary>
         /// 绑定轨道
         /// </summary>
-        public static void BindRails()
+        public void CollectRails()
         {
             foreach (var r in GameObject.FindGameObjectsWithTag("Rail"))
             {
@@ -27,7 +31,7 @@ namespace Megaton
                     Debug.LogError("Wrong GameObject With Tag \"Rail\" And No Rail Component");
                 else
                 {
-                    Ins.Rails.Add(rcompo.Id, rcompo);
+                    rails.Add(rcompo.Id, rcompo);
                     Debug.Log($"Rail {rcompo.Id} Loaded");
                 }
             }
@@ -37,13 +41,13 @@ namespace Megaton
         /// 为每一个轨道加载指令
         /// </summary>
         /// <param name="commands">指令字典</param>
-        public static void LoadCommands(Dictionary<RailEnum, List<Command>> commands)
+        public void LoadCommands(Dictionary<RailEnum, List<Command>> commands)
         {
             foreach (var command in commands)
             {
-                if (Ins.Rails.ContainsKey(command.Key))
+                if (rails.ContainsKey(command.Key))
                 {
-                    Ins.Rails[command.Key].Commands = command.Value;
+                    rails[command.Key].Commands = command.Value;
                 }
             }
         }

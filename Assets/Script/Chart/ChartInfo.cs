@@ -9,6 +9,7 @@ namespace Megaton
         public string Title = "Null";
         public string Composer = "Null";
         public string RootDir = "Null";
+        public string Version = "Null";
         public PlayMode PlayMode = PlayMode.L2R2;
         public int BPM = -50;
 

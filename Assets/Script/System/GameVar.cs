@@ -16,7 +16,7 @@ namespace Megaton
         /// <summary>
         /// 游玩模式
         /// </summary>
-        public PlayMode PlayMode = PlayMode.NotPlaying;
+        public Mode PlayMode = null;
         
         /// <summary>
         /// 所有谱面的信息

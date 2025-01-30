@@ -1,5 +1,7 @@
 using TMPro;
 using UnityEngine;
+using MikanLab;
+using System.IO;
 
 namespace Megaton
 {
@@ -9,17 +11,39 @@ namespace Megaton
     public class Initializer : MonoBehaviour
     {
         [SerializeField] TextMeshProUGUI loadingText;
-        
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        TaskProgress initProgress;
+
         void Start()
         {
-
+            initProgress = new("初始化完成...");
+            //initProgress.AddTask(LoadAllChartInfo, "加载谱面中...");
+            //initProgress.Start();
         }
 
-        // Update is called once per frame
-        void Update()
+        /// <summary>
+        /// 加载全部谱面信息
+        /// </summary>
+        private void LoadAllChartInfo()
         {
-
+            string chartPath = Path.Combine(Application.dataPath, "../", "Data");
+            if(!Directory.Exists(chartPath)) Directory.CreateDirectory(chartPath);
+            
+            //遍历版本文件夹
+            foreach(var versionDir in Directory.GetDirectories(chartPath))
+            {
+                if(versionDir.StartsWith("V"))
+                {
+                    string version = versionDir.Substring(1);
+                    string relativeDir = Path.Combine(chartPath, versionDir, "Charts");
+                    foreach (var chartDir in Directory.GetDirectories(relativeDir))
+                    {
+                        ChartLoader loader = new(Path.Combine(relativeDir,chartDir));
+                        var info = loader.Path2Info();
+                        info.Version = version;
+                        GameVar.Ins.ChartInfos.Add(info);
+                    }
+                }
+            }
         }
     }
 }

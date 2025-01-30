@@ -1,9 +1,0 @@
-Title=Hainuwele
-Composer=ETIA.
-BPM=113
-PlayMode=L2R2
-
-ST
-
-ED
-

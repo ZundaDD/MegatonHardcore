@@ -10,6 +10,7 @@ namespace Megaton
         private static PlayController instance;
         public static PlayController Instance => instance;
 
+        [SerializeField] private RailCollection rails;
 
         /// <summary>
         /// 精确的时间
@@ -23,15 +24,23 @@ namespace Megaton
         void Awake()
         {
             instance = this;
-
-            ProcessInput.BindRail();
+            
+            rails.CollectRails();
+            ProcessInput.BindRail(rails);
             ScoreBoard.Clear();
 
             //GameCamera.LoadCommands(GameVar.Ins.CurPlay.GetCameraCommands());
             
-            RailCollection.BindRails();
+            
             //RailCollection.LoadCommands(GameVar.Ins.CurPlay.GetRailCommands());
         }
 
+        /// <summary>
+        /// 结束游玩
+        /// </summary>
+        public void EndPlay()
+        {
+            ProcessInput.ReleaseRail();
+        }
     }
 }

@@ -17,9 +17,7 @@ namespace Megaton
         /// <param name="path">从Data文件到谱面文件夹的路径</param>
         public ChartLoader(string path)
         {
-            string rootPath = Path.Combine(Application.dataPath, "..");
-            rootPath = Path.Combine(rootPath, "Data");
-            ChartPath = Path.Combine(rootPath, path, ChartName);
+            ChartPath = Path.Combine(path, ChartName);
             Debug.Log(ChartPath);
         }
 
