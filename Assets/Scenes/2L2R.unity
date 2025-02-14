@@ -736,7 +736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c9adcb4b2bc16c47b173bf2a8651b4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rails: {fileID: 0}
+  rails: {fileID: 1188278817}
 --- !u!4 &1188278819
 Transform:
   m_ObjectHideFlags: 0

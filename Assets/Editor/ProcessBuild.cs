@@ -11,6 +11,7 @@ public class ProcessBuild
     {
         string sourcesPath = Path.Combine(Application.dataPath, "../", "Data");
         string targetPath = Path.Combine(Path.GetDirectoryName(path), "Data");
+        FileUtil.DeleteFileOrDirectory(targetPath);
         FileUtil.CopyFileOrDirectory(sourcesPath, targetPath);
     }
 }

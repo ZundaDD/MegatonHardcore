@@ -8,4 +8,6 @@
 
 # 引用部分
 
-我自己写的插件
+我自己写的插件</br>
+部分图片来自[vecteezy](https://www.vecteezy.com/)</br>
+部分图标来自[flaticon](https://www.flaticon.com/)
