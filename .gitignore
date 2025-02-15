@@ -5,6 +5,9 @@ Outputs/
 obj/
 Assets/Resources/Arts/
 Packages/
+Assets/Editor
+Assets/Packages
+Assets/Plugins
 ProjectSettings/
 UserSettings/
 *.vsconfig
