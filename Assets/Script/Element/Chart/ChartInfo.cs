@@ -41,5 +41,12 @@ namespace Megaton
                     break;
             }
         }
+
+        public string GetLevelString()
+        {
+            int round = (int)Level;
+            float af = Level - round;
+            return (af > .59f) ? round + "+" : round.ToString();
+        }
     }
 }

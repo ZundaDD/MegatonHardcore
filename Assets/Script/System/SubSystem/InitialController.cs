@@ -4,6 +4,7 @@ using MikanLab;
 using System.IO;
 using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
+using UnityEngine.UI;
 
 namespace Megaton
 {
@@ -12,7 +13,7 @@ namespace Megaton
     /// </summary>
     public class InitialController : MonoBehaviour
     {
-        [SerializeField] TextMeshProUGUI loadingText;
+        [SerializeField] Text loadingText;
         TaskProgress initProgress;
 
         void Update()

@@ -11,11 +11,20 @@ namespace Megaton.UI
     /// </summary>
     public class SelectController : MonoBehaviour
     {
+        private static SelectController ins;
+        public static SelectController Ins => ins;
+
+        [SerializeField] private AudioClip[] clips;
+        private AudioSource uiPlayer;
         [SerializeField] private Button exitButton;
+        [SerializeField] private Button settingButton;
+        [SerializeField] private SelectedDisplay selectedHandler;
 
         private void Awake()
         {
-            if (!GameVar.Ins.IfInitialed) SceneManager.LoadScene(0); 
+            if (!GameVar.Ins.IfInitialed) SceneManager.LoadScene(0);
+            ins = this;
+            uiPlayer = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -23,6 +32,9 @@ namespace Megaton.UI
             exitButton.onClick.AddListener(Application.Quit);
         }
 
-
+        public void PlayEffect(int index)
+        {
+            uiPlayer.PlayOneShot(clips[index]);
+        }
     }
 }

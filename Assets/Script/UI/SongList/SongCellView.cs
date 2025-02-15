@@ -14,15 +14,22 @@ namespace Megaton.UI
         [SerializeField] Text rankText;
         [SerializeField] Text modeText;
         [SerializeField] Image coverImage;
+        [SerializeField] Button selectedButton;
 
         public void Bind(ChartInfo chartInfo)
         {
-            levelText.text = chartInfo.Level.ToString();
+            levelText.text = chartInfo.GetLevelString();
             cellIdentifier = levelText.text;
             titleText.text = chartInfo.Title;
             rankText.text = "";
             modeText.text = chartInfo.PlayMode.ToString();
-            //coverImage = 
+            selectedButton.onClick.RemoveAllListeners();
+            selectedButton.onClick.AddListener(() =>
+            {
+                SelectController.Ins.PlayEffect(0);
+                SelectedDisplay.Ins.ChangeSelected(chartInfo);
+            });
+            coverImage.sprite = CoverLoader.Path2Sprite(chartInfo.RootDir);
         }
     }
 }
