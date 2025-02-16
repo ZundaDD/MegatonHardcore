@@ -1,3 +1,4 @@
+using EnhancedUI.EnhancedScroller;
 using UnityEngine;
 
 namespace Megaton.UI
@@ -12,19 +13,24 @@ namespace Megaton.UI
 
         private float changeSpace = InOutText.limit;
         private ChartInfo curSelection;
+        private LoopFlash curHint;
         // 场景引用
+        [SerializeField] private EnhancedScroller scroller;
         [SerializeField] private InOutText title;
         [SerializeField] private InOutText composer;
         [SerializeField] private InOutText bpm;
         [SerializeField] private InOutImage cover;
-        [SerializeField] private AudioSource musicPlayer;
+        private AudioSource musicPlayer;
 
-        void Start()
+        private void Awake()
         {
             ins = this;
-
+        }
+        void Start()
+        {
             musicPlayer = GetComponent<AudioSource>();
-            ChangeSelected(GameVar.Ins.ChartInfos[1]);
+            ChangeSelected(GameVar.Ins.ChartInfos[0],
+                scroller.GetCellViewAtDataIndex(0).GetComponent<SongCellView>().selectHint);
         }
 
         void Update()
@@ -32,14 +38,19 @@ namespace Megaton.UI
             if(changeSpace < InOutText.limit) changeSpace += Time.deltaTime;
         }
 
-        public void ChangeSelected(ChartInfo info)
+        public void ChangeSelected(ChartInfo info, LoopFlash newSelection)
         {
             if (curSelection == info) return;
             if (changeSpace < InOutText.limit) return;
             changeSpace = 0;
 
+            //绑定最新的选择
             curSelection = info;
+            curHint?.gameObject.SetActive(false);
+            curHint = newSelection;
+            curHint.gameObject.SetActive(true);
 
+            //显示信息和音乐改变
             title.ChangeTo(info.Title);
             composer.ChangeTo(info.Composer);
             bpm.ChangeTo("BPM:" + info.BPM);
@@ -49,6 +60,6 @@ namespace Megaton.UI
             musicPlayer.Play();
         }
 
-        
+        public bool IfSelected(ChartInfo info) => info == null ? false : info == curSelection;
     }
 }

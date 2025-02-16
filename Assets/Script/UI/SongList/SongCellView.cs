@@ -15,9 +15,17 @@ namespace Megaton.UI
         [SerializeField] Text modeText;
         [SerializeField] Image coverImage;
         [SerializeField] Button selectedButton;
+        [SerializeField] public LoopFlash selectHint;
 
         public void Bind(ChartInfo chartInfo)
         {
+            //恢复闪
+            if(SelectedDisplay.Ins.IfSelected(chartInfo))
+            {
+                selectHint.gameObject.SetActive(true);
+            }
+
+            //显示
             levelText.text = chartInfo.GetLevelString();
             cellIdentifier = levelText.text;
             titleText.text = chartInfo.Title;
@@ -26,8 +34,8 @@ namespace Megaton.UI
             selectedButton.onClick.RemoveAllListeners();
             selectedButton.onClick.AddListener(() =>
             {
-                SelectController.Ins.PlayEffect(0);
-                SelectedDisplay.Ins.ChangeSelected(chartInfo);
+                SongSelectController.Ins.PlayEffect(0);
+                SelectedDisplay.Ins.ChangeSelected(chartInfo,selectHint);
             });
             coverImage.sprite = CoverLoader.Path2Sprite(chartInfo.RootDir);
         }

@@ -507,11 +507,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 717b746a6850337458e5d023c9850c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scroller: {fileID: 113491429}
   title: {fileID: 717008564}
   composer: {fileID: 683052669}
   bpm: {fileID: 1511446659}
   cover: {fileID: 1248620185}
-  musicPlayer: {fileID: 0}
 --- !u!82 &474816131
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1916,10 +1916,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CellView
       objectReference: {fileID: 0}
-    - target: {fileID: 985524197970329124, guid: c099f0c231b647e499043f6c35cd07bf, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 2815068546062469991, guid: c099f0c231b647e499043f6c35cd07bf, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

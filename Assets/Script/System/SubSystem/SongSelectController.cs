@@ -9,10 +9,10 @@ namespace Megaton.UI
     /// <summary>
     /// 选歌页面的总控制器
     /// </summary>
-    public class SelectController : MonoBehaviour
+    public class SongSelectController : MonoBehaviour
     {
-        private static SelectController ins;
-        public static SelectController Ins => ins;
+        private static SongSelectController ins;
+        public static SongSelectController Ins => ins;
 
         [SerializeField] private AudioClip[] clips;
         private AudioSource uiPlayer;
