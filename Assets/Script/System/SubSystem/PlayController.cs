@@ -32,7 +32,6 @@ namespace Megaton
 
             //输入设置
             rails.CollectRails();
-            GameVar.Ins.PlayMode = new L2R2(); //需要变为一般化的表示
             ProcessInput.BindRail(rails);
             
             //UI显示

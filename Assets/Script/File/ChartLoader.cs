@@ -1,3 +1,4 @@
+using Megaton.Abstract;
 using System.IO;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ namespace Megaton
 
         public static ChartPlay Path2Play(string path,ChartInfo info)
         {
+            GameVar.Ins.PlayMode = Mode.GetMode(info.PlayMode);
+
             string chartPath = Path.Combine(path, ChartName);
             ChartPlay chart = new ChartPlay();
             chart.Info = info;
@@ -53,7 +56,8 @@ namespace Megaton
                 info.Pack = path.Split('\\')[^2];
                 info.RootDir = path;
             }
-            return info;
+            if (Mode.ValidMode(info.PlayMode)) return info;
+            else return null;
         }
     }
 }

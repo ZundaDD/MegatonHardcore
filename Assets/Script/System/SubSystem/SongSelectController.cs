@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks.Triggers;
 using EnhancedUI.EnhancedScroller;
+using Megaton.Abstract;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -39,7 +40,7 @@ namespace Megaton.UI
         public void StartPlay(ChartInfo chartInfo)
         {
             GameVar.Ins.CurPlay = ChartLoader.Path2Play(chartInfo.RootDir,chartInfo);
-            SceneManager.LoadScene((int)chartInfo.PlayMode);
+            SceneManager.LoadScene(Mode.GetSceneIndex(chartInfo.PlayMode));
         }
 
         public void PlayEffect(int index)

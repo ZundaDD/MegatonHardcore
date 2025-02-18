@@ -2,6 +2,7 @@ using Megaton.Abstract;
 
 namespace Megaton.Classic
 {
+    [IdentityString("L2R2",2)]
     public class L2R2 : Mode
     {
         public override void InputBinding(InputMap inputActions,RailCollection rails)
@@ -16,5 +17,44 @@ namespace Megaton.Classic
             inputActions.Player.Right2.canceled += rails[RailEnum.Right2].Release;
         }
 
+        public override Command ParseCommand(string[] token,int bpm)
+        {
+            switch (token[2])
+            {
+                case "T":
+                    return new Tap();
+                case "C":
+                    return new Catch();
+                case "H":
+                    if(token.Length > 3)
+                    {
+                        int length = int.Parse(token[2]);
+                        int divide = int.Parse(token[0]);
+                        var obj = new Hold();
+                        obj.ExactLength = length * 60 / (bpm * divide / 8);
+                        return obj;
+                    }
+                    return null;
+                default:
+                    return null;
+            }
+        }
+
+        public override RailEnum ParseRailRelection(string id)
+        {
+            switch(id)
+            {
+                case "1":
+                    return RailEnum.Left1;
+                case "2":
+                    return RailEnum.Left2;
+                case "3":
+                    return RailEnum.Right1;
+                case "4":
+                    return RailEnum.Right2;
+                default:
+                    return RailEnum.Undefined;
+            }
+        }
     }
 }

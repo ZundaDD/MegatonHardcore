@@ -56,8 +56,11 @@ namespace Megaton
                 foreach (var chartDir in Directory.GetDirectories(relativeDir))
                 {
                     var info = ChartLoader.Path2Info(Path.Combine(relativeDir, chartDir));
-                    total++;
-                    GameVar.Ins.ChartInfos.Add(info);
+                    if (info != null)
+                    {
+                        total++;
+                        GameVar.Ins.ChartInfos.Add(info);
+                    }
                 }
             }
             Debug.Log($"{total} Charts Loaded!");
