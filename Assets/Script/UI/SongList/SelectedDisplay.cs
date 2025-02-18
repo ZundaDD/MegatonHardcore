@@ -40,9 +40,16 @@ namespace Megaton.UI
 
         public void ChangeSelected(ChartInfo info, LoopFlash newSelection)
         {
-            if (curSelection == info) return;
+            //点击冷却
             if (changeSpace < InOutText.limit) return;
             changeSpace = 0;
+            
+            //再次点击则开始游玩
+            if (curSelection == info)
+            {
+                SongSelectController.Ins.StartPlay(info);
+                return;
+            }
 
             //绑定最新的选择
             curSelection = info;

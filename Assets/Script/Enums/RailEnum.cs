@@ -14,6 +14,7 @@ namespace Megaton
         //右手键盘轨道
         Right1, Right2, Right3, Right4, Right5, Right6, Right7,
         //鼠标轨道
-        Mouse_Left, Mouse_Right, Mouse_Move, Mouse_Sroll
+        Mouse_Left, Mouse_Right, Mouse_Move, Mouse_Sroll,
+        Camera
     }
 }

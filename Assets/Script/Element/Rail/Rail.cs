@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,9 +11,11 @@ namespace Megaton.Abstract
     /// </summary>
     public abstract class Rail : MonoBehaviour
     {
-        public List<Note> Notes;
-        public List<Command> Commands;
         public RailEnum Id;
+        public List<Note> Notes;
+        
+        private float maxStart;
+        private float maxEnd;
 
         /// <summary>
         /// 按下
@@ -29,5 +32,52 @@ namespace Megaton.Abstract
         /// 松开
         /// </summary>
         public abstract void Release(InputAction.CallbackContext ctx);
+
+        /// <summary>
+        /// 查询Note状态
+        /// </summary>
+        /// <param name="note"></param>
+        /// <returns>[现态,次态]</returns>
+        public abstract bool[] QueryNoteState(Note note);
+
+        /// <summary>
+        /// 采样输入
+        /// </summary>
+        public abstract void Sample();
+
+        /// <summary>
+        /// 计算最大值
+        /// </summary>
+        public void CalculateMax()
+        {
+            maxStart = Notes.Max<Note>(x => x.JudgeStart);
+            maxEnd = Notes.Max<Note>(x => x.JudgeEnd);
+        }
+
+        
+        public virtual void FixedUpdate()
+        {
+            Sample();
+            if (Notes == null) return;
+            for(int i = 0;i < Notes.Count; i++)
+            {
+                var note = Notes[i];
+                var gap = note.ExactTime - MusicPlayer.ExactTime;
+                
+                //过早检查
+                if (gap < maxStart) break;
+                if (gap < note.JudgeStart) continue;
+
+                var sta = QueryNoteState(note);
+                
+                //判断是否完成判定
+                if (note.Judge(sta[0], sta[1]))
+                {
+                    ScoreBoard.AddJudge(note.GetResult());
+                    Notes.RemoveAt(i);
+                    i--;
+                }
+            }
+        }
     }
 }

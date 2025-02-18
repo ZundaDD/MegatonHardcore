@@ -19,7 +19,7 @@ namespace Megaton.Classic
 
         public override JudgeEnum GetResult()
         {
-            float Offset = PlayController.Instance.ExactTime - ExactTime;
+            float Offset = MusicPlayer.ExactTime - ExactTime;
             return judgeQuery.Query(Offset);
             
             /*if (Mathf.Abs(Offset) < 0.025) return JudgeEnum.CRITICAL;
@@ -35,7 +35,7 @@ namespace Megaton.Classic
             //从Off状态变为On状态是为一次判定
             if (railState && !formState) return true;
             //未点击到强制MISS判定
-            if (PlayController.Instance.ExactTime - ExactTime > JudgeEnd) return true;
+            if (MusicPlayer.ExactTime - ExactTime > JudgeEnd) return true;
             //其它时刻不构成判定
             return false;
         }

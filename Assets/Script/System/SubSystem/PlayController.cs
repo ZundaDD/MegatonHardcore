@@ -1,5 +1,7 @@
 using Megaton.Classic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Megaton
 {
@@ -12,29 +14,39 @@ namespace Megaton
         public static PlayController Instance => instance;
 
         [SerializeField] private RailCollection rails;
-
-        /// <summary>
-        /// 精确的时间
-        /// </summary>
-        private float exactTime = 0;
-        public float ExactTime { get; private set; }
+        [SerializeField] private MusicPlayer musicPlayer;
+        [SerializeField] private Button pauseButton;
 
         /// <summary>
         /// 初始化场景
         /// </summary>
         void Awake()
         {
-            instance = this;
-            
-            rails.CollectRails();
-            GameVar.Ins.PlayMode = new L2R2();
-            ProcessInput.BindRail(rails);
-            ScoreBoard.Clear();
+            if (!GameVar.Ins.IfInitialed)
+            {
+                SceneManager.LoadScene(0);
+                return;
+            }
 
-            //GameCamera.LoadCommands(GameVar.Ins.CurPlay.GetCameraCommands());
+            instance = this;
+
+            //输入设置
+            rails.CollectRails();
+            GameVar.Ins.PlayMode = new L2R2(); //需要变为一般化的表示
+            ProcessInput.BindRail(rails);
             
-            
-            //RailCollection.LoadCommands(GameVar.Ins.CurPlay.GetRailCommands());
+            //UI显示
+            ScoreBoard.Clear(GameVar.Ins.CurPlay.Quantity);
+            pauseButton.onClick.AddListener(() => SceneManager.LoadScene(1));
+
+            //给场景加载指令
+            GameCamera.LoadCommands(GameVar.Ins.CurPlay.GetCameraCommands());
+            rails.LoadNotes(GameVar.Ins.CurPlay.GetRailCommands());
+        }
+
+        private void Start()
+        {
+            musicPlayer.Play(GameVar.Ins.CurPlay.Music);
         }
 
         /// <summary>
@@ -43,6 +55,7 @@ namespace Megaton
         public void EndPlay()
         {
             ProcessInput.ReleaseRail();
+            SceneManager.LoadScene(1);
         }
     }
 }

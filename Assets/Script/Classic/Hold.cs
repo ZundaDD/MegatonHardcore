@@ -42,7 +42,7 @@ namespace Megaton.Classic
 
         public override bool Judge(bool railState, bool formState)
         {
-            float Offset = PlayController.Instance.ExactTime - ExactTime;
+            float Offset = MusicPlayer.ExactTime - ExactTime;
 
             //从Off状态变为On状态进行头判
             if (railState && !formState && !ifStart && Offset < 0.1f && Offset > -0.1f)

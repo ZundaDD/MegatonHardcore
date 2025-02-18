@@ -42,13 +42,14 @@ namespace Megaton
         /// 为每一个轨道加载指令
         /// </summary>
         /// <param name="commands">指令字典</param>
-        public void LoadCommands(Dictionary<RailEnum, List<Command>> commands)
+        public void LoadNotes(Dictionary<RailEnum, List<Command>> commands)
         {
             foreach (var command in commands)
             {
                 if (rails.ContainsKey(command.Key))
                 {
-                    rails[command.Key].Commands = command.Value;
+                    rails[command.Key].Notes = command.Value.ConvertAll((x) => x as Note);
+                    rails[command.Key].CalculateMax();
                 }
             }
         }

@@ -9,8 +9,10 @@ namespace Megaton
     [Serializable]
     public class ChartPlay
     {
-        public ChartMusic Music;
-        public List<Command> Content;
+        public ChartInfo Info;
+        public AudioClip Music;
+        public Dictionary<RailEnum, List<Command>> Content = new();
+        public int Quantity;
 
         /// <summary>
         /// 解析指令
@@ -27,16 +29,14 @@ namespace Megaton
         /// <returns>指令列表</returns>
         public List<Command> GetCameraCommands()
         {
-            return Content;
+            if (Content.ContainsKey(RailEnum.Camera)) return Content[RailEnum.Camera];
+            else return new();
         }
 
         /// <summary>
         /// 获取各个轨道指令
         /// </summary>
         /// <returns>指令列表字典</returns>
-        public Dictionary<RailEnum,List<Command>> GetRailCommands()
-        {
-            return new();
-        }
+        public Dictionary<RailEnum, List<Command>> GetRailCommands() => Content;
     }
 }

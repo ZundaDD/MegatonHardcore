@@ -32,6 +32,16 @@ namespace Megaton.UI
             exitButton.onClick.AddListener(Application.Quit);
         }
 
+        /// <summary>
+        /// 开始游玩
+        /// </summary>
+        /// <param name="chartInfo">谱面信息</param>
+        public void StartPlay(ChartInfo chartInfo)
+        {
+            GameVar.Ins.CurPlay = ChartLoader.Path2Play(chartInfo.RootDir,chartInfo);
+            SceneManager.LoadScene((int)chartInfo.PlayMode);
+        }
+
         public void PlayEffect(int index)
         {
             uiPlayer.PlayOneShot(clips[index]);

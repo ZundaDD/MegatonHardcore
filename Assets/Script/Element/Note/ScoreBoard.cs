@@ -1,4 +1,5 @@
 using MikanLab;
+using System;
 using UnityEngine;
 
 namespace Megaton
@@ -11,35 +12,51 @@ namespace Megaton
         static ScoreBoard ins = new();
         public static ScoreBoard Ins => ins;
 
-        #region 分数项
+        /// <summary>
+        /// 添加判定回调
+        /// </summary>
+        public Action onAdded;
+
+        //分数项
         public EnumArray<JudgeEnum, int> Scores  = new();
         public int Fast = 0;
-        public int Slow = 0;
+        public int Late = 0;
         public int All = 0;
         public int MaxCombo = 0;
         public int CurCombo = 0;
-        #endregion
-
+        public int Score = 0;
 
         /// <summary>
         /// 清空
         /// </summary>
-        public static void Clear() => ins = new();
+        public static void Clear(int newQ)
+        {
+            ins = new();
+            ins.All = newQ;
+        }
 
         /// <summary>
         /// 添加判定
         /// </summary>
         public static void AddJudge(JudgeEnum judge)
         {
-            Ins.Scores[judge]++;
-            Ins.All++;
+            var dict = Ins.Scores;
+
+            dict[judge]++;
             if(judge > 0) Ins.Fast++;
-            else if(judge < 0) Ins.Slow++;
+            else if(judge < 0 && judge != JudgeEnum.MISS) Ins.Late++;
 
             if (judge != JudgeEnum.MISS) Ins.CurCombo++;
             else Ins.CurCombo = 0;
 
             Ins.MaxCombo = Mathf.Max(Ins.MaxCombo, Ins.CurCombo);
+            Ins.Score = (int)(1e7 / Ins.All * 
+                (1.01f * dict[JudgeEnum.CRITICAL] + 
+                1 * (dict[JudgeEnum.S_PERFECT] + dict[JudgeEnum.F_PERFECT]) +
+                0.75 * (dict[JudgeEnum.S_GREAT] + dict[JudgeEnum.F_GREAT]) + 
+                0.45 * (dict[JudgeEnum.S_GOOD] + dict[JudgeEnum.F_GOOD])
+                ));
+            Ins.onAdded?.Invoke();
         }
     }
 }

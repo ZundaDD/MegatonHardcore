@@ -10,10 +10,12 @@ namespace Megaton
     {
         public static string ChartName = "chart.txt";
 
-        public static ChartPlay Path2Play(string path)
+        public static ChartPlay Path2Play(string path,ChartInfo info)
         {
             string chartPath = Path.Combine(path, ChartName);
             ChartPlay chart = new ChartPlay();
+            chart.Info = info;
+            chart.Music = MusicLoader.Path2Clip(path);
 
             using (StreamReader sr = new StreamReader(chartPath))
             {
