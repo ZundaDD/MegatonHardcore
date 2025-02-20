@@ -49,9 +49,9 @@ namespace Megaton.Classic
                 case "2":
                     return RailEnum.Left2;
                 case "3":
-                    return RailEnum.Right1;
-                case "4":
                     return RailEnum.Right2;
+                case "4":
+                    return RailEnum.Right1;
                 default:
                     return RailEnum.Undefined;
             }

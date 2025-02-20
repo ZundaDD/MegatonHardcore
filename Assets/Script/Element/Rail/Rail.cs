@@ -12,7 +12,7 @@ namespace Megaton.Abstract
     public abstract class Rail : MonoBehaviour
     {
         public RailEnum Id;
-        public List<Note> Notes;
+        public List<Note> Notes = new();
         
         private float maxStart;
         private float maxEnd;

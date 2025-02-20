@@ -18,13 +18,13 @@ namespace Megaton.Classic
 
         public override void Release(InputAction.CallbackContext ctx)
         {
-            Debug.Log(Id + "Released!");
+            
             on = false;
         }
 
         public override void Tap(InputAction.CallbackContext ctx)
         {
-            Debug.Log(Id + "Taped!");
+            
             on = true;
         }
 

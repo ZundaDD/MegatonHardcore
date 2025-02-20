@@ -15,15 +15,9 @@ namespace Megaton.UI
         [SerializeField] private Text late_judge;
         [SerializeField] private Text combo;
 
-        private void OnEnable()
-        {
-            ScoreBoard.Ins.onAdded += AddJudge;
-        }
+        public void Bind() => ScoreBoard.Ins.onAdded += AddJudge;
 
-        private void OnDisable()
-        {
-            ScoreBoard.Ins.onAdded -= AddJudge;
-        }
+        public void UnBind() => ScoreBoard.Ins.onAdded -= AddJudge;
 
         public void AddJudge()
         {

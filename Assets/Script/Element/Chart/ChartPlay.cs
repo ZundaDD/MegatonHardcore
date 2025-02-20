@@ -26,7 +26,7 @@ namespace Megaton
 
             //解析时值
             int divide = int.Parse(token[0]);
-            timeAcc += 60f / (Info.BPM * divide / 8);
+            if(divide != 0) timeAcc += 60f / (Info.BPM * divide / 4);
             
             if (token.Length < 3) return;
             //解析内容

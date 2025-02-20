@@ -1,4 +1,5 @@
 using Megaton.Classic;
+using Megaton.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,12 +11,15 @@ namespace Megaton
     /// </summary>
     public class PlayController : MonoBehaviour
     {
-        private static PlayController instance;
-        public static PlayController Instance => instance;
+        private static PlayController ins;
+        public static PlayController Ins => ins;
 
+        [SerializeField] private AudioClip[] clips;
+        [SerializeField] private AudioSource uiPlayer;
         [SerializeField] private RailCollection rails;
         [SerializeField] private MusicPlayer musicPlayer;
         [SerializeField] private Button pauseButton;
+        [SerializeField] private ScoreboardUI scoreboardUI;
 
         /// <summary>
         /// 初始化场景
@@ -28,7 +32,7 @@ namespace Megaton
                 return;
             }
 
-            instance = this;
+            ins = this;
         }
 
         private void Start()
@@ -39,6 +43,7 @@ namespace Megaton
 
             //UI显示
             ScoreBoard.Clear(GameVar.CurPlay.Quantity);
+            scoreboardUI.Bind();
             pauseButton.onClick.AddListener(() => SceneManager.LoadScene(1));
 
             //给场景加载指令
@@ -56,7 +61,13 @@ namespace Megaton
         public void EndPlay()
         {
             ProcessInput.ReleaseRail();
+            scoreboardUI.UnBind();
             SceneManager.LoadScene(1);
+        }
+
+        public void PlayEffect(int index)
+        {
+            uiPlayer.PlayOneShot(clips[index]);
         }
     }
 }

@@ -7,6 +7,7 @@ namespace Megaton.Abstract
     /// </summary>
     public abstract class Note : Command
     {
+
         /// <summary>
         /// 判定起始偏差
         /// </summary>

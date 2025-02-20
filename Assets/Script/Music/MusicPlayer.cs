@@ -15,7 +15,6 @@ namespace Megaton
         public static float ExactTime { get; private set; } = 0f;
 
         #region 计时变量
-        [SerializeField] private int prepareFrame = 120;
         private int frameCount = -1;
         private float startDSP = 0f;
         #endregion
@@ -41,7 +40,7 @@ namespace Megaton
             GameVar.IfPrepare = true;
             startDSP = (float) AudioSettings.dspTime;
             musicSource.clip = clip;
-            musicSource.PlayScheduled(AudioSettings.dspTime + Time.fixedDeltaTime * prepareFrame);
+            musicSource.PlayScheduled(AudioSettings.dspTime + Time.fixedDeltaTime * GameVar.PrepareFrame);
             //结束回调添加
             frameCount = 0;
         }
@@ -51,7 +50,7 @@ namespace Megaton
         /// </summary>
         public void Align()
         {
-            float gap = (float)AudioSettings.dspTime - startDSP - Time.fixedDeltaTime * prepareFrame;
+            float gap = (float)AudioSettings.dspTime - startDSP - Time.fixedDeltaTime * GameVar.PrepareFrame;
             if (gap < 0) return;
 
             GameVar.IfStarted = true;

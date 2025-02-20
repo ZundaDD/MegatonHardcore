@@ -50,12 +50,16 @@ namespace Megaton
             else Ins.CurCombo = 0;
 
             Ins.MaxCombo = Mathf.Max(Ins.MaxCombo, Ins.CurCombo);
-            Ins.Score = (int)(1e7 / Ins.All * 
-                (1.01f * dict[JudgeEnum.CRITICAL] + 
-                1 * (dict[JudgeEnum.S_PERFECT] + dict[JudgeEnum.F_PERFECT]) +
-                0.75 * (dict[JudgeEnum.S_GREAT] + dict[JudgeEnum.F_GREAT]) + 
-                0.45 * (dict[JudgeEnum.S_GOOD] + dict[JudgeEnum.F_GOOD])
+            if (dict[JudgeEnum.CRITICAL] == Ins.All) Ins.Score = 10100000;
+            else Ins.Score = (int)Math.Round(1e7f / Ins.All *
+                (
+                1.01f * dict[JudgeEnum.CRITICAL] +
+                1f * (dict[JudgeEnum.S_PERFECT] + dict[JudgeEnum.F_PERFECT]) +
+                0.75f * (dict[JudgeEnum.S_GREAT] + dict[JudgeEnum.F_GREAT]) +
+                0.45f * (dict[JudgeEnum.S_GOOD] + dict[JudgeEnum.F_GOOD])
                 ));
+
+            PlayController.Ins.PlayEffect(0);
             Ins.onAdded?.Invoke();
         }
     }

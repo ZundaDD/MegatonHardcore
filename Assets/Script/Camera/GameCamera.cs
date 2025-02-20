@@ -18,15 +18,19 @@ namespace Megaton
 
         //私有部分
         [SerializeField] private GameObject judgeLine;
-        [SerializeField] private float step = 0.001f;
+        [SerializeField] private float step = 0.003f;
 
         private void Awake()
         {
+            if (!GameVar.IfInitialed) return;
+
             Ins = this;
             JudgeLineZ = judgeLine.transform.position.z;
             GameVar.Velocity = GameVar.CurPlay.Info.BPM * step * GameVar.FrameRate;
             Camera = GetComponent<Camera>();
         }
+
+        
 
         public void FixedUpdate()
         {

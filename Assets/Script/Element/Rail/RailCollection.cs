@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using MikanLab;
 using Megaton.Abstract;
 
 namespace Megaton
@@ -8,7 +9,21 @@ namespace Megaton
     public class RailCollection : MonoBehaviour
     {
         private Dictionary<RailEnum, Rail> rails = new();
-        //[SerializeField]private List<>
+        private Dictionary<string, GameObject> notePrefabs = new();
+
+        [Serializable]
+        class StringPrefab
+        {
+            public string Id;
+            public GameObject Prefab;
+        }
+        [SerializeField] private List<StringPrefab> stringPrefabs;
+
+        private void Awake()
+        {
+            foreach(var i in stringPrefabs) notePrefabs.Add(i.Id,i.Prefab);
+            stringPrefabs = null;
+        }
 
         public Rail this[RailEnum index]
         {
@@ -18,7 +33,6 @@ namespace Megaton
                 else throw new Exception($"Index {index} Not Found!");
             }
         }
-
 
         /// <summary>
         /// 绑定轨道
@@ -64,7 +78,7 @@ namespace Megaton
             {
                 foreach (var note in rail.Value.Notes)
                 {
-                    var go = note.GenerateSO(null);
+                    var go = note.GenerateSO(notePrefabs[note.GetType().Name]);
                     go.transform.position += new Vector3(
                         rail.Value.transform.position.x,
                         rail.Value.transform.position.y,

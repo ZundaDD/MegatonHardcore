@@ -7,7 +7,7 @@ namespace Megaton.Classic
     /// 单点音符
     /// </summary>
     public class Tap : Note
-    {   
+    {
         public override float JudgeStart => 0.1f;
 
         public override float JudgeEnd => 0.1f;
