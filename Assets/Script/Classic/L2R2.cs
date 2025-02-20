@@ -28,7 +28,7 @@ namespace Megaton.Classic
                 case "H":
                     if(token.Length > 3)
                     {
-                        int length = int.Parse(token[2]);
+                        int length = int.Parse(token[3]);
                         int divide = int.Parse(token[0]);
                         var obj = new Hold();
                         obj.ExactLength = length * 60 / (bpm * divide / 8);

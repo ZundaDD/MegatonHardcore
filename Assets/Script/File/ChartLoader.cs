@@ -25,10 +25,11 @@ namespace Megaton
 
                 string line = sr.ReadLine();
                 while (!sr.EndOfStream && line != "ST") line = sr.ReadLine();
+                line = sr.ReadLine();
                 while (!sr.EndOfStream && line != "ED")
                 {
-                    line = sr.ReadLine();
                     chart.ParseCommand(line);
+                    line = sr.ReadLine();
                 }
 
             }

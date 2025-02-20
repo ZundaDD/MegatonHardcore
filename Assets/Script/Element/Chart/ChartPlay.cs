@@ -26,8 +26,9 @@ namespace Megaton
 
             //解析时值
             int divide = int.Parse(token[0]);
-            timeAcc += 60 / (Info.BPM * divide / 8);
+            timeAcc += 60f / (Info.BPM * divide / 8);
             
+            if (token.Length < 3) return;
             //解析内容
             RailEnum rail = GameVar.Ins.PlayMode.ParseRailRelection(token[1]);
             var commandObj = GameVar.Ins.PlayMode.ParseCommand(token, Info.BPM);
@@ -39,6 +40,7 @@ namespace Megaton
                 if (rail != RailEnum.Camera) Quantity++;
                 if (!Content.ContainsKey(rail)) Content.Add(rail, new());
                 Content[rail].Add(commandObj);
+                //Debug.Log(commandObj.GetType().ToString() + commandObj.ExactTime.ToString());
             }
         }
 

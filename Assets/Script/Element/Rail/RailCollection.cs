@@ -33,7 +33,7 @@ namespace Megaton
                 else
                 {
                     rails.Add(rcompo.Id, rcompo);
-                    Debug.Log($"Rail {rcompo.Id} Loaded");
+                    //Debug.Log($"Rail {rcompo.Id} Loaded");
                 }
             }
         }
@@ -50,6 +50,7 @@ namespace Megaton
                 {
                     rails[command.Key].Notes = command.Value.ConvertAll((x) => x as Note);
                     rails[command.Key].CalculateMax();
+                    Debug.Log($"Rail:{command.Key}, Note:{rails[command.Key].Notes.Count}");
                 }
             }
         }

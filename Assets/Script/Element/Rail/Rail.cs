@@ -62,17 +62,19 @@ namespace Megaton.Abstract
             for(int i = 0;i < Notes.Count; i++)
             {
                 var note = Notes[i];
-                var gap = note.ExactTime - MusicPlayer.ExactTime;
+                var gap = MusicPlayer.ExactTime - note.ExactTime;
                 
                 //过早检查
-                if (gap < maxStart) break;
-                if (gap < note.JudgeStart) continue;
+                if (gap < -maxStart) break;
+                if (gap < -note.JudgeStart) continue;
 
                 var sta = QueryNoteState(note);
-                
+
                 //判断是否完成判定
                 if (note.Judge(sta[0], sta[1]))
                 {
+                    Debug.Log($"At {MusicPlayer.ExactTime}-{note.ExactTime} {note.GetType().Name}:{note.GetResult()}");
+
                     ScoreBoard.AddJudge(note.GetResult());
                     Notes.RemoveAt(i);
                     i--;

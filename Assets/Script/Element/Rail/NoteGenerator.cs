@@ -1,15 +1,11 @@
 using UnityEngine;
 
-public class NoteGenerator : MonoBehaviour
+namespace Megaton
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// 用于生成显示Note的生成器
+    /// </summary>
+    public class NoteGenerator : MonoBehaviour
     {
         
     }

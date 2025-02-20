@@ -46,7 +46,7 @@ namespace Megaton.Classic
 
             //从Off状态变为On状态进行头判
             if (railState && !formState && !ifStart && Offset < 0.1f && Offset > -0.1f)
-                headJudge = Tap.judgeQuery.Query(Offset);
+                headJudge = Tap.TapJudge(Offset);
 
             //Hold积累按下时长
             if (Offset - ExactLength < -0.1f && Offset > 0.1f && railState) holdTime += Time.deltaTime;

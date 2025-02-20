@@ -18,7 +18,7 @@ namespace Megaton
         public static float ExactTime { get; private set; } = 0f;
 
         #region 计时变量
-        [SerializeField] private int prepareFrame = 30;
+        [SerializeField] private int prepareFrame = 120;
         private int frameCount = -1;
         private float startDSP = 0f;
         #endregion
@@ -61,10 +61,12 @@ namespace Megaton
         /// </summary>
         public void Align()
         {
+            
             float gap = (float)AudioSettings.dspTime - startDSP;
             if (gap < Time.fixedDeltaTime * prepareFrame) return;
             ifStarted = true;
-            ExactTime += gap;
+            Debug.Log(string.Format("<color=#9aff99>Offset</color>:{0}ms", gap - Time.fixedDeltaTime * prepareFrame));
+            ExactTime = gap - Time.fixedDeltaTime * prepareFrame;
         }
         
         /// <summary>
