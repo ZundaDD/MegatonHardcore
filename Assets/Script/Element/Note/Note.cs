@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Megaton.Abstract
 {
     /// <summary>
@@ -29,6 +31,17 @@ namespace Megaton.Abstract
         /// <returns>判定结果</returns>
         public abstract JudgeEnum GetResult();
 
+        /// <summary>
+        /// 生成对应SO
+        /// </summary>
+        /// <param name="prefab">对应预制件</param>
+        /// <returns>生成物体</returns>
+        public virtual GameObject GenerateSO(GameObject prefab)
+        {
+            var go = MonoBehaviour.Instantiate(prefab);
+            go.transform.position = new(0, 0, GameVar.Velocity * (GameVar.PrepareFrame * Time.fixedDeltaTime + ExactTime));
+            return go;
+        }
     }
 
 }

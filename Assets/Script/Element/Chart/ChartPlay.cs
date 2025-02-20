@@ -30,8 +30,8 @@ namespace Megaton
             
             if (token.Length < 3) return;
             //解析内容
-            RailEnum rail = GameVar.Ins.PlayMode.ParseRailRelection(token[1]);
-            var commandObj = GameVar.Ins.PlayMode.ParseCommand(token, Info.BPM);
+            RailEnum rail = GameVar.PlayMode.ParseRailRelection(token[1]);
+            var commandObj = GameVar.PlayMode.ParseCommand(token, Info.BPM);
             
             //添加到列表
             if(commandObj != null && rail != RailEnum.Undefined)

@@ -512,6 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32124829470ff4645a8266e559bcd996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  judgeLine: {fileID: 1356737208}
   step: 0.001
 --- !u!114 &330585549
 MonoBehaviour:
@@ -1809,7 +1810,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1188278819}
   - component: {fileID: 1188278818}
-  - component: {fileID: 1188278817}
   - component: {fileID: 1188278821}
   - component: {fileID: 1188278820}
   m_Layer: 0
@@ -1819,18 +1819,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1188278817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1188278816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1dff4ba980f3cf4582baba8ef8bfe68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1188278818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1843,7 +1831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c9adcb4b2bc16c47b173bf2a8651b4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rails: {fileID: 1188278817}
+  rails: {fileID: 1436849458}
   musicPlayer: {fileID: 1188278821}
   pauseButton: {fileID: 1531306402}
 --- !u!4 &1188278819
@@ -2393,7 +2381,7 @@ GameObject:
   - component: {fileID: 1436849456}
   - component: {fileID: 1436849458}
   m_Layer: 0
-  m_Name: New Game Object
+  m_Name: RailCollection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2412,7 +2400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Text: Rail
-  FillColor: {r: 0.52797896, g: 0.94070077, b: 0.34357128, a: 1}
+  FillColor: {r: 0.4545877, g: 0.96765494, b: 0.21778744, a: 1}
 --- !u!4 &1436849457
 Transform:
   m_ObjectHideFlags: 0
@@ -2441,7 +2429,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1436849455}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8f700d087deea14b9bea736b2423784, type: 3}
+  m_Script: {fileID: 11500000, guid: a1dff4ba980f3cf4582baba8ef8bfe68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1481801526
@@ -2673,7 +2661,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 322, y: 183}
+  m_AnchoredPosition: {x: 322, y: 185}
   m_SizeDelta: {x: 310, y: 88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1562667774

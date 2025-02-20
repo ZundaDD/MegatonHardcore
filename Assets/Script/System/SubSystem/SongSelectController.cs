@@ -23,7 +23,7 @@ namespace Megaton.UI
 
         private void Awake()
         {
-            if (!GameVar.Ins.IfInitialed) SceneManager.LoadScene(0);
+            if (!GameVar.IfInitialed) SceneManager.LoadScene(0);
             ins = this;
             uiPlayer = GetComponent<AudioSource>();
         }
@@ -39,7 +39,7 @@ namespace Megaton.UI
         /// <param name="chartInfo">谱面信息</param>
         public void StartPlay(ChartInfo chartInfo)
         {
-            GameVar.Ins.CurPlay = ChartLoader.Path2Play(chartInfo.RootDir,chartInfo);
+            GameVar.CurPlay = ChartLoader.Path2Play(chartInfo.RootDir,chartInfo);
             SceneManager.LoadScene(Mode.GetSceneIndex(chartInfo.PlayMode));
         }
 

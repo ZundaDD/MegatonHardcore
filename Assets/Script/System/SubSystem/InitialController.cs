@@ -27,7 +27,7 @@ namespace Megaton
             initProgress = new("初始化完成...");
             initProgress.OnFinished += () => 
             {
-                GameVar.Ins.IfInitialed = true;
+                GameVar.IfInitialed = true;
                 loadScene(1);
             };
             initProgress.AddTask(LoadAllChartInfo, "加载谱面中...");
@@ -59,7 +59,7 @@ namespace Megaton
                     if (info != null)
                     {
                         total++;
-                        GameVar.Ins.ChartInfos.Add(info);
+                        GameVar.ChartInfos.Add(info);
                     }
                 }
             }

@@ -22,30 +22,32 @@ namespace Megaton
         /// </summary>
         void Awake()
         {
-            if (!GameVar.Ins.IfInitialed)
+            if (!GameVar.IfInitialed)
             {
                 SceneManager.LoadScene(0);
                 return;
             }
 
             instance = this;
-
-            //输入设置
-            rails.CollectRails();
-            ProcessInput.BindRail(rails);
-            
-            //UI显示
-            ScoreBoard.Clear(GameVar.Ins.CurPlay.Quantity);
-            pauseButton.onClick.AddListener(() => SceneManager.LoadScene(1));
-
-            //给场景加载指令
-            GameCamera.LoadCommands(GameVar.Ins.CurPlay.GetCameraCommands());
-            rails.LoadNotes(GameVar.Ins.CurPlay.GetRailCommands());
         }
 
         private void Start()
         {
-            musicPlayer.Play(GameVar.Ins.CurPlay.Music);
+            //输入设置
+            rails.CollectRails();
+            ProcessInput.BindRail(rails);
+
+            //UI显示
+            ScoreBoard.Clear(GameVar.CurPlay.Quantity);
+            pauseButton.onClick.AddListener(() => SceneManager.LoadScene(1));
+
+            //给场景加载指令
+            GameCamera.LoadCommands(GameVar.CurPlay.GetCameraCommands());
+            rails.LoadNotes(GameVar.CurPlay.GetRailCommands());
+            rails.GenerateNotes();
+
+            //启动流程
+            musicPlayer.Play(GameVar.CurPlay.Music);
         }
 
         /// <summary>

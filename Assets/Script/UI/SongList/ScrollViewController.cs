@@ -21,13 +21,13 @@ namespace Megaton.UI
         public EnhancedScrollerCellView GetCellView(EnhancedScroller scroller, int dataIndex, int cellIndex)
         {
             SongCellView cellView = scroller.GetCellView(cellPrefab) as SongCellView;
-            cellView.Bind(GameVar.Ins.ChartInfos[dataIndex]);
+            cellView.Bind(GameVar.ChartInfos[dataIndex]);
             return cellView;
         }
 
         public float GetCellViewSize(EnhancedScroller scroller, int dataIndex) => 100f;
 
-        public int GetNumberOfCells(EnhancedScroller scroller) => GameVar.Ins.ChartInfos.Count;
+        public int GetNumberOfCells(EnhancedScroller scroller) => GameVar.ChartInfos.Count;
 
     }
 }

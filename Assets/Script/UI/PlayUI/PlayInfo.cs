@@ -12,12 +12,10 @@ namespace Megaton.UI
 
         void Start()
         {
-            cover.sprite = CoverLoader.Path2Sprite(GameVar.Ins.CurPlay.Info.RootDir);
-            title.text = GameVar.Ins.CurPlay.Info.Title;
-            composer.text = GameVar.Ins.CurPlay.Info.Composer;
-            level.text = GameVar.Ins.CurPlay.Info.GetLevelString();
+            cover.sprite = CoverLoader.Path2Sprite(GameVar.CurPlay.Info.RootDir);
+            title.text = GameVar.CurPlay.Info.Title;
+            composer.text = GameVar.CurPlay.Info.Composer;
+            level.text = GameVar.CurPlay.Info.GetLevelString();
         }
-
-        
     }
 }

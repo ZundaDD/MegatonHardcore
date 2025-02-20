@@ -22,14 +22,12 @@ namespace Megaton.UI
         [SerializeField] private InOutImage cover;
         private AudioSource musicPlayer;
 
-        private void Awake()
-        {
-            ins = this;
-        }
+        private void Awake() => ins = this;
+
         void Start()
         {
             musicPlayer = GetComponent<AudioSource>();
-            ChangeSelected(GameVar.Ins.ChartInfos[0],
+            ChangeSelected(GameVar.ChartInfos[0],
                 scroller.GetCellViewAtDataIndex(0).GetComponent<SongCellView>().selectHint);
         }
 

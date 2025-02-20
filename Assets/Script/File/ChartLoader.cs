@@ -13,7 +13,7 @@ namespace Megaton
 
         public static ChartPlay Path2Play(string path,ChartInfo info)
         {
-            GameVar.Ins.PlayMode = Mode.GetMode(info.PlayMode);
+            GameVar.PlayMode = Mode.GetMode(info.PlayMode);
 
             string chartPath = Path.Combine(path, ChartName);
             ChartPlay chart = new ChartPlay();

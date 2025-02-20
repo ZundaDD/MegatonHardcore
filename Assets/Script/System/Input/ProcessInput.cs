@@ -20,16 +20,6 @@ namespace Megaton
         }
 
         /// <summary>
-        /// 释放轨道，构建新输入
-        /// </summary>
-        public static void ReleaseRail()
-        {
-            Ins.input.Dispose();
-            Ins.input = new();
-            SwitchInputMode(false);
-        }
-
-        /// <summary>
         /// 修改输入模式
         /// </summary>
         /// <param name="isGame">是否采用游戏模式</param>
@@ -48,11 +38,21 @@ namespace Megaton
         }
 
         /// <summary>
+        /// 释放轨道，构建新输入
+        /// </summary>
+        public static void ReleaseRail()
+        {
+            Ins.input.Dispose();
+            Ins.input = new();
+            SwitchInputMode(false);
+        }
+
+        /// <summary>
         /// 绑定轨道
         /// </summary>
         public static void BindRail(RailCollection rails)
         {
-            GameVar.Ins.PlayMode.InputBinding(Ins.input, rails);
+            GameVar.PlayMode.InputBinding(Ins.input, rails);
             SwitchInputMode(true);
         }
     }

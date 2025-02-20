@@ -7,8 +7,8 @@ namespace Megaton
 {
     public class RailCollection : MonoBehaviour
     {
-
         private Dictionary<RailEnum, Rail> rails = new();
+        //[SerializeField]private List<>
 
         public Rail this[RailEnum index]
         {
@@ -39,7 +39,7 @@ namespace Megaton
         }
 
         /// <summary>
-        /// 为每一个轨道加载指令
+        /// 为每一个轨道加载Note
         /// </summary>
         /// <param name="commands">指令字典</param>
         public void LoadNotes(Dictionary<RailEnum, List<Command>> commands)
@@ -51,6 +51,24 @@ namespace Megaton
                     rails[command.Key].Notes = command.Value.ConvertAll((x) => x as Note);
                     rails[command.Key].CalculateMax();
                     Debug.Log($"Rail:{command.Key}, Note:{rails[command.Key].Notes.Count}");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 生成Notes
+        /// </summary>
+        public void GenerateNotes()
+        {
+            foreach (var rail in rails)
+            {
+                foreach (var note in rail.Value.Notes)
+                {
+                    var go = note.GenerateSO(null);
+                    go.transform.position += new Vector3(
+                        rail.Value.transform.position.x,
+                        rail.Value.transform.position.y,
+                        GameCamera.Ins.JudgeLineZ);
                 }
             }
         }
