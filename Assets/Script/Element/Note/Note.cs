@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Megaton.Abstract
@@ -7,6 +8,10 @@ namespace Megaton.Abstract
     /// </summary>
     public abstract class Note : Command
     {
+        /// <summary>
+        /// 判定事件
+        /// </summary>
+        public Action<bool, bool> OnJudge;
 
         /// <summary>
         /// 判定起始偏差
@@ -25,7 +30,7 @@ namespace Megaton.Abstract
         /// <param name="formState">轨道上一次输入状态</param>
         /// <returns>是否得到判定结果</returns>
         public abstract bool Judge(bool railState,bool formState);
-         
+
         /// <summary>
         /// 返回判定结果
         /// </summary>
@@ -40,6 +45,7 @@ namespace Megaton.Abstract
         public virtual GameObject GenerateSO(GameObject prefab)
         {
             var go = MonoBehaviour.Instantiate(prefab);
+            go.GetComponent<NoteSO>().Bind(this);
             go.transform.position = new(0, 0, GameVar.Velocity * (GameVar.PrepareFrame * Time.fixedDeltaTime + ExactTime));
             return go;
         }

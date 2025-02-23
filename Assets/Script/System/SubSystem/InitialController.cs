@@ -30,6 +30,9 @@ namespace Megaton
                 GameVar.IfInitialed = true;
                 loadScene(1);
             };
+            
+            initProgress.AddTask(CheckDirectory, "验证目录中...");
+            initProgress.AddTask(LoadAllScore, "加载分数中...");
             initProgress.AddTask(LoadAllChartInfo, "加载谱面中...");
             initProgress.Start();
             
@@ -40,12 +43,28 @@ namespace Megaton
             await SceneManager.LoadSceneAsync(index);
         }
 
+        private void LoadAllScore()
+        {
+            GameVar.ChartScores = ScoreLoader.Path2Score();
+        }
+
+        /// <summary>
+        /// 验证所需目录是否被创建
+        /// </summary>
+        private void CheckDirectory()
+        {
+            Directory.CreateDirectory(GameVar.DataRootDir);
+            Directory.CreateDirectory(Path.Combine(GameVar.DataRootDir, "Charts"));
+            Directory.CreateDirectory(Path.Combine(GameVar.DataRootDir, "Setting"));
+            if (!File.Exists(ScoreLoader.PathName)) ScoreLoader.SaveScore();
+        }
+        
         /// <summary>
         /// 加载全部谱面信息
         /// </summary>
         private void LoadAllChartInfo()
         {
-            string chartPath = Path.Combine(Application.dataPath, "../", "Data", "Charts");
+            string chartPath = Path.Combine(GameVar.DataRootDir, "Charts");
             if(!Directory.Exists(chartPath)) Directory.CreateDirectory(chartPath);
 
             int total = 0;

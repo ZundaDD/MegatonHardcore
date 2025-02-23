@@ -37,6 +37,8 @@ namespace Megaton
 
         private void Start()
         {
+            pauseButton.onClick.AddListener(EndPlay);
+
             //输入设置
             rails.CollectRails();
             ProcessInput.BindRail(rails);
@@ -44,7 +46,6 @@ namespace Megaton
             //UI显示
             ScoreBoard.Clear(GameVar.CurPlay.Quantity);
             scoreboardUI.Bind();
-            pauseButton.onClick.AddListener(() => SceneManager.LoadScene(1));
 
             //给场景加载指令
             GameCamera.LoadCommands(GameVar.CurPlay.GetCameraCommands());
@@ -52,6 +53,7 @@ namespace Megaton
             rails.GenerateNotes();
 
             //启动流程
+            musicPlayer.OnEnd += EndPlay;
             musicPlayer.Play(GameVar.CurPlay.Music);
         }
 
@@ -62,7 +64,7 @@ namespace Megaton
         {
             ProcessInput.ReleaseRail();
             scoreboardUI.UnBind();
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         }
 
         public void PlayEffect(int index)

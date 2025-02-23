@@ -12,6 +12,8 @@ namespace Megaton
         // 由路径得到的信息
         public string RootDir = "Null";
         public string Pack = "Null";
+        public string Folder = "Null";
+        public ChartScore Score = new ChartScore();
 
         // chart.txt文件中得到的信息
         public string Title = "Null";

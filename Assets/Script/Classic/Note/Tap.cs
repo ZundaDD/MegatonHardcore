@@ -17,6 +17,7 @@ namespace Megaton.Classic
             float Offset = MusicPlayer.ExactTime - ExactTime;
             return TapJudge(Offset);
         }
+
         public static JudgeEnum TapJudge(float Offset)
         {
             if (Mathf.Abs(Offset) < 0.025) return JudgeEnum.CRITICAL;

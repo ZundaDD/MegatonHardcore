@@ -27,8 +27,15 @@ namespace Megaton.UI
         void Start()
         {
             musicPlayer = GetComponent<AudioSource>();
-            ChangeSelected(GameVar.ChartInfos[0],
-                scroller.GetCellViewAtDataIndex(0).GetComponent<SongCellView>().selectHint);
+            if (GameVar.ChartInfos.Count != 0)
+                ChangeSelected(GameVar.ChartInfos[0],
+                    scroller.GetCellViewAtDataIndex(0).GetComponent<SongCellView>().selectHint);
+            else
+            {
+                title.ChangeTo("Empty", false);
+                composer.ChangeTo("Empty", false);
+                bpm.ChangeTo("Empty", false);
+            }
         }
 
         void Update()

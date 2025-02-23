@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Megaton
@@ -7,16 +8,21 @@ namespace Megaton
     /// </summary>
     public class MusicPlayer : MonoBehaviour
     {
-        private AudioSource musicSource;
-
         /// <summary>
         /// 从开始播放计算的准确时间
         /// </summary>
         public static float ExactTime { get; private set; } = 0f;
 
+        /// <summary>
+        /// 结束播放时回调
+        /// </summary>
+        public Action OnEnd;
+        private AudioSource musicSource;
+
         #region 计时变量
-        private int frameCount = -1;
+        //private int frameCount = -1;
         private float startDSP = 0f;
+        private bool formState = false;
         #endregion
 
         private void Awake()
@@ -25,11 +31,11 @@ namespace Megaton
             ExactTime = 0;
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            if (GameVar.IfPrepare) frameCount++;
             if (!GameVar.IfStarted && GameVar.IfPrepare) Align();
-            if (GameVar.IfStarted && !GameVar.IfPaused) ExactTime += Time.fixedDeltaTime;
+            if (GameVar.IfPrepare && !GameVar.IfPaused) ExactTime += Time.deltaTime;
+            EndCheck();
         }
 
         /// <summary>
@@ -40,9 +46,8 @@ namespace Megaton
             GameVar.IfPrepare = true;
             startDSP = (float) AudioSettings.dspTime;
             musicSource.clip = clip;
+            ExactTime = -Time.fixedDeltaTime * GameVar.PrepareFrame;
             musicSource.PlayScheduled(AudioSettings.dspTime + Time.fixedDeltaTime * GameVar.PrepareFrame);
-            //结束回调添加
-            frameCount = 0;
         }
 
         /// <summary>
@@ -50,9 +55,12 @@ namespace Megaton
         /// </summary>
         public void Align()
         {
-            float gap = (float)AudioSettings.dspTime - startDSP - Time.fixedDeltaTime * GameVar.PrepareFrame;
+            float dsp = (float)AudioSettings.dspTime;
+            float gap = dsp - startDSP - Time.fixedDeltaTime * GameVar.PrepareFrame;
             if (gap < 0) return;
 
+            //与实际时间对比
+            gap -= ExactTime;
             GameVar.IfStarted = true;
             GameCamera.Align(gap);
             ExactTime = gap;
@@ -60,5 +68,14 @@ namespace Megaton
             Debug.Log(string.Format("<color=#9aff99>Offset</color>:{0}ms", gap));
         }
         
+        /// <summary>
+        /// 音频播放结束
+        /// </summary>
+        public void EndCheck()
+        {
+            bool curState = musicSource.isPlaying;
+            if (!curState && formState) OnEnd();
+            formState = curState;
+        }
     }
 }

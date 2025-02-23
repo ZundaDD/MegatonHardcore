@@ -29,7 +29,7 @@ namespace Megaton.UI
             levelText.text = chartInfo.GetLevelString();
             cellIdentifier = levelText.text;
             titleText.text = chartInfo.Title;
-            rankText.text = "";
+            rankText.text = chartInfo.Score.BestRank;
             modeText.text = chartInfo.PlayMode.ToString();
             selectedButton.onClick.RemoveAllListeners();
             selectedButton.onClick.AddListener(() =>

@@ -10,7 +10,7 @@ namespace Megaton
     {
         private Dictionary<RailEnum, Rail> rails = new();
         private Dictionary<string, GameObject> notePrefabs = new();
-
+        
         [Serializable]
         class StringPrefab
         {

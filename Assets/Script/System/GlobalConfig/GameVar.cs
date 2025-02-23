@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
 using Megaton.Abstract;
 
 namespace Megaton
@@ -8,6 +10,11 @@ namespace Megaton
     /// </summary>
     public static class GameVar
     {
+        /// <summary>
+        /// 数据统一根目录
+        /// </summary>
+        public static string DataRootDir = Path.Combine(Application.persistentDataPath, "Data");
+
         /// <summary>
         /// 游戏是否初始化
         /// </summary>
@@ -37,7 +44,12 @@ namespace Megaton
         /// 所有谱面的信息
         /// </summary>
         public static List<ChartInfo> ChartInfos = new();
-        
+
+        /// <summary>
+        /// 所有谱面的分数
+        /// </summary>
+        public static Dictionary<string, ChartScore> ChartScores = new();
+
         /// <summary>
         /// 当前游玩的谱面
         /// </summary>

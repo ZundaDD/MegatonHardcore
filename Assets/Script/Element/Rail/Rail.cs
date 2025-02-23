@@ -70,11 +70,11 @@ namespace Megaton.Abstract
 
                 var sta = QueryNoteState(note);
 
+                note.OnJudge(sta[0], sta[1]);
                 //判断是否完成判定
                 if (note.Judge(sta[0], sta[1]))
                 {
                     Debug.Log($"At {MusicPlayer.ExactTime}-{note.ExactTime} {note.GetType().Name}:{note.GetResult()}");
-
                     ScoreBoard.AddJudge(note.GetResult());
                     Notes.RemoveAt(i);
                     i--;

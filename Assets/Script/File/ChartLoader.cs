@@ -54,8 +54,11 @@ namespace Megaton
                     }
                     line = sr.ReadLine();
                 }
+                info.Folder = path.Split('\\')[^1];
                 info.Pack = path.Split('\\')[^2];
                 info.RootDir = path;
+                if (GameVar.ChartScores.ContainsKey($"{info.Pack}/{info.Folder}"))
+                    info.Score = GameVar.ChartScores[$"{info.Pack}/{info.Folder}"];
             }
             if (Mode.ValidMode(info.PlayMode)) return info;
             else return null;

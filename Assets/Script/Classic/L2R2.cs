@@ -2,7 +2,7 @@ using Megaton.Abstract;
 
 namespace Megaton.Classic
 {
-    [IdentityString("L2R2",2)]
+    [IdentityString("L2R2",3)]
     public class L2R2 : Mode
     {
         public override void InputBinding(InputMap inputActions,RailCollection rails)
