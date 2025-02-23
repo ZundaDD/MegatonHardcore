@@ -30,11 +30,6 @@ namespace Megaton
             Camera = GetComponent<Camera>();
         }
 
-        public void Update()
-        {
-            if(GameVar.IfPrepare && !GameVar.IfPaused) MoveForward(GameVar.Velocity * Time.deltaTime);    
-        }
-
         public static void LoadCommands(List<Command> commands) => Ins.Commands = commands.ConvertAll(x => x as CameraEffect);
 
         public static void Align(float timeOffset) => Ins.MoveForward(timeOffset * GameVar.Velocity);

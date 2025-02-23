@@ -8,14 +8,14 @@ namespace Megaton.Classic
     /// </summary>
     public class Catch : Note
     {
-        public override float JudgeStart => 0.1f;
+        public override float JudgeStart => 0.12f;
 
-        public override float JudgeEnd => 0.1f;
+        public override float JudgeEnd => 0.12f;
 
         public override JudgeEnum GetResult()
         {
             float Offset = MusicPlayer.ExactTime - ExactTime;
-            if (Mathf.Abs(Offset) < 0.1f) return JudgeEnum.CRITICAL;
+            if (Mathf.Abs(Offset) < 0.12f) return JudgeEnum.CRITICAL;
             else return JudgeEnum.MISS;
         }
 

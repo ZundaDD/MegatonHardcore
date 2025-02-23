@@ -55,7 +55,7 @@ namespace Megaton.Abstract
         }
 
         
-        public virtual void FixedUpdate()
+        public virtual void TryJudge()
         {
             Sample();
             if (Notes == null) return;
@@ -74,7 +74,7 @@ namespace Megaton.Abstract
                 //判断是否完成判定
                 if (note.Judge(sta[0], sta[1]))
                 {
-                    Debug.Log($"At {MusicPlayer.ExactTime}-{note.ExactTime} {note.GetType().Name}:{note.GetResult()}");
+                    Debug.Log($"{note.ExactTime} {String.Format("{0:+0;-#;+0}",(MusicPlayer.ExactTime-note.ExactTime) * 1000).ToString()}ms {note.GetType().Name}:{note.GetResult()}");
                     ScoreBoard.AddJudge(note.GetResult());
                     Notes.RemoveAt(i);
                     i--;

@@ -8,6 +8,9 @@ namespace Megaton
 {
     public class RailCollection : MonoBehaviour
     {
+        private static RailCollection ins;
+        public static RailCollection Ins => ins;
+
         private Dictionary<RailEnum, Rail> rails = new();
         private Dictionary<string, GameObject> notePrefabs = new();
         
@@ -21,8 +24,14 @@ namespace Megaton
 
         private void Awake()
         {
+            ins = this;
             foreach(var i in stringPrefabs) notePrefabs.Add(i.Id,i.Prefab);
             stringPrefabs = null;
+        }
+
+        public void TryJudge()
+        {
+            foreach(var rail in rails) rail.Value.TryJudge();
         }
 
         public Rail this[RailEnum index]

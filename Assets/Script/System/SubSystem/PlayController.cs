@@ -54,7 +54,7 @@ namespace Megaton
 
             //启动流程
             musicPlayer.OnEnd += EndPlay;
-            musicPlayer.Play(GameVar.CurPlay.Music);
+            musicPlayer.CommandPlay(GameVar.CurPlay.Music);
         }
 
         /// <summary>

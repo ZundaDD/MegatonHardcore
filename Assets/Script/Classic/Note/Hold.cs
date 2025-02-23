@@ -14,7 +14,7 @@ namespace Megaton.Classic
 
         public float ExactLength;
 
-        public override float JudgeStart => 1.0f;
+        public override float JudgeStart => 0.15f;
         public override float JudgeEnd => ExactLength;
 
         public override JudgeEnum GetResult()
@@ -45,7 +45,7 @@ namespace Megaton.Classic
             float Offset = MusicPlayer.ExactTime - ExactTime;
 
             //从Off状态变为On状态进行头判
-            if (railState && !formState && !ifStart && Offset < 0.1f && Offset > -0.1f)
+            if (railState && !formState && !ifStart && Offset < 0.12f && Offset > -0.12f)
                 headJudge = Tap.TapJudge(Offset);
 
             //Hold积累按下时长

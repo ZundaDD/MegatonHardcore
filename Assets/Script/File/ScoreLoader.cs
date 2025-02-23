@@ -57,7 +57,6 @@ namespace Megaton
             }
 
             Debug.Log($"{scores.scores.Count} play logged!");
-            Debug.Log(JsonUtility.ToJson(scores));
             //写入文件
             using (StreamWriter sw = new StreamWriter(PathName))
             {

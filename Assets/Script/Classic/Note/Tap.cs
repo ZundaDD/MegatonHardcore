@@ -8,9 +8,9 @@ namespace Megaton.Classic
     /// </summary>
     public class Tap : Note
     {
-        public override float JudgeStart => 0.1f;
+        public override float JudgeStart => 0.12f;
 
-        public override float JudgeEnd => 0.1f;
+        public override float JudgeEnd => 0.12f;
 
         public override JudgeEnum GetResult()
         {
@@ -20,10 +20,10 @@ namespace Megaton.Classic
 
         public static JudgeEnum TapJudge(float Offset)
         {
-            if (Mathf.Abs(Offset) < 0.025) return JudgeEnum.CRITICAL;
-            else if (Mathf.Abs(Offset) < 0.050) return Offset > 0 ? JudgeEnum.S_PERFECT : JudgeEnum.F_PERFECT;
-            else if (Mathf.Abs(Offset) < 0.075) return Offset > 0 ? JudgeEnum.S_GREAT : JudgeEnum.F_GREAT;
-            else if (Mathf.Abs(Offset) < 0.1) return Offset > 0 ? JudgeEnum.S_GOOD : JudgeEnum.F_GOOD;
+            if (Mathf.Abs(Offset) < 0.03) return JudgeEnum.CRITICAL;
+            else if (Mathf.Abs(Offset) < 0.06) return Offset > 0 ? JudgeEnum.S_PERFECT : JudgeEnum.F_PERFECT;
+            else if (Mathf.Abs(Offset) < 0.09) return Offset > 0 ? JudgeEnum.S_GREAT : JudgeEnum.F_GREAT;
+            else if (Mathf.Abs(Offset) < 0.12) return Offset > 0 ? JudgeEnum.S_GOOD : JudgeEnum.F_GOOD;
             else return JudgeEnum.MISS;
         }
 
