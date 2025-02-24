@@ -1,3 +1,4 @@
+using Megaton.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,15 +71,19 @@ namespace Megaton.Abstract
 
                 var sta = QueryNoteState(note);
 
-                note.OnJudge(sta[0], sta[1]);
+                
                 //判断是否完成判定
                 if (note.Judge(sta[0], sta[1]))
                 {
-                    Debug.Log($"{note.ExactTime} {String.Format("{0:+0;-#;+0}",(MusicPlayer.ExactTime-note.ExactTime) * 1000).ToString()}ms {note.GetType().Name}:{note.GetResult()}");
-                    ScoreBoard.AddJudge(note.GetResult());
+                    var judge = note.GetResult();
+                    Debug.Log($"{note.ExactTime} {String.Format("{0:+0;-#;+0}",(MusicPlayer.ExactTime-note.ExactTime) * 1000).ToString()}ms {note.GetType().Name}:{judge}");
+                    ScoreBoard.AddJudge(judge);
+                    note.OnResult(judge);
                     Notes.RemoveAt(i);
                     i--;
                 }
+                
+                note.OnJudge(sta[0], sta[1]);
             }
         }
     }

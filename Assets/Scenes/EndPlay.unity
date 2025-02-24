@@ -2082,7 +2082,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8017a2c0780db794eacc19633d110bbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Text: Score
   FillColor: {r: 0.4869297, g: 0.73404723, b: 0.735849, a: 1}
 --- !u!114 &1064980373
 MonoBehaviour:
@@ -2853,7 +2852,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8017a2c0780db794eacc19633d110bbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Text: UI
   FillColor: {r: 0.78092545, g: 0.9299191, b: 0.76574194, a: 1}
 --- !u!1 &1943870253
 GameObject:
@@ -3037,7 +3035,7 @@ GameObject:
   - component: {fileID: 2057756275}
   - component: {fileID: 2057756274}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3055,7 +3053,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8017a2c0780db794eacc19633d110bbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Text: "\u4E0D\u7528\u7BA1"
   FillColor: {r: 1, g: 0.6778976, b: 0.81523734, a: 1}
 --- !u!4 &2057756275
 Transform:

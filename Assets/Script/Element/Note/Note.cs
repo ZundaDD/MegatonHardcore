@@ -14,6 +14,11 @@ namespace Megaton.Abstract
         public Action<bool, bool> OnJudge;
 
         /// <summary>
+        /// 判定结束事件
+        /// </summary>
+        public Action<JudgeEnum> OnResult;
+
+        /// <summary>
         /// 判定起始偏差
         /// </summary>
         public abstract float JudgeStart { get; }

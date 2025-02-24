@@ -1,4 +1,5 @@
 using Megaton.Abstract;
+using UnityEngine;
 
 namespace Megaton.Classic
 {
@@ -12,5 +13,6 @@ namespace Megaton.Classic
                 Destroy(gameObject);
             }
         }
+
     }
 }
