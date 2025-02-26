@@ -1,10 +1,10 @@
-using TMPro;
 using UnityEngine;
 using MikanLab;
 using System.IO;
 using UnityEngine.SceneManagement;
-using Cysharp.Threading.Tasks;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using System.Collections;
 
 namespace Megaton
 {
@@ -14,33 +14,53 @@ namespace Megaton
     public class InitialController : MonoBehaviour
     {
         [SerializeField] Text loadingText;
+        [SerializeField] GameObject loadingIcon;
         TaskProgress initProgress;
 
         void Update()
         {
-            loadingText.text = $"{initProgress.CurrentTaskDescription} ({initProgress.Alltask-initProgress.LeftTask}/{initProgress.Alltask})";    
+            if (!GameVar.IfInitialed) loadingText.text = $"{initProgress.CurrentTaskDescription} ({initProgress.Alltask - initProgress.LeftTask}/{initProgress.Alltask})";
+            else loadingText.text = initProgress.CurrentTaskDescription;    
+        }
+
+        /// <summary>
+        /// 部分GameVar初始化于此由于时间的原因
+        /// </summary>
+        private void Awake()
+        {
+            GameVar.DataRootDir = Path.Combine(Application.persistentDataPath, "Data");
         }
 
         void Start()
         {
-            
-            initProgress = new("初始化完成...");
+            initProgress = new("点击以进入游戏");
             initProgress.OnFinished += () => 
             {
                 GameVar.IfInitialed = true;
-                loadScene(1);
+                loadingIcon.SetActive(false);
+                ProcessInput.Ins.input.UI.LeftMouse.performed += StartGame;
             };
             
             initProgress.AddTask(CheckDirectory, "验证目录中...");
             initProgress.AddTask(LoadAllScore, "加载分数中...");
             initProgress.AddTask(LoadAllChartInfo, "加载谱面中...");
             initProgress.Start();
-            
         }
 
-        public async void loadScene(int index)
+        public void StartGame(InputAction.CallbackContext ctx)
         {
-            await SceneManager.LoadSceneAsync(index);
+            ProcessInput.Ins.input.UI.LeftMouse.performed -= StartGame;
+            StartCoroutine(loadScene());
+        }
+
+        public IEnumerator loadScene()
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1);
+
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
         }
 
         private void LoadAllScore()

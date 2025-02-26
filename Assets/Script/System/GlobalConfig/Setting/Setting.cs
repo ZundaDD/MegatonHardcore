@@ -1,3 +1,5 @@
+using Megaton.Generic;
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -6,8 +8,13 @@ namespace Megaton
     /// <summary>
     /// 游戏设置，玩家可以手动修改
     /// </summary>
+    [SerializeField]
     public class Setting
     {
+        #region 游玩配置
+        public RangeVarible<float> speed = new(0.5f, 5, 3, 0.5f);
+        #endregion
+
         #region 生命周期
         static Setting ins;
         static string store_path = Path.Combine(Application.dataPath, "Environment", "Setting.json");

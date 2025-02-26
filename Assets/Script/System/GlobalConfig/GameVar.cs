@@ -13,7 +13,7 @@ namespace Megaton
         /// <summary>
         /// 数据统一根目录
         /// </summary>
-        public static string DataRootDir = Path.Combine(Application.persistentDataPath, "Data");
+        public static string DataRootDir = "";
 
         /// <summary>
         /// 游戏是否初始化

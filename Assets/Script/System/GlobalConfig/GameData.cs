@@ -1,4 +1,5 @@
 using Megaton;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ namespace Megaton
     /// </summary>
     public class GameData
     {
+        
+
         #region 生命周期
         static GameData ins;
         static string store_path = Path.Combine(Application.dataPath, "Environment", "GameVar.json");
