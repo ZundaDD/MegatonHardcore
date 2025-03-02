@@ -34,7 +34,7 @@ namespace Megaton.UI
             selectedButton.onClick.RemoveAllListeners();
             selectedButton.onClick.AddListener(() =>
             {
-                SongSelectController.Ins.PlayEffect(0);
+                GlobalEffectPlayer.PlayEffect(AudioEffect.OnSongSelect);
                 SelectedDisplay.Ins.ChangeSelected(chartInfo,selectHint);
             });
             coverImage.sprite = CoverLoader.Path2Sprite(chartInfo.RootDir);

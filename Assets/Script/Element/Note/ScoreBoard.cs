@@ -59,7 +59,7 @@ namespace Megaton
                 0.45f * (dict[JudgeEnum.S_GOOD] + dict[JudgeEnum.F_GOOD])
                 ));
 
-            PlayController.Ins.PlayEffect(0);
+            GlobalEffectPlayer.PlayEffect(AudioEffect.OnJudge);
             Ins.onAdded?.Invoke();
         }
     }

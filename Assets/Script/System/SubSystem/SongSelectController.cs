@@ -15,8 +15,7 @@ namespace Megaton.UI
         private static SongSelectController ins;
         public static SongSelectController Ins => ins;
 
-        [SerializeField] private AudioClip[] clips;
-        private AudioSource uiPlayer;
+        [SerializeField] private SettingUI settingCanvas;
         [SerializeField] private Button exitButton;
         [SerializeField] private Button settingButton;
         [SerializeField] private SelectedDisplay selectedHandler;
@@ -25,11 +24,12 @@ namespace Megaton.UI
         {
             if (!GameVar.IfInitialed) SceneManager.LoadScene(0);
             ins = this;
-            uiPlayer = GetComponent<AudioSource>();
         }
 
         private void Start()
         {
+            settingCanvas.gameObject.SetActive(false);
+            settingButton.onClick.AddListener(() => settingCanvas.EnableAnimation());
             exitButton.onClick.AddListener(Application.Quit);
         }
 
@@ -43,9 +43,5 @@ namespace Megaton.UI
             SceneManager.LoadScene(Mode.GetSceneIndex(chartInfo.PlayMode));
         }
 
-        public void PlayEffect(int index)
-        {
-            uiPlayer.PlayOneShot(clips[index]);
-        }
     }
 }

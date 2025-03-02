@@ -63,10 +63,7 @@ namespace Megaton
             }
         }
 
-        private void LoadAllScore()
-        {
-            GameVar.ChartScores = ScoreLoader.Path2Score();
-        }
+        private void LoadAllScore() => GameVar.ChartScores = ScoreLoader.Path2Score();
 
         /// <summary>
         /// 验证所需目录是否被创建
@@ -77,6 +74,7 @@ namespace Megaton
             Directory.CreateDirectory(Path.Combine(GameVar.DataRootDir, "Charts"));
             Directory.CreateDirectory(Path.Combine(GameVar.DataRootDir, "Setting"));
             if (!File.Exists(ScoreLoader.PathName)) ScoreLoader.SaveScore();
+            var a = Setting.Ins.Input_Offset.Value;
         }
         
         /// <summary>

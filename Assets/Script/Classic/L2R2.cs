@@ -1,4 +1,5 @@
 using Megaton.Abstract;
+using UnityEngine;
 
 namespace Megaton.Classic
 {
@@ -17,22 +18,28 @@ namespace Megaton.Classic
             inputActions.Player.Right2.canceled += rails[RailEnum.Right2].Release;
         }
 
-        public override Command ParseCommand(string[] token,int bpm)
+        public override Command ParseCommand(string token,int bpm,int divide)
         {
-            switch (token[2])
+            Debug.Log(token);
+            switch (token[0])
             {
-                case "T":
+                case 'T':
                     return new Tap();
-                case "C":
+                case 'C':
                     return new Catch();
-                case "H":
-                    if(token.Length > 3)
+                case 'H':
+                    if(token.Length > 1)
                     {
-                        int length = int.Parse(token[3]);
-                        int divide = int.Parse(token[0]);
-                        var obj = new Hold();
-                        obj.ExactLength = length * 60 / (bpm * divide / 8);
-                        return obj;
+                        float length;
+                        try
+                        {
+                            length = float.Parse(token.Substring(1));
+                        }
+                        catch
+                        {
+                            return null;
+                        }
+                        return new Hold() {  ExactLength = length * 60 / (bpm * divide / 8)};
                     }
                     return null;
                 default:

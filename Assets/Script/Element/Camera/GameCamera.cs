@@ -26,11 +26,11 @@ namespace Megaton
 
             Ins = this;
             JudgeLineZ = judgeLine.transform.position.z;
-            GameVar.Velocity = GameVar.CurPlay.Info.BPM * step;
+            GameVar.Velocity = GameVar.CurPlay.Info.BPM * step * Setting.Ins.Speed.Value;
             Camera = GetComponent<Camera>();
         }
 
-        public static void LoadCommands(List<Command> commands) => Ins.Commands = commands.ConvertAll(x => x as CameraEffect);
+        public static void LoadCommands(List<CameraEffect> commands) => Ins.Commands = commands;
 
         public static void Align(float timeOffset) => Ins.MoveForward(timeOffset * GameVar.Velocity);
         

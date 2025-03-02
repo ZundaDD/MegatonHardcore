@@ -60,7 +60,7 @@ namespace Megaton
             //写入文件
             using (StreamWriter sw = new StreamWriter(PathName))
             {
-                sw.Write(JsonUtility.ToJson(scores));
+                sw.Write(JsonUtility.ToJson(scores, true));
             }
         }
     }

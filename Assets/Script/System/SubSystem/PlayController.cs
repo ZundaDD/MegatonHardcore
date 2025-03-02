@@ -14,8 +14,6 @@ namespace Megaton
         private static PlayController ins;
         public static PlayController Ins => ins;
 
-        [SerializeField] private AudioClip[] clips;
-        [SerializeField] private AudioSource uiPlayer;
         [SerializeField] private RailCollection rails;
         [SerializeField] private MusicPlayer musicPlayer;
         [SerializeField] private Button pauseButton;
@@ -65,11 +63,9 @@ namespace Megaton
             ProcessInput.ReleaseRail();
             scoreboardUI.UnBind();
             SceneManager.LoadScene(2);
+            GameVar.IfPrepare = false;
+            GameVar.IfStarted = false;
         }
 
-        public void PlayEffect(int index)
-        {
-            uiPlayer.PlayOneShot(clips[index]);
-        }
     }
 }

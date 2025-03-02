@@ -11,13 +11,27 @@ namespace Megaton
     [SerializeField]
     public class Setting
     {
-        #region 游玩配置
-        public RangeVarible<float> speed = new(0.5f, 5, 3, 0.5f);
+        #region 时间配置
+        public RangeVarible Speed = RangeVarible.GetRangeVarible(0.5f, 10f, 5, 0.5f, 1);
+        public RangeVarible Music_Offset = RangeVarible.GetRangeVarible(-100, 100, 0, 1, 0);
+        public RangeVarible Input_Offset = RangeVarible.GetRangeVarible(-100, 100, 0, 1, 0);
+
         #endregion
 
+        #region 游玩显示配置
+        public BoolVarible Distinguish_Critical = BoolVarible.GetBoolVarible(true);
+        public BoolVarible Show_Fast_Late = BoolVarible.GetBoolVarible(true);
+        #endregion
+
+        #region 音频设置
+        public RangeVarible Effect_Volume = RangeVarible.GetRangeVarible(0, 120, 100, 10, 0);
+        public RangeVarible Music_Volume = RangeVarible.GetRangeVarible(0, 120, 100, 10, 0);
+        #endregion
+
+        #region 不用管
         #region 生命周期
-        static Setting ins;
-        static string store_path = Path.Combine(Application.dataPath, "Environment", "Setting.json");
+        private static Setting ins;
+        private static string store_path = Path.Combine(GameVar.DataRootDir, "Setting", "setting.json");
 
         public static Setting Ins
         {
@@ -26,14 +40,15 @@ namespace Megaton
         #endregion
 
         #region IO
-        static Setting ReadFromFile()
+        private static Setting ReadFromFile()
         {
             Setting instance = new Setting();
-            if (Directory.Exists(store_path))
+            if (File.Exists(store_path))
             {
                 using (StreamReader sr = new StreamReader(store_path))
                 {
                     instance = JsonUtility.FromJson<Setting>(sr.ReadToEnd());
+                    sr.Close();
                 }
 
             }
@@ -42,12 +57,13 @@ namespace Megaton
 
         public static void SaveToFile()
         {
-            if (!Directory.Exists(store_path)) Directory.CreateDirectory(store_path);
             using (StreamWriter sr = new(store_path))
             {
-                sr.Write(JsonUtility.ToJson(Ins));
+                sr.Write(JsonUtility.ToJson(Ins, true));
+                sr.Close();
             }
         }
+        #endregion
         #endregion
     }
 }

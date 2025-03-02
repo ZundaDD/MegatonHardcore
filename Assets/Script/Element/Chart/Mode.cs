@@ -75,6 +75,6 @@ namespace Megaton.Abstract
         /// </summary>
         /// <param name="token">元素</param>
         /// <returns>指令</returns>
-        public abstract Command ParseCommand(string[] token,int bpm);
+        public abstract Command ParseCommand(string token,int bpm, int divide);
     }
 }

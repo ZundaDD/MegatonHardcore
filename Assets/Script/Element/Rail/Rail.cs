@@ -56,6 +56,9 @@ namespace Megaton.Abstract
         }
 
         
+        /// <summary>
+        /// 尝试判定，同时只能对一个Note进行判定
+        /// </summary>
         public virtual void TryJudge()
         {
             Sample();
@@ -84,6 +87,8 @@ namespace Megaton.Abstract
                 }
                 
                 note.OnJudge(sta[0], sta[1]);
+
+                break;
             }
         }
     }
