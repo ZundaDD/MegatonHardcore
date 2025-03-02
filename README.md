@@ -4,10 +4,17 @@
 
 # 怎么玩
 
-直接下载exe文件然后将Data文件夹放置在同一目录下就可以启动了
+直接下载exe文件然后将谱面文件放在Appdata/LocalLow/MikanLab/MegatonHardcore目录下就可以启动了
 
 # 引用部分
 
-我自己写的插件</br>
+## 插件引用
+我自己写的插件[BetterInspector](https://github.com/ZundaDD/BetterInspector)</br>
+补间动画插件[DOTweens](https://dotween.demigiant.com/)</br>
+音频播放插件[NLayer](https://github.com/naudio/NLayer)</br>
+## 素材引用
 部分图片来自[vecteezy](https://www.vecteezy.com/)</br>
-部分图标来自[flaticon](https://www.flaticon.com/)
+部分图标来自[flaticon](https://www.flaticon.com/)</br>
+字体来自[100fonts](https://www.100font.com/)</br>
+部分音效来自[freesounds](https://freesound.org/)</br>
+部分图标和图片来自[爱给网](https://www.aigei.com/)</br>
