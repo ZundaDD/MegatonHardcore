@@ -26,7 +26,7 @@ namespace Megaton
 
         private void Start()
         {
-            exitButton.onClick.AddListener(() => SceneManager.LoadScene(1));
+            exitButton.onClick.AddListener(() => SceneSwitch.Ins.Ending(2));
         }
     }
 }

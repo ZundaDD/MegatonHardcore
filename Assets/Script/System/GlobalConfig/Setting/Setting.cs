@@ -18,6 +18,10 @@ namespace Megaton
 
         #endregion
 
+        #region 场景配置
+        public RangeVarible Board_Distance = RangeVarible.GetRangeVarible(-8f, 8f, 0, 1f, 0);
+        #endregion
+        
         #region 游玩显示配置
         public BoolVarible Distinguish_Critical = BoolVarible.GetBoolVarible(true);
         public BoolVarible Show_Fast_Late = BoolVarible.GetBoolVarible(true);

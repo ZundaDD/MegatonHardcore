@@ -19,11 +19,9 @@ namespace Megaton.Abstract
         public class IdentityStringAttribute : Attribute
         {
             public string Id;
-            public int SceneIndex;
-            public IdentityStringAttribute(string id,int sceneindex)
+            public IdentityStringAttribute(string id)
             {
                 this.Id = id;
-                this.SceneIndex = sceneindex;
             }
         }
 
@@ -32,7 +30,6 @@ namespace Megaton.Abstract
         /// </summary>
         private static Dictionary<string, Type> subMode = new();
 
-        private static Dictionary<string, int> sceneIndex = new();
 
         static Mode()
         {
@@ -44,7 +41,6 @@ namespace Megaton.Abstract
                 if (attribute != null)
                 {
                     subMode.Add(attribute.Id, type);
-                    sceneIndex.Add(attribute.Id, attribute.SceneIndex);
                 }
             }
         }
@@ -53,7 +49,6 @@ namespace Megaton.Abstract
 
         public static Mode GetMode(string id) => Activator.CreateInstance(subMode[id]) as Mode;
 
-        public static int GetSceneIndex(string id) => sceneIndex[id];
         #endregion
 
         /// <summary>

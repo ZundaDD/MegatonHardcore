@@ -19,6 +19,7 @@ namespace Megaton.UI
         [SerializeField] private Button exitButton;
         [SerializeField] private Button settingButton;
         [SerializeField] private SelectedDisplay selectedHandler;
+        [SerializeField] private GameObject blockSelect;
 
         private void Awake()
         {
@@ -30,7 +31,7 @@ namespace Megaton.UI
         {
             settingCanvas.gameObject.SetActive(false);
             settingButton.onClick.AddListener(() => settingCanvas.EnableAnimation());
-            exitButton.onClick.AddListener(Application.Quit);
+            exitButton.onClick.AddListener(() => SceneSwitch.Ins.Ending(1));
         }
 
         /// <summary>
@@ -39,8 +40,9 @@ namespace Megaton.UI
         /// <param name="chartInfo">谱面信息</param>
         public void StartPlay(ChartInfo chartInfo)
         {
+            blockSelect.SetActive(true);
             GameVar.CurPlay = ChartLoader.Path2Play(chartInfo.RootDir,chartInfo);
-            SceneManager.LoadScene(Mode.GetSceneIndex(chartInfo.PlayMode));
+            SceneSwitch.Ins.Ending(chartInfo.PlayMode);
         }
 
     }

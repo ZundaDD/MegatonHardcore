@@ -9,10 +9,12 @@ namespace Megaton.UI
     public class ScrollViewController : MonoBehaviour,IEnhancedScrollerDelegate
     {
         private EnhancedScroller scroller;
+        private RectTransform prefabRect;
         [SerializeField] private SongCellView cellPrefab;
 
         void Start()
         {
+            prefabRect = cellPrefab.GetComponent<RectTransform>();
             scroller = GetComponent<EnhancedScroller>();
             scroller.Delegate = this;
             scroller.ReloadData();
@@ -25,7 +27,7 @@ namespace Megaton.UI
             return cellView;
         }
 
-        public float GetCellViewSize(EnhancedScroller scroller, int dataIndex) => 70f;
+        public float GetCellViewSize(EnhancedScroller scroller, int dataIndex) => prefabRect.rect.height;
 
         public int GetNumberOfCells(EnhancedScroller scroller) => GameVar.ChartInfos.Count;
 

@@ -15,6 +15,7 @@ namespace Megaton
         public static PlayController Ins => ins;
 
         [SerializeField] private RailCollection rails;
+        [SerializeField] private Canvas canvasFar;
         [SerializeField] private MusicPlayer musicPlayer;
         [SerializeField] private Button pauseButton;
         [SerializeField] private ScoreboardUI scoreboardUI;
@@ -41,6 +42,9 @@ namespace Megaton
             rails.CollectRails();
             ProcessInput.BindRail(rails);
 
+            //场景配置
+            canvasFar.planeDistance = 100 + Setting.Ins.Board_Distance.Value * 10;
+
             //UI显示
             ScoreBoard.Clear(GameVar.CurPlay.Quantity);
             scoreboardUI.Bind();
@@ -62,7 +66,7 @@ namespace Megaton
         {
             ProcessInput.ReleaseRail();
             scoreboardUI.UnBind();
-            SceneManager.LoadScene(2);
+            SceneSwitch.Ins.Ending(3);
             GameVar.IfPrepare = false;
             GameVar.IfStarted = false;
         }

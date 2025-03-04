@@ -70,16 +70,19 @@ namespace Megaton.UI
         /// </summary>
         public void AddConfigObject()
         {
-            GenerateHead("时间设置");
+            GenerateHead("时间");
             GenerateObject(Setting.Ins.Speed, "流速");
             GenerateObject(Setting.Ins.Input_Offset, "输入延迟", "$ms");
             GenerateObject(Setting.Ins.Music_Offset, "音乐延迟", "$ms");
 
-            GenerateHead("游玩设置");
+            GenerateHead("场景");
+            GenerateObject(Setting.Ins.Board_Distance, "挡板距离");
+
+            GenerateHead("游玩");
             GenerateObject(Setting.Ins.Distinguish_Critical, "区分Critical");
             GenerateObject(Setting.Ins.Show_Fast_Late, "显示快慢");
 
-            GenerateHead("音频设置");
+            GenerateHead("音频");
             GenerateObject(Setting.Ins.Effect_Volume, "音效音量", "$%");
             GenerateObject(Setting.Ins.Music_Volume, "音乐音量", "$%");
 

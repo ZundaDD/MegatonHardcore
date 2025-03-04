@@ -1,5 +1,6 @@
 using EnhancedUI.EnhancedScroller;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Megaton.UI
 {
@@ -13,7 +14,7 @@ namespace Megaton.UI
 
         private float changeSpace = InOutText.limit;
         private ChartInfo curSelection;
-        private LoopFlash curHint;
+        private Image curHint;
         // 场景引用
         [SerializeField] private EnhancedScroller scroller;
         [SerializeField] private InOutText title;
@@ -43,7 +44,14 @@ namespace Megaton.UI
             if(changeSpace < InOutText.limit) changeSpace += Time.deltaTime;
         }
 
-        public void ChangeSelected(ChartInfo info, LoopFlash newSelection)
+        public void RealertSelected(Image reSelection)
+        {
+            curHint?.gameObject.SetActive(false);
+            curHint = reSelection;
+            curHint.gameObject.SetActive(true);
+        }
+
+        public void ChangeSelected(ChartInfo info, Image newSelection)
         {
             //点击冷却
             if (changeSpace < InOutText.limit) return;

@@ -33,12 +33,12 @@ namespace Megaton
 
         void Start()
         {
-            initProgress = new("点击以进入游戏");
+            initProgress = new("加载场景中...");
             initProgress.OnFinished += () => 
             {
                 GameVar.IfInitialed = true;
                 loadingIcon.SetActive(false);
-                ProcessInput.Ins.input.UI.LeftMouse.performed += StartGame;
+                StartCoroutine(loadScene());
             };
             
             initProgress.AddTask(CheckDirectory, "验证目录中...");
@@ -47,23 +47,18 @@ namespace Megaton
             initProgress.Start();
         }
 
-        public void StartGame(InputAction.CallbackContext ctx)
-        {
-            ProcessInput.Ins.input.UI.LeftMouse.performed -= StartGame;
-            StartCoroutine(loadScene());
-        }
-
         public IEnumerator loadScene()
         {
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1);
-
-            while (!asyncLoad.isDone)
-            {
-                yield return null;
-            }
+            while (!asyncLoad.isDone) yield return null;
         }
 
-        private void LoadAllScore() => GameVar.ChartScores = ScoreLoader.Path2Score();
+        #region 初始化任务
+        /// <summary>
+        /// 加载全部分数
+        /// </summary>
+        private void LoadAllScore() => 
+            GameVar.ChartScores = ScoreLoader.Path2Score();
 
         /// <summary>
         /// 验证所需目录是否被创建
@@ -102,5 +97,6 @@ namespace Megaton
             }
             Debug.Log($"{total} Charts Loaded!");
         }
+        #endregion
     }
 }

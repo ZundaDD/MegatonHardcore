@@ -15,14 +15,14 @@ namespace Megaton.UI
         [SerializeField] Text modeText;
         [SerializeField] Image coverImage;
         [SerializeField] Button selectedButton;
-        [SerializeField] public LoopFlash selectHint;
+        [SerializeField] public Image selectHint;
 
         public void Bind(ChartInfo chartInfo)
         {
             //恢复闪
             if(SelectedDisplay.Ins.IfSelected(chartInfo))
             {
-                selectHint.gameObject.SetActive(true);
+                SelectedDisplay.Ins.RealertSelected(selectHint);
             }
 
             //显示

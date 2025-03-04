@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Megaton.Classic
 {
-    [IdentityString("L2R2",3)]
+    [IdentityString("L2R2")]
     public class L2R2 : Mode
     {
         public override void InputBinding(InputMap inputActions,RailCollection rails)
@@ -20,7 +20,6 @@ namespace Megaton.Classic
 
         public override Command ParseCommand(string token,int bpm,int divide)
         {
-            Debug.Log(token);
             switch (token[0])
             {
                 case 'T':
