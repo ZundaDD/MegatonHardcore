@@ -1,6 +1,8 @@
 ﻿
 using DanielLochner.Assets.SimpleScrollSnap;
 using DG.Tweening;
+using Megaton.UI;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -21,7 +23,13 @@ namespace Megaton
 
         private void Start()
         {
-            confirmButton.onClick.AddListener(() => SceneSwitch.Ins.Ending(2));
+            DOTween.Sequence().AppendCallback(() => scroller.GoToNextPanel()).SetDelay(0.1f);
+            confirmButton.onClick.AddListener(() =>
+            {
+                var index = scroller.CenteredPanel;
+                GlobalEffectPlayer.PlayEffect(AudioEffect.OnSongSelect);
+                contentRect.GetChild(index).GetComponent<PageCellView>().DoPage?.Invoke();
+            });
         }
 
         
