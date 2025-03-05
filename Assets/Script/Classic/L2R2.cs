@@ -38,7 +38,7 @@ namespace Megaton.Classic
                         {
                             return null;
                         }
-                        return new Hold() {  ExactLength = length * 60 / (bpm * divide / 8)};
+                        return new Hold() {  ExactLength = length * 60 / (bpm * divide / 4)};
                     }
                     return null;
                 default:

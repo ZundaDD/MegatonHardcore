@@ -10,11 +10,11 @@ namespace Megaton.Classic
     {
         private JudgeEnum headJudge = JudgeEnum.MISS;
         private float holdTime;
-        private bool ifStart = false;
+        public bool ifStart { get; private set; } = false;
 
         public float ExactLength;
 
-        public override float JudgeStart => 0.15f;
+        public override float JudgeStart => 0.12f;
         public override float JudgeEnd => ExactLength;
 
         public override JudgeEnum GetResult()
@@ -45,8 +45,11 @@ namespace Megaton.Classic
             float Offset = MusicPlayer.ExactTime - ExactTime;
 
             //从Off状态变为On状态进行头判
-            if (railState && !formState && !ifStart && Offset < 0.12f && Offset > -0.12f)
+            if (railState && !formState && !ifStart && Offset < JudgeStart && Offset > -JudgeStart)
+            {
                 headJudge = Tap.TapJudge(Offset);
+                ifStart = true;
+            }
 
             //Hold积累按下时长
             if (Offset - ExactLength < -0.1f && Offset > 0.1f && railState) holdTime += Time.deltaTime;

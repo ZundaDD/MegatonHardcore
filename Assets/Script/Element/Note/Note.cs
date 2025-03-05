@@ -51,7 +51,6 @@ namespace Megaton.Abstract
         {
             var go = MonoBehaviour.Instantiate(prefab);
             go.GetComponent<NoteSO>().Bind(this);
-            go.transform.position = new(0, 0, GameVar.Velocity * (GameVar.PrepareFrame * Time.fixedDeltaTime + ExactTime));
             return go;
         }
     }

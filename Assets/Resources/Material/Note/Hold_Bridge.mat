@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Note
+  m_Name: Hold_Bridge
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -117,8 +117,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.6802514, g: 0.7252703, b: 0.73045814, a: 1}
-    - _Color: {r: 0.6802514, g: 0.7252703, b: 0.73045814, a: 1}
+    - _BaseColor: {r: 0.52903926, g: 0.94884366, b: 0.9838275, a: 1}
+    - _Color: {r: 0.52903914, g: 0.94884366, b: 0.9838274, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

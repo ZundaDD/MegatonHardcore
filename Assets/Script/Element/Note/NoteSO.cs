@@ -11,9 +11,14 @@ namespace Megaton.Abstract
     {
         protected Note note;
 
-        public void Bind(Note note)
+        /// <summary>
+        /// 与数据note绑定，定位时间轴
+        /// </summary>
+        /// <param name="note">实际note</param>
+        public virtual void Bind(Note note)
         {
             this.note = note;
+            transform.position = new(0, 0, GameVar.Velocity * (GameVar.PrepareFrame * Time.fixedDeltaTime + note.ExactTime));
             note.OnJudge += Judge;
             note.OnResult += (judge) => JudgeFeedBack.Ins.SummonAt(judge, this.transform.position);
         }

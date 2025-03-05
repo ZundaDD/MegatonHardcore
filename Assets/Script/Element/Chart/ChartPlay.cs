@@ -25,7 +25,6 @@ namespace Megaton
         {
             string[] token = command.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             int divide = int.Parse(token[0]);
-            Debug.Log(command);
             for (int i = 1; i < token.Length; i++)
             {
                 //一个子音符组加时一次

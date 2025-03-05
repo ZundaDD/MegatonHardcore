@@ -2760,9 +2760,9 @@ MonoBehaviour:
   - Id: Tap
     Prefab: {fileID: 1773887318532539875, guid: db670d04e0381a54aa0ae83a76bee140, type: 3}
   - Id: Catch
-    Prefab: {fileID: 1773887318532539875, guid: db670d04e0381a54aa0ae83a76bee140, type: 3}
+    Prefab: {fileID: 1773887318532539875, guid: 43691a372fea77e409b7a76d069ae9d7, type: 3}
   - Id: Hold
-    Prefab: {fileID: 1773887318532539875, guid: db670d04e0381a54aa0ae83a76bee140, type: 3}
+    Prefab: {fileID: 1773887318532539875, guid: 520f1ce030602c445b7526faf75e6cd8, type: 3}
 --- !u!1 &1481801526
 GameObject:
   m_ObjectHideFlags: 0
@@ -3438,7 +3438,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2392984328269354300, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_Pivot.x
