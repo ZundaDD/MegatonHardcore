@@ -72,7 +72,6 @@ namespace Megaton
                 if (rails.ContainsKey(command.Key))
                 {
                     rails[command.Key].Notes = command.Value.ConvertAll((x) => x as Note);
-                    rails[command.Key].CalculateMax();
                     Debug.Log($"Rail:{command.Key}, Note:{rails[command.Key].Notes.Count}");
                 }
             }
@@ -87,7 +86,8 @@ namespace Megaton
             {
                 foreach (var note in rail.Value.Notes)
                 {
-                    var go = note.GenerateSO(notePrefabs[note.GetType().Name]);
+                    var go = Instantiate(notePrefabs[note.GetType().Name]);
+                    go.GetComponent<NoteSO>().Bind(note);
                     go.transform.position += new Vector3(
                         rail.Value.transform.position.x,
                         rail.Value.transform.position.y,

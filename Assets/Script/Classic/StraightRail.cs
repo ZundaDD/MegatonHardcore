@@ -10,29 +10,20 @@ namespace Megaton.Classic
     public class StraightRail : Rail
     {
         private bool on = false;
-        private bool[] sample = new bool[2];
+        private (bool current, bool form) sample = new(false, false);
 
         public override void Hold(InputAction.CallbackContext ctx) { }
 
-        public override bool[] QueryNoteState(Note note) => sample;
+        public override (bool current,bool form) QueryNoteState(Note note) => sample;
 
-        public override void Release(InputAction.CallbackContext ctx)
-        {
-            
-            on = false;
-        }
+        public override void Release(InputAction.CallbackContext ctx) => on = false;
 
-        public override void Tap(InputAction.CallbackContext ctx)
-        {
-            
-            on = true;
-        }
+        public override void Tap(InputAction.CallbackContext ctx) => on = true;
 
         public override void Sample()
         {
-            //采样
-            sample[1] = sample[0];
-            sample[0] = on;
+            sample.form = sample.current;
+            sample.current = on;
         }
     }
 }

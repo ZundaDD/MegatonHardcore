@@ -20,14 +20,14 @@ namespace Megaton.Classic
         }
 
 
-        public override bool Judge(bool railState, bool formState)
+        public override (bool success,bool ifcontinue) Judge(bool railState, bool formState)
         {
             //在On状态就进行判定
-            if (railState) return true;
+            if (railState) return (true, false);
             //未点击到强制MISS判定
-            if (MusicPlayer.ExactTime - ExactTime > JudgeEnd) return true;
+            if (MusicPlayer.ExactTime - ExactTime > JudgeEnd) return (true, false);
             //其它时刻不构成判定
-            return false;
+            return (false, false);
         }
     }
 }

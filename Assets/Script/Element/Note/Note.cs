@@ -34,25 +34,13 @@ namespace Megaton.Abstract
         /// <param name="railState">轨道的输入状态</param>
         /// <param name="formState">轨道上一次输入状态</param>
         /// <returns>是否得到判定结果</returns>
-        public abstract bool Judge(bool railState,bool formState);
+        public abstract (bool success,bool ifcontinue) Judge(bool railState,bool formState);
 
         /// <summary>
         /// 返回判定结果
         /// </summary>
         /// <returns>判定结果</returns>
         public abstract JudgeEnum GetResult();
-
-        /// <summary>
-        /// 生成对应SO
-        /// </summary>
-        /// <param name="prefab">对应预制件</param>
-        /// <returns>生成物体</returns>
-        public virtual GameObject GenerateSO(GameObject prefab)
-        {
-            var go = MonoBehaviour.Instantiate(prefab);
-            go.GetComponent<NoteSO>().Bind(this);
-            return go;
-        }
     }
 
 }

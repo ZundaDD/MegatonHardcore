@@ -40,7 +40,7 @@ namespace Megaton.Classic
             return headJudge;
         }
 
-        public override bool Judge(bool railState, bool formState)
+        public override (bool success,bool ifcontinue) Judge(bool railState, bool formState)
         {
             float Offset = MusicPlayer.ExactTime - ExactTime;
 
@@ -49,16 +49,20 @@ namespace Megaton.Classic
             {
                 headJudge = Tap.TapJudge(Offset);
                 ifStart = true;
+                return (false, false);
             }
 
             //Hold积累按下时长
-            if (Offset - ExactLength < -0.1f && Offset > 0.1f && railState) holdTime += Time.deltaTime;
-            
+            if (Offset - ExactLength < -0.1f && Offset > 0.1f && railState)
+            {
+                holdTime += Time.deltaTime;
+                return (false, true);
+            }
             //Hold结束时得到判定
-            if (Offset > ExactLength) return true;
-            
+            if (Offset > ExactLength) return (true, true);
+
             //其余时刻不构成判定
-            return false;
+            return (false, false);
         }
     }
 }

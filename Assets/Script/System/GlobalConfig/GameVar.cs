@@ -69,5 +69,10 @@ namespace Megaton
         /// 准备帧
         /// </summary>
         public static int PrepareFrame = 120;
+
+        /// <summary>
+        /// 恢复帧
+        /// </summary>
+        public static int RestoreFrame = 2;
     }
 }

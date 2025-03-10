@@ -18,6 +18,7 @@ namespace Megaton
         [SerializeField] private Canvas canvasFar;
         [SerializeField] private MusicPlayer musicPlayer;
         [SerializeField] private Button pauseButton;
+        [SerializeField] private PauseUI pauseUI;
         [SerializeField] private ScoreboardUI scoreboardUI;
 
         /// <summary>
@@ -30,14 +31,18 @@ namespace Megaton
                 SceneManager.LoadScene(0);
                 return;
             }
-
             ins = this;
         }
 
-        private void Start()
+        private void Start() => Initial();
+        #region 流程控制
+        /// <summary>
+        /// 初始化游戏，加载资源和构建谱面
+        /// </summary>
+        public void Initial()
         {
-            pauseButton.onClick.AddListener(EndPlay);
-
+            pauseButton.onClick.AddListener(pauseUI.EnableAnimation);
+            
             //输入设置
             rails.CollectRails();
             ProcessInput.BindRail(rails);
@@ -54,13 +59,31 @@ namespace Megaton
             rails.LoadNotes(GameVar.CurPlay.GetRailCommands());
             rails.GenerateNotes();
 
-            //启动流程
-            musicPlayer.OnEnd += EndPlay;
             musicPlayer.CommandPlay(GameVar.CurPlay.Music);
         }
 
         /// <summary>
-        /// 结束游玩
+        /// 暂停游玩
+        /// </summary>
+        public void Pause()
+        {
+            GameVar.IfPaused = true;
+            GameVar.IfPrepare = false;
+            GameVar.IfStarted = false;
+            musicPlayer.Pause();
+        }
+
+        /// <summary>
+        /// 恢复游玩
+        /// </summary>
+        public void Restore()
+        {
+            GameVar.IfPaused = false;
+            musicPlayer.Restore();
+        }
+
+        /// <summary>
+        /// 结束游玩，进行结算
         /// </summary>
         public void EndPlay()
         {
@@ -71,5 +94,29 @@ namespace Megaton
             GameVar.IfStarted = false;
         }
 
+        /// <summary>
+        /// 重新开始游玩，不进行结算
+        /// </summary>
+        public void Restart()
+        {
+            ProcessInput.ReleaseRail();
+            scoreboardUI.UnBind();
+            SceneSwitch.Ins.Ending(SceneManager.GetActiveScene().name);
+            GameVar.IfPrepare = false;
+            GameVar.IfStarted = false;
+        }
+
+        /// <summary>
+        /// 退出游玩，不进行结算
+        /// </summary>
+        public void Exit()
+        {
+            ProcessInput.ReleaseRail();
+            scoreboardUI.UnBind();
+            SceneSwitch.Ins.Ending(2);
+            GameVar.IfPrepare = false;
+            GameVar.IfStarted = false;
+        }
+        #endregion
     }
 }

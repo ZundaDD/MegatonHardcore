@@ -27,14 +27,14 @@ namespace Megaton.Classic
             else return JudgeEnum.MISS;
         }
 
-        public override bool Judge(bool railState, bool formState)
+        public override (bool success,bool ifcontinue) Judge(bool railState, bool formState)
         {
             //从Off状态变为On状态是为一次判定
-            if (railState && !formState) return true;
+            if (railState && !formState) return (true, false);
             //未点击到强制MISS判定
-            if (MusicPlayer.ExactTime - ExactTime > JudgeEnd) return true;
+            if (MusicPlayer.ExactTime - ExactTime > JudgeEnd) return (true, false);
             //其它时刻不构成判定
-            return false;
+            return (false, false);
         }
     }
 }

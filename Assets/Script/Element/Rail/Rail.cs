@@ -14,9 +14,11 @@ namespace Megaton.Abstract
     {
         public RailEnum Id;
         public List<Note> Notes = new();
-        
-        private float maxStart;
-        private float maxEnd;
+
+        /// <summary>
+        /// 轨道发生判定的时候调用
+        /// </summary>
+        public Action<bool,bool> OnJudge;
 
         /// <summary>
         /// 按下
@@ -39,7 +41,7 @@ namespace Megaton.Abstract
         /// </summary>
         /// <param name="note"></param>
         /// <returns>[现态,次态]</returns>
-        public abstract bool[] QueryNoteState(Note note);
+        public abstract (bool current, bool form) QueryNoteState(Note note);
 
         /// <summary>
         /// 采样输入
@@ -47,48 +49,36 @@ namespace Megaton.Abstract
         public abstract void Sample();
 
         /// <summary>
-        /// 计算最大值
-        /// </summary>
-        public void CalculateMax()
-        {
-            maxStart = Notes.Max<Note>(x => x.JudgeStart);
-            maxEnd = Notes.Max<Note>(x => x.JudgeEnd);
-        }
-
-        
-        /// <summary>
         /// 尝试判定，同时只能对一个Note进行判定
         /// </summary>
         public virtual void TryJudge()
         {
             Sample();
-            if (Notes == null) return;
+            if (Notes == null || Notes.Count == 0) return;
             for(int i = 0;i < Notes.Count; i++)
             {
                 var note = Notes[i];
                 var gap = MusicPlayer.ExactTime - note.ExactTime;
-                
-                //过早检查
-                if (gap < -maxStart) break;
-                if (gap < -note.JudgeStart) continue;
+                Debug.Log(gap);
+                if (gap < -note.JudgeStart) break;
 
-                var sta = QueryNoteState(note);
+                var state = QueryNoteState(note);
+                var judge = note.Judge(state.current, state.form);
+                OnJudge(judge.success, judge.ifcontinue);
+                note.OnJudge(state.current, state.form);
 
-                
                 //判断是否完成判定
-                if (note.Judge(sta[0], sta[1]))
+                if (judge.success)
                 {
-                    var judge = note.GetResult();
-                    Debug.Log($"{note.ExactTime} {String.Format("{0:+0;-#;+0}",(MusicPlayer.ExactTime-note.ExactTime) * 1000).ToString()}ms {note.GetType().Name}:{judge}");
-                    ScoreBoard.AddJudge(judge);
-                    note.OnResult(judge);
+                    var result = note.GetResult();
+                    Debug.Log($"{note.ExactTime} {String.Format("{0:+0;-#;+0}", (MusicPlayer.ExactTime - note.ExactTime) * 1000).ToString()}ms {note.GetType().Name}:{judge}");
+                    ScoreBoard.AddJudge(result);
+                    note.OnResult(result);
                     Notes.RemoveAt(i);
                     i--;
                 }
-                
-                note.OnJudge(sta[0], sta[1]);
 
-                break;
+                if (!judge.ifcontinue) break;
             }
         }
     }

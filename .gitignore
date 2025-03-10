@@ -3,11 +3,15 @@ Logs/
 Data/
 Outputs/
 obj/
+Assets/Editor
+Assets/Editor.meta
 Assets/Resources/Arts/
 Packages/
 Assets/Packages/
 Assets/Plugins/
 ProjectSettings/
+Assets/Mirza Beig
+Assets/Mirza Beig.meta
 UserSettings/
 *.vsconfig
 *.csproj
