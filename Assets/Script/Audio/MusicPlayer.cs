@@ -88,16 +88,16 @@ namespace Megaton
         /// </summary>
         public void Align()
         {
+            
             float dsp = (float)AudioSettings.dspTime;
             float gap = dsp - startDSP - Time.fixedDeltaTime * waitFrame;
             if (gap < 0) return;
-
+            
             //音乐时间与累计时间对比
             gap -= ExactTime - pauseExactTime;
             GameVar.IfStarted = true;
             GameCamera.Align(gap);
             ExactTime += gap;
-
             Debug.Log(string.Format("<color=#9aff99>Offset</color>:{0}ms", gap));
         }
         

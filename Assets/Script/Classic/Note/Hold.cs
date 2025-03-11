@@ -44,22 +44,21 @@ namespace Megaton.Classic
         {
             float Offset = MusicPlayer.ExactTime - ExactTime;
 
+            if(Offset < ExactLength && Offset > 0 && railState) holdTime += Time.deltaTime;
+            
             //从Off状态变为On状态进行头判
-            if (railState && !formState && !ifStart && Offset < JudgeStart && Offset > -JudgeStart)
+            if (railState && !formState && !ifStart && Mathf.Abs(Offset) < JudgeStart)
             {
                 headJudge = Tap.TapJudge(Offset);
                 ifStart = true;
                 return (false, false);
             }
-
-            //Hold积累按下时长
-            if (Offset - ExactLength < -0.1f && Offset > 0.1f && railState)
-            {
-                holdTime += Time.deltaTime;
-                return (false, true);
-            }
+            
             //Hold结束时得到判定
             if (Offset > ExactLength) return (true, true);
+            
+            //Hold积累按下时长
+            if (Offset > 0 && railState) return (false, true);
 
             //其余时刻不构成判定
             return (false, false);

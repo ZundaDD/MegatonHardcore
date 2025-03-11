@@ -10,12 +10,21 @@ namespace Megaton.Classic
     {
         [SerializeField] private ParticleSystem feedback;
         [SerializeField] private ParticleSystem.MainModule mainModule;
+        private float timer = 0;
+
         public override void Feedback(bool success,bool ifcontinue)
         {
-            if (ifcontinue) mainModule.loop = true;
-            else mainModule.loop = false;
-            if (success) feedback.Play();
-            if (ifcontinue && feedback.isPlaying == false) feedback.Play();
+            if(success) feedback.Play();
+            //缓冲
+            if(ifcontinue)
+            {
+                timer += Time.deltaTime;
+                if(timer > 2 * Time.fixedDeltaTime)
+                {
+                    timer = 0;
+                    feedback.Play();
+                }
+            }
         }
 
         void Start()

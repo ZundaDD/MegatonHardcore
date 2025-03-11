@@ -92,6 +92,7 @@ namespace Megaton
             SceneSwitch.Ins.Ending(3);
             GameVar.IfPrepare = false;
             GameVar.IfStarted = false;
+            GameVar.IfPaused = false;
         }
 
         /// <summary>
@@ -104,6 +105,7 @@ namespace Megaton
             SceneSwitch.Ins.Ending(SceneManager.GetActiveScene().name);
             GameVar.IfPrepare = false;
             GameVar.IfStarted = false;
+            GameVar.IfPaused = false;
         }
 
         /// <summary>
@@ -116,6 +118,7 @@ namespace Megaton
             SceneSwitch.Ins.Ending(2);
             GameVar.IfPrepare = false;
             GameVar.IfStarted = false;
+            GameVar.IfPaused = false;
         }
         #endregion
     }

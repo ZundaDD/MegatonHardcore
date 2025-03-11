@@ -59,13 +59,12 @@ namespace Megaton.Abstract
             {
                 var note = Notes[i];
                 var gap = MusicPlayer.ExactTime - note.ExactTime;
-                Debug.Log(gap);
+                
                 if (gap < -note.JudgeStart) break;
 
                 var state = QueryNoteState(note);
                 var judge = note.Judge(state.current, state.form);
-                OnJudge(judge.success, judge.ifcontinue);
-                note.OnJudge(state.current, state.form);
+                
 
                 //判断是否完成判定
                 if (judge.success)
@@ -73,11 +72,15 @@ namespace Megaton.Abstract
                     var result = note.GetResult();
                     Debug.Log($"{note.ExactTime} {String.Format("{0:+0;-#;+0}", (MusicPlayer.ExactTime - note.ExactTime) * 1000).ToString()}ms {note.GetType().Name}:{judge}");
                     ScoreBoard.AddJudge(result);
+                    OnJudge(judge.success && result != JudgeEnum.MISS, judge.ifcontinue);
                     note.OnResult(result);
                     Notes.RemoveAt(i);
                     i--;
                 }
-
+                else OnJudge(judge.success, judge.ifcontinue);
+                
+                note.OnJudge(state.current, state.form);
+                
                 if (!judge.ifcontinue) break;
             }
         }
