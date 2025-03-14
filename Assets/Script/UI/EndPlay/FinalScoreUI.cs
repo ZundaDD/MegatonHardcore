@@ -29,11 +29,11 @@ namespace Megaton.UI
             gapScoreText.text = (gap >= 0 ? "+" : "") + gap.ToString();
             fast.text = ScoreBoard.Ins.Fast.ToString();
             late.text = ScoreBoard.Ins.Late.ToString();
-            critical.text = ScoreBoard.Ins.Scores[JudgeEnum.CRITICAL].ToString();
-            perfect.text = (ScoreBoard.Ins.Scores[JudgeEnum.S_PERFECT] + ScoreBoard.Ins.Scores[JudgeEnum.F_PERFECT]).ToString();
-            great.text = (ScoreBoard.Ins.Scores[JudgeEnum.S_GREAT] + ScoreBoard.Ins.Scores[JudgeEnum.F_GREAT]).ToString();
-            good.text = (ScoreBoard.Ins.Scores[JudgeEnum.S_GOOD] + ScoreBoard.Ins.Scores[JudgeEnum.F_GOOD]).ToString();
-            miss.text = ScoreBoard.Ins.Scores[JudgeEnum.MISS].ToString();
+            critical.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.CRITICAL].ToString();
+            perfect.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.PERFECT].ToString();
+            great.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.PERFECT].ToString();
+            good.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.PERFECT].ToString();
+            miss.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.MISS].ToString();
             rank.text = ChartScore.GetRank(ScoreBoard.Ins.Score);
 
             //如果之前没有过游玩记录的话，分数字典中并不会存在对应项

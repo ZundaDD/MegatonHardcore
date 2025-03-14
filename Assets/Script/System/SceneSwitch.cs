@@ -14,7 +14,10 @@ namespace Megaton
         [SerializeField] private RectTransform leftMask;
         [SerializeField] private RectTransform rightMask;
 
-        private void Awake() => ins = this;
+        private void Awake()
+        {
+            ins = this;
+        }
 
         void Start() => Opening();
 
@@ -23,14 +26,14 @@ namespace Megaton
         /// </summary>
         private void Opening()
         {
-            leftMask.DOAnchorPosX(leftMask.anchoredPosition.x - 1000f, maskTime).SetEase(Ease.InOutCubic);
-            rightMask.DOAnchorPosX(rightMask.anchoredPosition.x + 1000f, maskTime).SetEase(Ease.InOutCubic);
+            leftMask.DOAnchorPosX(-1000f, maskTime).SetEase(Ease.InOutCubic);
+            rightMask.DOAnchorPosX(1000f, maskTime).SetEase(Ease.InOutCubic);
         }
 
         public void Ending(int sceneIndex)
         {
-            leftMask.DOAnchorPosX(leftMask.anchoredPosition.x + 1000f, maskTime).SetEase(Ease.InOutCubic);
-            rightMask.DOAnchorPosX(rightMask.anchoredPosition.x - 1000f, maskTime).SetEase(Ease.InOutCubic)
+            leftMask.DOAnchorPosX(0, maskTime).SetEase(Ease.InOutCubic);
+            rightMask.DOAnchorPosX(0, maskTime).SetEase(Ease.InOutCubic)
                 .OnComplete(() =>
                 {
                     StartCoroutine(loadScene(sceneIndex));

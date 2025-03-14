@@ -6,7 +6,7 @@ namespace Megaton.UI
     /// <summary>
     /// 选歌控制器
     /// </summary>
-    public class ScrollViewController : MonoBehaviour,IEnhancedScrollerDelegate
+    public class SongListController : MonoBehaviour,IEnhancedScrollerDelegate
     {
         private EnhancedScroller scroller;
         private RectTransform prefabRect;

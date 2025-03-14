@@ -13,4 +13,16 @@ namespace Megaton
         F_GOOD = 3, S_GOOD = -3,
         MISS = -4
     }
+
+    /// <summary>
+    /// 精简判定枚举
+    /// </summary>
+    public enum SimplifyJudgeEnum
+    {
+        MISS = 4,
+        GOOD = 3,
+        GREAT = 2,
+        PERFECT = 1,
+        CRITICAL = 0
+    }
 }

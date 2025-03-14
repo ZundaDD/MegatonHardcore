@@ -18,7 +18,7 @@ namespace Megaton
         public Action onAdded;
 
         //分数项
-        public EnumArray<JudgeEnum, int> Scores  = new();
+        public EnumArray<SimplifyJudgeEnum, int> Scores  = new();
         public int Fast = 0;
         public int Late = 0;
         public int All = 0;
@@ -35,6 +35,48 @@ namespace Megaton
             ins.All = newQ;
         }
 
+        public static int GetFloatScore()
+        {
+            var dict = Ins.Scores;
+
+            int score101 = 10100000 - (int)Math.Round(1e7f / Ins.All *
+                (
+                0.01f * (dict[SimplifyJudgeEnum.PERFECT]) +
+                0.26f * (dict[SimplifyJudgeEnum.GREAT]) +
+                0.56f * (dict[SimplifyJudgeEnum.GOOD]) +
+                1.01f * (dict[SimplifyJudgeEnum.MISS])
+                ));
+            switch (Setting.Ins.Float_Score_Type.Value)
+            {
+                case ScoreType.Minus101:
+                    return score101;
+                case ScoreType.Minus100:
+                    return 10000000 - (int)Math.Round(1e7f / Ins.All *
+                (
+                -0.01f * (dict[SimplifyJudgeEnum.CRITICAL]) +
+                0.26f * (dict[SimplifyJudgeEnum.GREAT]) +
+                0.56f * (dict[SimplifyJudgeEnum.GOOD]) +
+                1.01f * (dict[SimplifyJudgeEnum.MISS])
+                ));
+                case ScoreType.Add0:
+                    return (int)Math.Round(1e7f / Ins.All *
+                (
+                1.01f * dict[SimplifyJudgeEnum.CRITICAL] +
+                1f * (dict[SimplifyJudgeEnum.PERFECT]) +
+                0.75f * (dict[SimplifyJudgeEnum.GREAT]) +
+                0.45f * (dict[SimplifyJudgeEnum.GOOD])
+                ));
+                case ScoreType.Gap1008:
+                    return score101 - 10080000;
+                case ScoreType.Gap1005:
+                    return score101 - 10050000;
+                case ScoreType.Gap1000:
+                    return score101 - 10000000;
+                default: return 0;
+            }
+
+        }
+
         /// <summary>
         /// 添加判定
         /// </summary>
@@ -42,23 +84,28 @@ namespace Megaton
         {
             var dict = Ins.Scores;
 
-            dict[judge]++;
+            //判定累计
+            var sjudge = (SimplifyJudgeEnum)Mathf.Abs((int)judge);
+            dict[sjudge]++;
             if(judge > 0) Ins.Fast++;
             else if(judge < 0 && judge != JudgeEnum.MISS) Ins.Late++;
 
+            //快慢累计
             if (judge != JudgeEnum.MISS) Ins.CurCombo++;
             else Ins.CurCombo = 0;
-
             Ins.MaxCombo = Mathf.Max(Ins.MaxCombo, Ins.CurCombo);
-            if (dict[JudgeEnum.CRITICAL] == Ins.All) Ins.Score = 10100000;
+
+            //分数累计
+            if (dict[SimplifyJudgeEnum.CRITICAL] == Ins.All) Ins.Score = 10100000;
             else Ins.Score = (int)Math.Round(1e7f / Ins.All *
                 (
-                1.01f * dict[JudgeEnum.CRITICAL] +
-                1f * (dict[JudgeEnum.S_PERFECT] + dict[JudgeEnum.F_PERFECT]) +
-                0.75f * (dict[JudgeEnum.S_GREAT] + dict[JudgeEnum.F_GREAT]) +
-                0.45f * (dict[JudgeEnum.S_GOOD] + dict[JudgeEnum.F_GOOD])
+                1.01f * dict[SimplifyJudgeEnum.CRITICAL] +
+                1f * (dict[SimplifyJudgeEnum.PERFECT]) +
+                0.75f * (dict[SimplifyJudgeEnum.GREAT]) +
+                0.45f * (dict[SimplifyJudgeEnum.GOOD])
                 ));
 
+            //反馈
             GlobalEffectPlayer.PlayEffect(AudioEffect.OnJudge);
             Ins.onAdded?.Invoke();
         }

@@ -47,8 +47,8 @@ namespace Megaton.Generic
         {
             return new BoolVarible(new()
             {
-                new (){description = "否",value= false},
-                new (){description = "是",value = true}
+                new ("否",false),
+                new ("是",true)
             },
             value ? 1 : 0,
             cycleable);
@@ -71,7 +71,7 @@ namespace Megaton.Generic
             List<Choice> choices = new List<Choice>();
             for (int i = 0; i < length; i++)
             {
-                choices.Add(new() { description = "", value = min + i * step });
+                choices.Add(new("", min + i * step));
             }
 
             var rv = new RangeVarible(choices, index, false);
@@ -89,6 +89,11 @@ namespace Megaton.Generic
         {
             public string description;
             public T value;
+            public Choice(string des,T val)
+            {
+                description = des;
+                value = val;
+            }
         }
 
         [SerializeField] private int curIndex = 0;

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Megaton.UI
 {
-    public class PlayInfo : MonoBehaviour
+    public class PlayChartInfoUI : MonoBehaviour
     {
         [SerializeField] private Image cover;
         [SerializeField] private Text title;

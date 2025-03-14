@@ -15,8 +15,8 @@ namespace Megaton
         public static string GetRank(int score)
         {
             if (score == 10100000) return "INF";
-            else if (score > 10800000) return "EX";
-            else if (score > 10500000) return "EX-";
+            else if (score > 10800000) return "EX+";
+            else if (score > 10500000) return "EX";
             else if (score > 10000000) return "FUL";
             else if (score > 9800000) return "S";
             else if (score > 9600000) return "A";

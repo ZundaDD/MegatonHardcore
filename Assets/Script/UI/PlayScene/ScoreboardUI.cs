@@ -14,8 +14,14 @@ namespace Megaton.UI
         [SerializeField] private Text fast_judge;
         [SerializeField] private Text late_judge;
         [SerializeField] private Text combo;
+        [SerializeField] private Text floatScore;
 
-        public void Bind() => ScoreBoard.Ins.onAdded += AddJudge;
+        public void Bind()
+        {
+            combo.text = "";
+            floatScore.text = GetFloatScoreText();
+            ScoreBoard.Ins.onAdded += AddJudge;
+        }
 
         public void UnBind() => ScoreBoard.Ins.onAdded -= AddJudge;
 
@@ -23,15 +29,36 @@ namespace Megaton.UI
         {
             fast_judge.text = ScoreBoard.Ins.Fast.ToString();
             late_judge.text = ScoreBoard.Ins.Late.ToString();
-            critical_judge.text = ScoreBoard.Ins.Scores[JudgeEnum.CRITICAL].ToString();
-            perfect_judge.text = (ScoreBoard.Ins.Scores[JudgeEnum.S_PERFECT] + ScoreBoard.Ins.Scores[JudgeEnum.F_PERFECT]).ToString();
-            great_judge.text = (ScoreBoard.Ins.Scores[JudgeEnum.S_GREAT] + ScoreBoard.Ins.Scores[JudgeEnum.F_GREAT]).ToString();
-            good_judge.text = (ScoreBoard.Ins.Scores[JudgeEnum.S_GOOD] + ScoreBoard.Ins.Scores[JudgeEnum.F_GOOD]).ToString();
-            miss_judge.text = ScoreBoard.Ins.Scores[JudgeEnum.MISS].ToString();
+            critical_judge.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.CRITICAL].ToString();
+            perfect_judge.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.PERFECT].ToString();
+            great_judge.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.PERFECT].ToString();
+            good_judge.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.PERFECT].ToString();
+            miss_judge.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.MISS].ToString();
             score.SetNumer(ScoreBoard.Ins.Score);
+            floatScore.text = GetFloatScoreText();
 
             int combo_n = ScoreBoard.Ins.CurCombo;
-            combo.text = combo_n == 0 ? "" : combo_n.ToString();
+            combo.text = combo_n == 0 ? "" : $"COMBO  {combo_n}";
+        }
+
+        private string GetFloatScoreText()
+        {
+            int score = ScoreBoard.GetFloatScore();
+            switch (Setting.Ins.Float_Score_Type.Value)
+            {
+                case ScoreType.Add0:
+                case ScoreType.Minus101:
+                case ScoreType.Minus100:
+                    return $"Score  {score}";
+                case ScoreType.Gap1008:
+                    return score < 0 ? "" : $"EX+  {ScoreBoard.GetFloatScore()}";
+                case ScoreType.Gap1005:
+                    return score < 0 ? "" : $"EX  {ScoreBoard.GetFloatScore()}";
+                case ScoreType.Gap1000:
+                    return score < 0 ? "" : $"FUL  {ScoreBoard.GetFloatScore()}";
+                default:
+                    return "";
+            }
         }
     }
 }

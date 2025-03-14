@@ -25,6 +25,14 @@ namespace Megaton
         #region 游玩显示配置
         public BoolVarible Distinguish_Critical = BoolVarible.GetBoolVarible(true);
         public BoolVarible Show_Fast_Late = BoolVarible.GetBoolVarible(true);
+        public DiscreteVarible<ScoreType> Float_Score_Type = new(new()
+        {   new("不显示",ScoreType.None),
+            new("101(-)",ScoreType.Minus101),
+            new("100(-)",ScoreType.Minus100),
+            new("距EX+",ScoreType.Gap1008),
+            new("距EX",ScoreType.Gap1005),
+            new("距FUL",ScoreType.Gap1000)
+          });
         #endregion
 
         #region 音频设置
@@ -40,6 +48,15 @@ namespace Megaton
         public static Setting Ins
         {
             get => (ins == null) ? ins = ReadFromFile() : ins;
+        }
+
+        /// <summary>
+        /// 恢复默认设置
+        /// </summary>
+        public static void Reset()
+        {
+            ins = new Setting();
+            SaveToFile();
         }
         #endregion
 

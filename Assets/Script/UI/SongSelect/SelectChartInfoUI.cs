@@ -7,10 +7,10 @@ namespace Megaton.UI
     /// <summary>
     /// 控制选中歌曲的显示
     /// </summary>
-    public class SelectedDisplay : MonoBehaviour
+    public class SelectChartInfoUI : MonoBehaviour
     {
-        private static SelectedDisplay ins;
-        public static SelectedDisplay Ins => ins;
+        private static SelectChartInfoUI ins;
+        public static SelectChartInfoUI Ins => ins;
 
         private float changeSpace = InOutText.limit;
         private ChartInfo curSelection;

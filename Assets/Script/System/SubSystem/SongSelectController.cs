@@ -18,7 +18,7 @@ namespace Megaton.UI
         [SerializeField] private SettingUI settingCanvas;
         [SerializeField] private Button exitButton;
         [SerializeField] private Button settingButton;
-        [SerializeField] private SelectedDisplay selectedHandler;
+        [SerializeField] private SelectChartInfoUI selectedHandler;
         [SerializeField] private GameObject blockSelect;
 
         private void Awake()

@@ -20,9 +20,9 @@ namespace Megaton.UI
         public void Bind(ChartInfo chartInfo)
         {
             //恢复闪
-            if(SelectedDisplay.Ins.IfSelected(chartInfo))
+            if(SelectChartInfoUI.Ins.IfSelected(chartInfo))
             {
-                SelectedDisplay.Ins.RealertSelected(selectHint);
+                SelectChartInfoUI.Ins.RealertSelected(selectHint);
             }
 
             //显示
@@ -35,7 +35,7 @@ namespace Megaton.UI
             selectedButton.onClick.AddListener(() =>
             {
                 GlobalEffectPlayer.PlayEffect(AudioEffect.OnSongSelect);
-                SelectedDisplay.Ins.ChangeSelected(chartInfo,selectHint);
+                SelectChartInfoUI.Ins.ChangeSelected(chartInfo,selectHint);
             });
             coverImage.sprite = CoverLoader.Path2Sprite(chartInfo.RootDir);
         }
