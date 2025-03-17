@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using MikanLab;
 using System;
 using UnityEngine;
@@ -17,11 +18,15 @@ namespace Megaton
         /// </summary>
         public Action onAdded;
 
+        public static int QWeight(SimplifyJudgeEnum key) => Ins.Weights[key];
+
         //分数项
-        public EnumArray<SimplifyJudgeEnum, int> Scores  = new();
+        public EnumArray<SimplifyJudgeEnum, int> Combos  = new();
+        private EnumArray<SimplifyJudgeEnum, int> Weights = new();
         public int Fast = 0;
         public int Late = 0;
-        public int All = 0;
+        public int ComboSum = 0;
+        public int WeightSum = 0;
         public int MaxCombo = 0;
         public int CurCombo = 0;
         public int Score = 0;
@@ -29,17 +34,18 @@ namespace Megaton
         /// <summary>
         /// 清空
         /// </summary>
-        public static void Clear(int newQ)
+        public static void Clear(int comboSum,int weightSum)
         {
             ins = new();
-            ins.All = newQ;
+            ins.ComboSum = comboSum;
+            ins.WeightSum = weightSum;
         }
 
         public static int GetFloatScore()
         {
-            var dict = Ins.Scores;
+            var dict = Ins.Weights;
 
-            int score101 = 10100000 - (int)Math.Round(1e7f / Ins.All *
+            int score101 = 10100000 - (int)Math.Round(1e7f / Ins.WeightSum *
                 (
                 0.01f * (dict[SimplifyJudgeEnum.PERFECT]) +
                 0.26f * (dict[SimplifyJudgeEnum.GREAT]) +
@@ -51,7 +57,7 @@ namespace Megaton
                 case ScoreType.Minus101:
                     return score101;
                 case ScoreType.Minus100:
-                    return 10000000 - (int)Math.Round(1e7f / Ins.All *
+                    return 10000000 - (int)Math.Round(1e7f / Ins.WeightSum *
                 (
                 -0.01f * (dict[SimplifyJudgeEnum.CRITICAL]) +
                 0.26f * (dict[SimplifyJudgeEnum.GREAT]) +
@@ -59,7 +65,7 @@ namespace Megaton
                 1.01f * (dict[SimplifyJudgeEnum.MISS])
                 ));
                 case ScoreType.Add0:
-                    return (int)Math.Round(1e7f / Ins.All *
+                    return (int)Math.Round(1e7f / Ins.WeightSum *
                 (
                 1.01f * dict[SimplifyJudgeEnum.CRITICAL] +
                 1f * (dict[SimplifyJudgeEnum.PERFECT]) +
@@ -80,13 +86,13 @@ namespace Megaton
         /// <summary>
         /// 添加判定
         /// </summary>
-        public static void AddJudge(JudgeEnum judge)
+        public static void AddJudge(JudgeEnum judge,int weight)
         {
-            var dict = Ins.Scores;
+            var dict = Ins.Weights;
 
             //判定累计
             var sjudge = (SimplifyJudgeEnum)Mathf.Abs((int)judge);
-            dict[sjudge]++;
+            dict[sjudge] += weight;
             if(judge > 0) Ins.Fast++;
             else if(judge < 0 && judge != JudgeEnum.MISS) Ins.Late++;
 
@@ -96,8 +102,8 @@ namespace Megaton
             Ins.MaxCombo = Mathf.Max(Ins.MaxCombo, Ins.CurCombo);
 
             //分数累计
-            if (dict[SimplifyJudgeEnum.CRITICAL] == Ins.All) Ins.Score = 10100000;
-            else Ins.Score = (int)Math.Round(1e7f / Ins.All *
+            if (dict[SimplifyJudgeEnum.CRITICAL] == Ins.WeightSum) Ins.Score = 10100000;
+            else Ins.Score = (int)Math.Round(1e7f / Ins.WeightSum *
                 (
                 1.01f * dict[SimplifyJudgeEnum.CRITICAL] +
                 1f * (dict[SimplifyJudgeEnum.PERFECT]) +

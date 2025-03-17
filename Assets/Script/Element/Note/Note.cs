@@ -19,6 +19,11 @@ namespace Megaton.Abstract
         public Action<JudgeEnum> OnResult;
 
         /// <summary>
+        /// 计分权重
+        /// </summary>
+        public virtual int Weight => 1;
+
+        /// <summary>
         /// 判定起始偏差
         /// </summary>
         public abstract float JudgeStart { get; }

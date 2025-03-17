@@ -71,7 +71,7 @@ namespace Megaton.Abstract
                 {
                     var result = note.GetResult();
                     Debug.Log($"{note.ExactTime} {String.Format("{0:+0;-#;+0}", (MusicPlayer.ExactTime - note.ExactTime) * 1000).ToString()}ms {note.GetType().Name}:{judge}");
-                    ScoreBoard.AddJudge(result);
+                    ScoreBoard.AddJudge(result, note.Weight);
                     OnJudge(judge.success && result != JudgeEnum.MISS, judge.ifcontinue);
                     note.OnResult(result);
                     Notes.RemoveAt(i);

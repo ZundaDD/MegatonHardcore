@@ -14,6 +14,7 @@ namespace Megaton
         public AudioClip Music;
         public Dictionary<RailEnum, List<Command>> Content = new();
         public int Quantity;
+        public int Weight;
 
         private float timeAcc = 0f;
 
@@ -44,7 +45,11 @@ namespace Megaton
                     if (item != null && rail != RailEnum.Undefined)
                     {
                         item.ExactTime = timeAcc;
-                        if (rail != RailEnum.Camera) Quantity++;
+                        if (rail != RailEnum.Camera)
+                        {
+                            Weight += (item as Note).Weight;
+                            Quantity++;
+                        }
                         if (!Content.ContainsKey(rail)) Content.Add(rail, new());
                         Content[rail].Add(item);
                     }

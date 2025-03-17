@@ -8,6 +8,7 @@ namespace Megaton.UI
         [SerializeField] private Text scoreText;
         [SerializeField] private Text bestScoreText;
         [SerializeField] private Text gapScoreText;
+        [SerializeField] private Text combo;
         [SerializeField] private Text critical;
         [SerializeField] private Text perfect;
         [SerializeField] private Text great;
@@ -29,12 +30,14 @@ namespace Megaton.UI
             gapScoreText.text = (gap >= 0 ? "+" : "") + gap.ToString();
             fast.text = ScoreBoard.Ins.Fast.ToString();
             late.text = ScoreBoard.Ins.Late.ToString();
-            critical.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.CRITICAL].ToString();
-            perfect.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.PERFECT].ToString();
-            great.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.PERFECT].ToString();
-            good.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.PERFECT].ToString();
-            miss.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.MISS].ToString();
+            critical.text = ScoreBoard.QWeight(SimplifyJudgeEnum.CRITICAL).ToString();
+            perfect.text = ScoreBoard.QWeight(SimplifyJudgeEnum.PERFECT).ToString();
+            great.text = ScoreBoard.QWeight(SimplifyJudgeEnum.PERFECT).ToString();
+            good.text = ScoreBoard.QWeight(SimplifyJudgeEnum.PERFECT).ToString();
+            miss.text = ScoreBoard.QWeight(SimplifyJudgeEnum.MISS).ToString();
             rank.text = ChartScore.GetRank(ScoreBoard.Ins.Score);
+            combo.text = $"{ScoreBoard.Ins.MaxCombo}/{ScoreBoard.Ins.ComboSum}";
+
 
             //如果之前没有过游玩记录的话，分数字典中并不会存在对应项
             //那么ChartInfo.Score初始化时是默认的new()

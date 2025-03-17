@@ -10,10 +10,12 @@ namespace Megaton.Classic
     {
         private JudgeEnum headJudge = JudgeEnum.MISS;
         private float holdTime;
+
         public bool ifStart { get; private set; } = false;
 
         public float ExactLength;
 
+        public override int Weight => 2;
         public override float JudgeStart => 0.12f;
         public override float JudgeEnd => ExactLength;
 

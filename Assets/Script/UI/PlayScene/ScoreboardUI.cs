@@ -29,11 +29,11 @@ namespace Megaton.UI
         {
             fast_judge.text = ScoreBoard.Ins.Fast.ToString();
             late_judge.text = ScoreBoard.Ins.Late.ToString();
-            critical_judge.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.CRITICAL].ToString();
-            perfect_judge.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.PERFECT].ToString();
-            great_judge.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.PERFECT].ToString();
-            good_judge.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.PERFECT].ToString();
-            miss_judge.text = ScoreBoard.Ins.Scores[SimplifyJudgeEnum.MISS].ToString();
+            critical_judge.text = ScoreBoard.QWeight(SimplifyJudgeEnum.CRITICAL).ToString();
+            perfect_judge.text = ScoreBoard.QWeight(SimplifyJudgeEnum.PERFECT).ToString();
+            great_judge.text = ScoreBoard.QWeight(SimplifyJudgeEnum.PERFECT).ToString();
+            good_judge.text = ScoreBoard.QWeight(SimplifyJudgeEnum.PERFECT).ToString();
+            miss_judge.text = ScoreBoard.QWeight(SimplifyJudgeEnum.MISS).ToString();
             score.SetNumer(ScoreBoard.Ins.Score);
             floatScore.text = GetFloatScoreText();
 

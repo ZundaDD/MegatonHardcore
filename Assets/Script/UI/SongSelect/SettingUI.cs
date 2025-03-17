@@ -108,6 +108,8 @@ namespace Megaton.UI
             GenerateObject(Setting.Ins.Effect_Volume, "音效音量", "$%");
             GenerateObject(Setting.Ins.Music_Volume, "音乐音量", "$%");
 
+            GenerateHead("键位");
+
             content.sizeDelta = new Vector2(content.rect.width,contentHeight);
         }
     }

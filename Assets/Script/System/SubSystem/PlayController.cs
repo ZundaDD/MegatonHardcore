@@ -51,7 +51,7 @@ namespace Megaton
             canvasFar.planeDistance = 100 + Setting.Ins.Board_Distance.Value * 10;
 
             //UI显示
-            ScoreBoard.Clear(GameVar.CurPlay.Quantity);
+            ScoreBoard.Clear(GameVar.CurPlay.Quantity, GameVar.CurPlay.Weight);
             scoreboardUI.Bind();
 
             //给场景加载指令
