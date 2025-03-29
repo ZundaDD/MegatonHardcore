@@ -1283,6 +1283,7 @@ MonoBehaviour:
   fast_judge: {fileID: 1951904693186602309}
   late_judge: {fileID: 5577377543193681122}
   combo: {fileID: 0}
+  floatScore: {fileID: 0}
 --- !u!1 &8460568616781540407
 GameObject:
   m_ObjectHideFlags: 0

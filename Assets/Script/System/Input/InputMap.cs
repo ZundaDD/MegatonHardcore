@@ -312,6 +312,24 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""c4ea22f7-8b53-4406-80c5-9de6cdb2513e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Enter"",
+                    ""type"": ""Button"",
+                    ""id"": ""cf7c78f9-b86a-49c7-b099-ceaa86209f81"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -334,6 +352,28 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Left Mouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""89472374-73da-4b82-86dd-8097218a0f98"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ae20bcf7-7eb6-4e1f-b292-6cedda850a9c"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Enter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -422,6 +462,8 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Space = m_UI.FindAction("Space", throwIfNotFound: true);
         m_UI_LeftMouse = m_UI.FindAction("Left Mouse", throwIfNotFound: true);
+        m_UI_Escape = m_UI.FindAction("Escape", throwIfNotFound: true);
+        m_UI_Enter = m_UI.FindAction("Enter", throwIfNotFound: true);
     }
 
     ~@InputMap()
@@ -633,12 +675,16 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Space;
     private readonly InputAction m_UI_LeftMouse;
+    private readonly InputAction m_UI_Escape;
+    private readonly InputAction m_UI_Enter;
     public struct UIActions
     {
         private @InputMap m_Wrapper;
         public UIActions(@InputMap wrapper) { m_Wrapper = wrapper; }
         public InputAction @Space => m_Wrapper.m_UI_Space;
         public InputAction @LeftMouse => m_Wrapper.m_UI_LeftMouse;
+        public InputAction @Escape => m_Wrapper.m_UI_Escape;
+        public InputAction @Enter => m_Wrapper.m_UI_Enter;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -654,6 +700,12 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
             @LeftMouse.started += instance.OnLeftMouse;
             @LeftMouse.performed += instance.OnLeftMouse;
             @LeftMouse.canceled += instance.OnLeftMouse;
+            @Escape.started += instance.OnEscape;
+            @Escape.performed += instance.OnEscape;
+            @Escape.canceled += instance.OnEscape;
+            @Enter.started += instance.OnEnter;
+            @Enter.performed += instance.OnEnter;
+            @Enter.canceled += instance.OnEnter;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -664,6 +716,12 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
             @LeftMouse.started -= instance.OnLeftMouse;
             @LeftMouse.performed -= instance.OnLeftMouse;
             @LeftMouse.canceled -= instance.OnLeftMouse;
+            @Escape.started -= instance.OnEscape;
+            @Escape.performed -= instance.OnEscape;
+            @Escape.canceled -= instance.OnEscape;
+            @Enter.started -= instance.OnEnter;
+            @Enter.performed -= instance.OnEnter;
+            @Enter.canceled -= instance.OnEnter;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -746,5 +804,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
     {
         void OnSpace(InputAction.CallbackContext context);
         void OnLeftMouse(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
+        void OnEnter(InputAction.CallbackContext context);
     }
 }

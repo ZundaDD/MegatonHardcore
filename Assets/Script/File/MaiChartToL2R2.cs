@@ -90,6 +90,7 @@ namespace Megaton.Chart
                 
                 token[0] = token[0].Remove(0, 1);
                 token[1] = token[1].Replace("[DX]", "");
+                token[1] = token[1].Replace("[SD]", "");
                 
                 //判断谱面内容
                 if (token[0] == "inote_5")

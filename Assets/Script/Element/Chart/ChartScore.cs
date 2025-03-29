@@ -32,7 +32,7 @@ namespace Megaton
         /// <param name="newScore">新的分数</param>
         public bool Update(int newScore)
         {
-            if (newScore <= BestScore) return false;
+            if (BestRank != "" && newScore <= BestScore) return false;
             BestScore = newScore;
             BestRank = GetRank(newScore);
 

@@ -4,6 +4,7 @@ namespace Megaton
 {
     public enum AudioEffect
     {
-        OnSongSelect, OnSettingExit,OnJudge
+        OnSongSelect, OnSettingExit,OnJudge,
+            OnSceneOpen,OnSceneExit,
     }
 }

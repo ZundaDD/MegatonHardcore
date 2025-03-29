@@ -27,7 +27,7 @@ namespace Megaton.UI
             return cellView;
         }
 
-        public float GetCellViewSize(EnhancedScroller scroller, int dataIndex) => prefabRect.rect.height;
+        public float GetCellViewSize(EnhancedScroller scroller, int dataIndex) => prefabRect.rect.height + 10;
 
         public int GetNumberOfCells(EnhancedScroller scroller) => GameVar.ChartInfos.Count;
 

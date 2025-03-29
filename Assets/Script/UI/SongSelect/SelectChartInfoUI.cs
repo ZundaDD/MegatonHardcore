@@ -21,6 +21,8 @@ namespace Megaton.UI
         [SerializeField] private InOutText composer;
         [SerializeField] private InOutText bpm;
         [SerializeField] private InOutImage cover;
+        [SerializeField] private InOutText bestScore;
+        [SerializeField] private InOutText bestRank;
         private AudioSource musicPlayer;
 
         private void Awake() => ins = this;
@@ -74,6 +76,8 @@ namespace Megaton.UI
             title.ChangeTo(info.Title);
             composer.ChangeTo(info.Composer);
             bpm.ChangeTo("BPM:" + info.BPM);
+            bestRank.ChangeTo(info.Score.BestRank);
+            bestScore.ChangeTo(info.Score.BestRank == "" ? "" : $"{info.Score.BestScore.ToString().PadLeft(8,'0')}");
             cover.ChangeTo(CoverLoader.Path2Sprite(info.RootDir));
             musicPlayer.Pause();
             musicPlayer.clip = MusicLoader.Path2Clip(info.RootDir);

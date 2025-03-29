@@ -10,7 +10,8 @@ namespace Megaton
     public class GlobalEffectPlayer : MonoBehaviour
     {
         private static GlobalEffectPlayer ins;
-        [SerializeField] private EnumArray<AudioEffect,AudioClip> clips;
+        private Dictionary<AudioEffect,AudioClip> clips = new();
+        [SerializeField] private EasyAudioConfig config;
         private AudioSource player;
 
         private void Awake()
@@ -18,6 +19,13 @@ namespace Megaton
             if(ins != null) Destroy(gameObject);
             else ins = this;
             DontDestroyOnLoad(gameObject);
+
+            foreach(var config in  config.Configs)
+            {
+                if (!clips.ContainsKey(config.name))
+                    clips.Add(config.name, null);
+                clips[config.name] = config.clip;
+            }
             player = gameObject.GetComponent<AudioSource>();
         }
 

@@ -336,11 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d516ae9f3f608f45926bdc889bc8054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clips:
-    array:
-    - {fileID: 8300000, guid: b135169bd519ee44f947a7acaf984342, type: 3}
-    - {fileID: 8300000, guid: b135169bd519ee44f947a7acaf984342, type: 3}
-    - {fileID: 8300000, guid: 0c75605ad8ca4094f80fe1b75ca7a7dd, type: 3}
+  config: {fileID: 11400000, guid: 504a8e02a2280b440865ebcac3c901ba, type: 2}
 --- !u!4 &558484150
 Transform:
   m_ObjectHideFlags: 0

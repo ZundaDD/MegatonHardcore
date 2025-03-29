@@ -28,14 +28,17 @@ namespace Megaton
         {
             leftMask.DOAnchorPosX(-1000f, maskTime).SetEase(Ease.InOutCubic);
             rightMask.DOAnchorPosX(1000f, maskTime).SetEase(Ease.InOutCubic);
+            GlobalEffectPlayer.PlayEffect(AudioEffect.OnSceneOpen);
         }
 
         public void Ending(int sceneIndex)
         {
+            
             leftMask.DOAnchorPosX(0, maskTime).SetEase(Ease.InOutCubic);
             rightMask.DOAnchorPosX(0, maskTime).SetEase(Ease.InOutCubic)
                 .OnComplete(() =>
-                {
+                {   
+                    GlobalEffectPlayer.PlayEffect(AudioEffect.OnSceneExit);
                     StartCoroutine(loadScene(sceneIndex));
                 });
         }
