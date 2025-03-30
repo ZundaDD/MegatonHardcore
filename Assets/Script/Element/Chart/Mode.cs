@@ -51,6 +51,7 @@ namespace Megaton.Abstract
 
         #endregion
 
+
         /// <summary>
         /// 绑定输入
         /// </summary>
@@ -58,6 +59,13 @@ namespace Megaton.Abstract
         /// <param name="rails"></param>
         public abstract void InputBinding(InputMap inputActions,RailCollection rails);
 
+        /// <summary>
+        /// 解除轨道输入绑定
+        /// </summary>
+        /// <param name="inputActions"></param>
+        /// <param name="rails"></param>
+        public abstract void InputRelease(InputMap inputActions, RailCollection rails);
+        
         /// <summary>
         /// 解析轨道ID
         /// </summary>

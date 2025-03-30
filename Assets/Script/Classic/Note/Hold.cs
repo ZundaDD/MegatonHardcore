@@ -53,6 +53,7 @@ namespace Megaton.Classic
             {
                 headJudge = Tap.TapJudge(Offset);
                 ifStart = true;
+                GlobalEffectPlayer.PlayEffect(AudioEffect.OnJudge);
                 return (false, false);
             }
             

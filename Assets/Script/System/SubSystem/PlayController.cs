@@ -1,3 +1,4 @@
+using Megaton.Abstract;
 using Megaton.Classic;
 using Megaton.UI;
 using UnityEngine;
@@ -45,7 +46,8 @@ namespace Megaton
             
             //输入设置
             rails.CollectRails();
-            ProcessInput.BindRail(rails);
+            GameVar.PlayMode.InputBinding(InputManager.Input, rails);
+            InputManager.SwitchInputMode(true);
 
             //场景配置
             canvasFar.planeDistance = 100 + Setting.Ins.Board_Distance.Value * 10;
@@ -87,12 +89,8 @@ namespace Megaton
         /// </summary>
         public void EndPlay()
         {
-            ProcessInput.ReleaseRail();
-            scoreboardUI.UnBind();
+            ResetGlobalState();
             SceneSwitch.Ins.Ending(3);
-            GameVar.IfPrepare = false;
-            GameVar.IfStarted = false;
-            GameVar.IfPaused = false;
         }
 
         /// <summary>
@@ -100,12 +98,8 @@ namespace Megaton
         /// </summary>
         public void Restart()
         {
-            ProcessInput.ReleaseRail();
-            scoreboardUI.UnBind();
+            ResetGlobalState();
             SceneSwitch.Ins.Ending(SceneManager.GetActiveScene().name);
-            GameVar.IfPrepare = false;
-            GameVar.IfStarted = false;
-            GameVar.IfPaused = false;
         }
 
         /// <summary>
@@ -113,9 +107,14 @@ namespace Megaton
         /// </summary>
         public void Exit()
         {
-            ProcessInput.ReleaseRail();
-            scoreboardUI.UnBind();
+            ResetGlobalState();
             SceneSwitch.Ins.Ending(2);
+        }
+
+        private void ResetGlobalState()
+        {
+            InputManager.SwitchInputMode(false);
+            GameVar.PlayMode.InputRelease(InputManager.Input, rails);
             GameVar.IfPrepare = false;
             GameVar.IfStarted = false;
             GameVar.IfPaused = false;

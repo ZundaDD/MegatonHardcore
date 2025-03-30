@@ -21,11 +21,17 @@ namespace Megaton.UI
         void Start()
         {
             canvasGroup = GetComponent<CanvasGroup>();
-            ProcessInput.Ins.input.Player.Pause.performed += ctx => SwitchState();
+            InputManager.Input.Player.Pause.performed += ctx => SwitchState();
+            
             continueButton.onClick.AddListener(DisableAnimation);
             restartButton.onClick.AddListener(PlayController.Ins.Restart);
             exitButton.onClick.AddListener(PlayController.Ins.Exit);
             calculateButton.onClick.AddListener(PlayController.Ins.EndPlay);
+        }
+
+        private void OnDestroy()
+        {
+            InputManager.Input.Player.Pause.performed -= ctx => SwitchState();
         }
 
         public void SwitchState()

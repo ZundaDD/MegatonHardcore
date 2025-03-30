@@ -28,6 +28,8 @@ namespace Megaton
         /// </summary>
         private void Awake()
         {
+            InputManager.Input.Player.Disable();
+            InputManager.Input.UI.Enable();
             GameVar.DataRootDir = Path.Combine(Application.persistentDataPath, "Data");
         }
 

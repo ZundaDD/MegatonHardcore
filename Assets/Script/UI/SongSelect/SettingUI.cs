@@ -2,19 +2,24 @@ using DG.Tweening;
 using Megaton.Generic;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Megaton.UI
 {
     public class SettingUI : MonoBehaviour
     {
-        
+        [Header("交互组件")]
         [SerializeField] Button exitButton;
         [SerializeField] Button resetButton;
+        [Header("预制件")]
         [SerializeField] GameObject configPrefab;
         [SerializeField] GameObject headPrefab;
+        [SerializeField] GameObject keybindingPrefab;
+        [Header("引用")]
         [SerializeField] RectTransform content;
         [SerializeField] RectTransform plane;
+        [SerializeField] EasyKeyBindConfig targetKeys;
 
         private CanvasGroup canvasGroup;
         private float contentHeight = 0;
@@ -84,6 +89,14 @@ namespace Megaton.UI
             contentHeight += go.GetComponent<RectTransform>().rect.height;
         }
 
+        private void GenerateKeyBind(string name, InputActionReference actionRef)
+        {
+            var go = Instantiate(keybindingPrefab).GetComponent<Rebinder>();
+            go.SelectTarget(name, actionRef);
+            go.transform.SetParent(content, false);
+            contentHeight += go.GetComponent<RectTransform>().rect.height;
+        }
+
         /// <summary>
         /// 添加设置实物
         /// </summary>
@@ -109,6 +122,12 @@ namespace Megaton.UI
             GenerateObject(Setting.Ins.Music_Volume, "音乐音量", "$%");
 
             GenerateHead("键位");
+            foreach(var key in targetKeys.Configs)
+            {
+                GenerateKeyBind(key.name, key.action);
+            }
+
+            GenerateHead("资料展示");
 
             content.sizeDelta = new Vector2(content.rect.width,contentHeight);
         }

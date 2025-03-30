@@ -1,5 +1,6 @@
 using Megaton.Abstract;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Megaton.Classic
 {
@@ -8,6 +9,11 @@ namespace Megaton.Classic
     {
         public override void InputBinding(InputMap inputActions,RailCollection rails)
         {
+            InputManager.LoadBindingOverride(inputActions.Player.Left1.name);
+            InputManager.LoadBindingOverride(inputActions.Player.Left2.name);
+            InputManager.LoadBindingOverride(inputActions.Player.Right1.name);
+            InputManager.LoadBindingOverride(inputActions.Player.Right2.name);
+
             inputActions.Player.Left1.started += rails[RailEnum.Left1].Tap;
             inputActions.Player.Left1.canceled += rails[RailEnum.Left1].Release;
             inputActions.Player.Left2.started += rails[RailEnum.Left2].Tap;
@@ -16,6 +22,18 @@ namespace Megaton.Classic
             inputActions.Player.Right1.canceled += rails[RailEnum.Right1].Release;
             inputActions.Player.Right2.started += rails[RailEnum.Right2].Tap;
             inputActions.Player.Right2.canceled += rails[RailEnum.Right2].Release;
+        }
+
+        public override void InputRelease(InputMap inputActions, RailCollection rails)
+        {
+            inputActions.Player.Left1.started -= rails[RailEnum.Left1].Tap;
+            inputActions.Player.Left1.canceled -= rails[RailEnum.Left1].Release;
+            inputActions.Player.Left2.started -= rails[RailEnum.Left2].Tap;
+            inputActions.Player.Left2.canceled -= rails[RailEnum.Left2].Release;
+            inputActions.Player.Right1.started -= rails[RailEnum.Right1].Tap;
+            inputActions.Player.Right1.canceled -= rails[RailEnum.Right1].Release;
+            inputActions.Player.Right2.started -= rails[RailEnum.Right2].Tap;
+            inputActions.Player.Right2.canceled -= rails[RailEnum.Right2].Release;
         }
 
         public override Command ParseCommand(string token,int bpm,int divide)
