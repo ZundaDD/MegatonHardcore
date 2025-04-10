@@ -82,7 +82,10 @@ namespace Megaton.UI
             else return null;
         }
 
-        public Vector3 World2Canvas(Vector3 worldPos) => new Vector3(worldPos.x / worldPoint.position.x * canvasPoint.anchoredPosition.x, -120, 0);
+        public Vector3 World2Canvas(Vector3 worldPos) => new Vector3(
+            worldPos.x / worldPoint.position.x * canvasPoint.anchoredPosition.x,
+            40 * Setting.Ins.Judge_Feedback_Height.Value,
+            0);
         
     }
 }

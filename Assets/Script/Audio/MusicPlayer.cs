@@ -38,7 +38,7 @@ namespace Megaton
                 ExactTime += Time.deltaTime;
                 RailCollection.Ins.TryJudge();
             }
-            if (!GameVar.IfStarted && GameVar.IfPrepare) Align();
+            if (GameVar.IfPrepare && !GameVar.IfStarted) Align();
             if (command) Play();
             EndCheck();
         }
@@ -67,10 +67,12 @@ namespace Megaton
         {
             GameVar.IfPrepare = true;
             command = false;
+
             ExactTime -= Time.fixedDeltaTime * waitFrame;
             startDSP = (float)AudioSettings.dspTime;
             musicSource.time = pausedTime;
             musicSource.PlayScheduled(startDSP + Time.fixedDeltaTime * waitFrame);
+            musicSource.time = pausedTime;
         }
 
         /// <summary>
@@ -97,6 +99,7 @@ namespace Megaton
             gap -= ExactTime - pauseExactTime;
             GameVar.IfStarted = true;
             GameCamera.Align(gap);
+            musicSource.time = pausedTime;
             ExactTime += gap;
             Debug.Log(string.Format("<color=#9aff99>Offset</color>:{0}ms", gap));
         }

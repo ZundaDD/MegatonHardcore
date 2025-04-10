@@ -17,13 +17,12 @@ namespace Megaton.UI
         private float transTime = 0.25f;
         private bool ifSwitchable = true;
         private bool state = false;
-        
+
         void Start()
         {
             canvasGroup = GetComponent<CanvasGroup>();
-            InputManager.Input.Player.Pause.performed += ctx => SwitchState();
             
-            continueButton.onClick.AddListener(DisableAnimation);
+            continueButton.onClick.AddListener(SwitchState);
             restartButton.onClick.AddListener(PlayController.Ins.Restart);
             exitButton.onClick.AddListener(PlayController.Ins.Exit);
             calculateButton.onClick.AddListener(PlayController.Ins.EndPlay);
@@ -31,11 +30,12 @@ namespace Megaton.UI
 
         private void OnDestroy()
         {
-            InputManager.Input.Player.Pause.performed -= ctx => SwitchState();
+            InputManager.Input.Player.Escape.performed -= ctx => SwitchState();
         }
 
         public void SwitchState()
         {
+            if (!GameVar.IfStarted && !GameVar.IfPaused) return;
             if(state) DisableAnimation();
             else EnableAnimation();
         }

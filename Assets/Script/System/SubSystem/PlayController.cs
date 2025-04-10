@@ -18,7 +18,6 @@ namespace Megaton
         [SerializeField] private RailCollection rails;
         [SerializeField] private Canvas canvasFar;
         [SerializeField] private MusicPlayer musicPlayer;
-        [SerializeField] private Button pauseButton;
         [SerializeField] private PauseUI pauseUI;
         [SerializeField] private ScoreboardUI scoreboardUI;
 
@@ -42,8 +41,8 @@ namespace Megaton
         /// </summary>
         public void Initial()
         {
-            pauseButton.onClick.AddListener(pauseUI.EnableAnimation);
-            
+            InputManager.Input.Player.Escape.performed += ctx => pauseUI.SwitchState();
+
             //输入设置
             rails.CollectRails();
             GameVar.PlayMode.InputBinding(InputManager.Input, rails);

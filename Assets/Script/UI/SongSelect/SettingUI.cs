@@ -30,6 +30,7 @@ namespace Megaton.UI
             canvasGroup = GetComponent<CanvasGroup>();
             exitButton.onClick.AddListener(() =>
             {
+                InputManager.rebind?.Cancel();
                 GlobalEffectPlayer.PlayEffect(AudioEffect.OnSettingExit);
                 plane.DOScale(new Vector3(1.2f, 1.2f, 1.2f), transTime).SetEase(Ease.InOutCubic);
                 canvasGroup.DOFade(0, transTime).SetEase(Ease.InOutCubic).OnComplete(()=>gameObject.SetActive(false));
@@ -102,7 +103,7 @@ namespace Megaton.UI
         /// </summary>
         public void AddConfigObject()
         {
-            contentHeight = 0;
+            contentHeight = 2 * content.GetComponent<LayoutGroup>().padding.top;
 
             GenerateHead("时间");
             GenerateObject(Setting.Ins.Speed, "流速");
@@ -115,6 +116,7 @@ namespace Megaton.UI
             GenerateHead("游玩");
             GenerateObject(Setting.Ins.Distinguish_Critical, "区分Critical");
             GenerateObject(Setting.Ins.Show_Fast_Late, "显示快慢");
+            GenerateObject(Setting.Ins.Judge_Feedback_Height, "判定显示高度");
             GenerateObject(Setting.Ins.Float_Score_Type, "分数显示类型");
 
             GenerateHead("音频");

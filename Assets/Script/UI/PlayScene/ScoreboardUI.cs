@@ -11,8 +11,6 @@ namespace Megaton.UI
         [SerializeField] private Text great_judge;
         [SerializeField] private Text good_judge;
         [SerializeField] private Text miss_judge;
-        [SerializeField] private Text fast_judge;
-        [SerializeField] private Text late_judge;
         [SerializeField] private Text combo;
         [SerializeField] private Text floatScore;
 
@@ -27,8 +25,6 @@ namespace Megaton.UI
 
         public void AddJudge()
         {
-            fast_judge.text = ScoreBoard.Ins.Fast.ToString();
-            late_judge.text = ScoreBoard.Ins.Late.ToString();
             critical_judge.text = ScoreBoard.QWeight(SimplifyJudgeEnum.CRITICAL).ToString();
             perfect_judge.text = ScoreBoard.QWeight(SimplifyJudgeEnum.PERFECT).ToString();
             great_judge.text = ScoreBoard.QWeight(SimplifyJudgeEnum.GREAT).ToString();

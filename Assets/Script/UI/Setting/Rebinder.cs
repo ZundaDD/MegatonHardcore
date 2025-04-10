@@ -69,7 +69,7 @@ namespace Megaton.UI
 
         private void DoRebind()
         {
-            InputManager.StartRebind(actionName, bindingIndex, keyName, true);
+            InputManager.StartRebind(actionName, bindingIndex, keyValue, true);
         }
 
         private void ResetBinding()

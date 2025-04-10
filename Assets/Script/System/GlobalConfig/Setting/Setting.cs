@@ -25,6 +25,7 @@ namespace Megaton
         #region 游玩显示配置
         public BoolVarible Distinguish_Critical = BoolVarible.GetBoolVarible(true);
         public BoolVarible Show_Fast_Late = BoolVarible.GetBoolVarible(true);
+        public RangeVarible Judge_Feedback_Height = RangeVarible.GetRangeVarible(-3f, 3f, 0, 1f, 0);
         public DiscreteVarible<ScoreType> Float_Score_Type = new(new()
         {   new("不显示",ScoreType.None),
             new("101(-)",ScoreType.Minus101),

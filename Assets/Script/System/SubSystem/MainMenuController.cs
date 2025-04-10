@@ -11,7 +11,6 @@ namespace Megaton
 {
     public class MainMenuController : MonoBehaviour
     {
-        [SerializeField] private Button confirmButton;
         [SerializeField] private SimpleScrollSnap scroller;
         [SerializeField] private RectTransform contentRect;
         
@@ -24,12 +23,6 @@ namespace Megaton
         private void Start()
         {
             DOTween.Sequence().AppendCallback(() => scroller.GoToNextPanel()).SetDelay(0.1f);
-            confirmButton.onClick.AddListener(() =>
-            {
-                var index = scroller.CenteredPanel;
-                GlobalEffectPlayer.PlayEffect(AudioEffect.OnSongSelect);
-                contentRect.GetChild(index).GetComponent<PageCellView>().DoPage?.Invoke();
-            });
         }
 
         

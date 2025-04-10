@@ -18,6 +18,7 @@ namespace Megaton
         public static event Action rebindCanceled;
         public static event Action<InputAction, int> rebindStarted;
 
+        public static InputActionRebindingExtensions.RebindingOperation rebind;
 
         /// <summary>
         /// 修改输入模式
@@ -58,14 +59,14 @@ namespace Megaton
 
         private static void DoRebind(InputAction actionToRebind, int bindingIndex, Text statusText, bool allCompositeParts, bool excludeMouse)
         {
-            if (actionToRebind == null || bindingIndex < 0)
+            if (rebind != null || actionToRebind == null || bindingIndex < 0)
                 return;
 
-            statusText.text = $"Press a {actionToRebind.expectedControlType}";
+            statusText.text = $"Press";
 
             actionToRebind.Disable();
 
-            var rebind = actionToRebind.PerformInteractiveRebinding(bindingIndex);
+            rebind = actionToRebind.PerformInteractiveRebinding(bindingIndex);
 
             rebind.OnComplete(operation =>
             {
@@ -81,6 +82,7 @@ namespace Megaton
 
                 SaveBindingOverride(actionToRebind);
                 rebindComplete?.Invoke();
+                rebind = null;
             });
 
             rebind.OnCancel(operation =>
@@ -89,6 +91,7 @@ namespace Megaton
                 operation.Dispose();
 
                 rebindCanceled?.Invoke();
+                rebind = null;
             });
 
             rebind.WithCancelingThrough("<Keyboard>/escape");
