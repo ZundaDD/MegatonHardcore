@@ -4,19 +4,25 @@ using UnityEngine;
 namespace Megaton.Classic
 {
     /// <summary>
-    /// 直轨道的场景内物体
+    /// 直轨道动效
     /// </summary>
-    public class StraightRailSO : RailSO
+    public class StraightRailFeedback : RailFeedback
     {
         [SerializeField] private ParticleSystem feedback;
         [SerializeField] private ParticleSystem.MainModule mainModule;
         private float timer = 0;
 
-        public override void Feedback(bool success,bool ifcontinue)
+        public override void TapFeedback(bool holdDown)
         {
+            
+        }
+
+        public override void JudgeFeedback(bool success,bool @continue)
+        {
+            return;
             if(success) feedback.Play();
             //缓冲
-            if(ifcontinue)
+            if(@continue)
             {
                 timer += Time.deltaTime;
                 if(timer > 2 * Time.fixedDeltaTime)
@@ -30,11 +36,6 @@ namespace Megaton.Classic
         void Start()
         {
             mainModule = feedback.main;
-        }
-
-        void Update()
-        {
-
         }
     }
 }

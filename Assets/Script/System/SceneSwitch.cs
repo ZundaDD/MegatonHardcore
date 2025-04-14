@@ -18,6 +18,7 @@ namespace Megaton
         private void Awake()
         {
             ins = this;
+            GetComponent<CanvasGroup>().alpha = 1;
         }
 
         void Start() => Opening();

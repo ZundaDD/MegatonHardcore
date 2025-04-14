@@ -16,9 +16,17 @@ namespace Megaton.Classic
 
         public override (bool current,bool form) QueryNoteState(Note note) => sample;
 
-        public override void Release(InputAction.CallbackContext ctx) => on = false;
+        public override void Release(InputAction.CallbackContext ctx)
+        {
+            OnStateChange?.Invoke(false);
+            on = false;
+        }
 
-        public override void Tap(InputAction.CallbackContext ctx) => on = true;
+        public override void Tap(InputAction.CallbackContext ctx) 
+        {
+            OnStateChange?.Invoke(true);
+            on = true; 
+        }
 
         public override void Sample()
         {

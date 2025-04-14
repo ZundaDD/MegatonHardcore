@@ -6,13 +6,16 @@ using Megaton.Abstract;
 
 namespace Megaton
 {
+    /// <summary>
+    /// 轨道统一管理器，提供对轨道的访问
+    /// </summary>
     public class RailCollection : MonoBehaviour
     {
         private static RailCollection ins;
         public static RailCollection Ins => ins;
 
         private Dictionary<RailEnum, Rail> rails = new();
-        private Dictionary<string, GameObject> notePrefabs = new();
+        public Dictionary<string, GameObject> notePrefabs = new();
         
         [Serializable]
         class StringPrefab
@@ -51,13 +54,8 @@ namespace Megaton
             foreach (var r in GameObject.FindGameObjectsWithTag("Rail"))
             {
                 var rcompo = r.GetComponent<Rail>();
-                if (rcompo == null)
-                    Debug.LogError("Wrong GameObject With Tag \"Rail\" And No Rail Component");
-                else
-                {
-                    rails.Add(rcompo.Id, rcompo);
-                    //Debug.Log($"Rail {rcompo.Id} Loaded");
-                }
+                if (rcompo == null) Debug.LogError("Wrong GameObject With Tag \"Rail\" And No Rail Component");
+                else rails.Add(rcompo.Id, rcompo);
             }
         }
 
@@ -71,27 +69,7 @@ namespace Megaton
             {
                 if (rails.ContainsKey(command.Key))
                 {
-                    rails[command.Key].Notes = command.Value.ConvertAll((x) => x as Note);
-                    Debug.Log($"Rail:{command.Key}, Note:{rails[command.Key].Notes.Count}");
-                }
-            }
-        }
-
-        /// <summary>
-        /// 生成Notes
-        /// </summary>
-        public void GenerateNotes()
-        {
-            foreach (var rail in rails)
-            {
-                foreach (var note in rail.Value.Notes)
-                {
-                    var go = Instantiate(notePrefabs[note.GetType().Name]);
-                    go.GetComponent<NoteSO>().Bind(note);
-                    go.transform.position += new Vector3(
-                        rail.Value.transform.position.x,
-                        rail.Value.transform.position.y,
-                        GameCamera.Ins.JudgeLineZ);
+                    rails[command.Key].LoadNote(command.Value.ConvertAll((x) => x as Note));
                 }
             }
         }

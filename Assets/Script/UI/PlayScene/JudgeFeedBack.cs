@@ -38,19 +38,19 @@ namespace Megaton.UI
         /// </summary>
         /// <param name="judge">判定结果</param>
         /// <param name="vector">世界位置</param>
-        public void SummonAt(JudgeEnum judge, Vector3 vector)
+        public static void SummonAt(JudgeEnum judge, Vector3 vector)
         {
-            vector = World2Canvas(vector);
+            vector = Ins.World2Canvas(vector);
 
-            var judgeRect = InstantiateJudge(judge);
-            judgeRect.transform.SetParent(rectT, false);
+            var judgeRect = Ins.InstantiateJudge(judge);
+            judgeRect.transform.SetParent(Ins.rectT, false);
             judgeRect.anchoredPosition = vector;
             judgeRect.localScale = Vector3.one;
 
-            var timeRect = InstantiateTime(judge);
+            var timeRect = Ins.InstantiateTime(judge);
             if (timeRect == null) return;
-            timeRect.transform.SetParent(rectT, false);
-            timeRect.anchoredPosition = vector - timeOffset;
+            timeRect.transform.SetParent(Ins.rectT, false);
+            timeRect.anchoredPosition = vector - Ins.timeOffset;
             timeRect.localScale = Vector3.one;
 
         }

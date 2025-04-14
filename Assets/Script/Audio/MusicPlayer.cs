@@ -70,7 +70,6 @@ namespace Megaton
 
             ExactTime -= Time.fixedDeltaTime * waitFrame;
             startDSP = (float)AudioSettings.dspTime;
-            musicSource.time = pausedTime;
             musicSource.PlayScheduled(startDSP + Time.fixedDeltaTime * waitFrame);
             musicSource.time = pausedTime;
         }
@@ -95,15 +94,24 @@ namespace Megaton
             float gap = dsp - startDSP - Time.fixedDeltaTime * waitFrame;
             if (gap < 0) return;
             
-            //音乐时间与累计时间对比
+            //实际时间向音乐时间对齐
             gap -= ExactTime - pauseExactTime;
             GameVar.IfStarted = true;
             GameCamera.Align(gap);
-            musicSource.time = pausedTime;
             ExactTime += gap;
             Debug.Log(string.Format("<color=#9aff99>Offset</color>:{0}ms", gap));
         }
         
+        /// <summary>
+        /// 结束释放空间
+        /// </summary>
+        public void EndPlay()
+        {
+            musicSource.Stop();
+            Destroy(musicSource.clip);
+            musicSource.clip = null;
+        }
+
         /// <summary>
         /// 音频播放结束
         /// </summary>

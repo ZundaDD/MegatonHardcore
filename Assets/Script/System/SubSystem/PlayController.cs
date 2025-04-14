@@ -58,9 +58,8 @@ namespace Megaton
             //给场景加载指令
             GameCamera.LoadCommands(GameVar.CurPlay.GetCameraCommands());
             rails.LoadNotes(GameVar.CurPlay.GetRailCommands());
-            rails.GenerateNotes();
 
-            musicPlayer.CommandPlay(GameVar.CurPlay.Music);
+            musicPlayer.CommandPlay(MusicLoader.Path2Clip(GameVar.CurPlay.Info.RootDir));
         }
 
         /// <summary>
@@ -113,6 +112,7 @@ namespace Megaton
         private void ResetGlobalState()
         {
             InputManager.SwitchInputMode(false);
+            musicPlayer.EndPlay();
             GameVar.PlayMode.InputRelease(InputManager.Input, rails);
             GameVar.IfPrepare = false;
             GameVar.IfStarted = false;

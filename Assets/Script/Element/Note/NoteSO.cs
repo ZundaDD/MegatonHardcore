@@ -20,7 +20,22 @@ namespace Megaton.Abstract
             this.note = note;
             transform.position = new(0, 0, GameVar.Velocity * (GameVar.PrepareFrame * Time.fixedDeltaTime + note.ExactTime));
             note.OnJudge += Judge;
-            note.OnResult += (judge) => JudgeFeedBack.Ins.SummonAt(judge, this.transform.position);
+            note.OnResult += Destroy;
+        }
+
+        /// <summary>
+        /// 摧毁自己
+        /// </summary>
+        /// <param name="judge"></param>
+        public virtual void Destroy(JudgeEnum judge)
+        {
+            note.OnJudge -= Judge;
+            note.OnResult = null;
+
+            JudgeFeedBack.SummonAt(judge, this.transform.position);
+            ScoreBoard.AddJudge(judge, note.Weight);
+            gameObject.SetActive(false);
+            Destroy(gameObject,0.1f);
         }
 
         /// <summary>

@@ -18,7 +18,7 @@ namespace Megaton
             string chartPath = Path.Combine(path, ChartName);
             ChartPlay chart = new ChartPlay();
             chart.Info = info;
-            chart.Music = MusicLoader.Path2Clip(path);
+            //chart.Music = MusicLoader.Path2Clip(path);
 
             using (StreamReader sr = new StreamReader(chartPath))
             {

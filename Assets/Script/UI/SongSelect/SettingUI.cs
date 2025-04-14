@@ -28,13 +28,7 @@ namespace Megaton.UI
         void Start()
         {
             canvasGroup = GetComponent<CanvasGroup>();
-            exitButton.onClick.AddListener(() =>
-            {
-                InputManager.rebind?.Cancel();
-                GlobalEffectPlayer.PlayEffect(AudioEffect.OnSettingExit);
-                plane.DOScale(new Vector3(1.2f, 1.2f, 1.2f), transTime).SetEase(Ease.InOutCubic);
-                canvasGroup.DOFade(0, transTime).SetEase(Ease.InOutCubic).OnComplete(()=>gameObject.SetActive(false));
-            });
+            exitButton.onClick.AddListener(DisableAnimation);
             resetButton.onClick.AddListener(() =>
             {
                 Setting.Reset();
@@ -43,13 +37,24 @@ namespace Megaton.UI
             AddConfigObject();
         }
 
+        public void DisableAnimation()
+        {
+            InputManager.rebind?.Cancel();
+            InputManager.Input.UI.Escape.performed -= ctx => DisableAnimation();
+            GlobalEffectPlayer.PlayEffect(AudioEffect.OnSettingExit);
+            plane.DOScale(new Vector3(1.2f, 1.2f, 1.2f), transTime).SetEase(Ease.InOutCubic);
+            canvasGroup.DOFade(0, transTime).SetEase(Ease.InOutCubic).OnComplete(() => gameObject.SetActive(false));
+        }
+
         public void EnableAnimation()
         {
+            InputManager.Input.UI.Escape.performed += ctx => DisableAnimation();
             gameObject.SetActive(true);
             plane.DOScale(new Vector3(1f, 1f, 1f), transTime).SetEase(Ease.InOutCubic);
             canvasGroup.DOFade(1, transTime).SetEase(Ease.InOutCubic);
         }
 
+        #region 设置内容
         /// <summary>
         /// 关闭时自动保存
         /// </summary>
@@ -133,5 +138,6 @@ namespace Megaton.UI
 
             content.sizeDelta = new Vector2(content.rect.width,contentHeight);
         }
+        #endregion
     }
 }

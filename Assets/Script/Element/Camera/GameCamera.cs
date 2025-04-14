@@ -30,7 +30,7 @@ namespace Megaton
             Camera = GetComponent<Camera>();
         }
 
-        public static void LoadCommands(List<CameraEffect> commands) => Ins.Commands = commands;
+        public static void LoadCommands(List<CameraEffect> commands) => Ins.Commands = new(commands);
 
         public static void Align(float timeOffset) => Ins.MoveForward(timeOffset * GameVar.Velocity);
         

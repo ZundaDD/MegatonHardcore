@@ -7,11 +7,6 @@ namespace Megaton.Classic
     {
         public override void Judge(bool railState, bool formState)
         {
-            if (railState || MusicPlayer.ExactTime - note.ExactTime > note.JudgeEnd)
-            {
-                gameObject.SetActive(false);
-                Destroy(gameObject);
-            }
         }
 
     }

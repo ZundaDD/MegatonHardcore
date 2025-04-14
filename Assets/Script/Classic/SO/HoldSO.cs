@@ -39,13 +39,6 @@ namespace Megaton.Classic
                 holdBrigde.localPosition = new Vector3
                     (holdBrigde.localPosition.x, holdBrigde.localPosition.y, holdEnd.localPosition.z - z / 2);
             }
-
-            //时长判定
-            if (offset > note.JudgeEnd)
-            {
-                gameObject.SetActive(false);
-                Destroy(gameObject);
-            }
         }
 
     }

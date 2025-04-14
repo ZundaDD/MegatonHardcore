@@ -12,50 +12,24 @@ namespace Megaton
         public static string MusicPath;
         public static string MusicName = "music.mp3";
 
-        private static string lastLoadMusicPath;
-        private static MpegFile lastLoadMusicFile;
-
         public static AudioClip Path2Clip(string path)
         {
             MusicPath = Path.Combine(path, MusicName);
             string filename = System.IO.Path.GetFileNameWithoutExtension(MusicPath);
 
-            lastLoadMusicPath = path;
-            lastLoadMusicFile = new MpegFile(MusicPath);
+            MpegFile mpeg = new MpegFile(MusicPath);
             
             // assign samples into AudioClip
             AudioClip ac = AudioClip.Create(filename,
-                                            (int)(lastLoadMusicFile.Length / sizeof(float) / lastLoadMusicFile.Channels),
-                                            lastLoadMusicFile.Channels,
-                                            lastLoadMusicFile.SampleRate,
+                                            (int)(mpeg.Length / sizeof(float) / mpeg.Channels),
+                                            mpeg.Channels,
+                                            mpeg.SampleRate,
                                             true,
-                                            data => { int actualReadCount = lastLoadMusicFile.ReadSamples(data, 0, data.Length); },
-                                            position => { lastLoadMusicFile.Position = position * 4 * lastLoadMusicFile.Channels;}
+                                            data => { int actualReadCount = mpeg.ReadSamples(data, 0, data.Length); },
+                                            position => { mpeg.Position = position * 4 * mpeg.Channels;}
                                           );
             return ac;
         }
 
-        public static AudioClip ReSizeClip(float startPos)
-        {
-           
-            if(lastLoadMusicFile == null) lastLoadMusicFile = new MpegFile(lastLoadMusicPath);
-
-            // assign samples into AudioClip
-            AudioClip ac = AudioClip.Create(lastLoadMusicPath,
-                                            (int)(lastLoadMusicFile.Length / sizeof(float) / lastLoadMusicFile.Channels),
-                                            lastLoadMusicFile.Channels,
-                                            lastLoadMusicFile.SampleRate,
-                                            true,
-                                            data => { int actualReadCount = lastLoadMusicFile.ReadSamples(data, 0, data.Length); },
-                                            position => { lastLoadMusicFile = new MpegFile(MusicPath); }
-                                          );
-
-            return ac;
-        }
-
-        private static void PosCallback(int pos)
-        {
-
-        }
     }
 }
