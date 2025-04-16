@@ -62,7 +62,7 @@ namespace Megaton.UI
             //再次点击则开始游玩
             if (curSelection == info)
             {
-                SongSelectController.Ins.StartPlay(info);
+                SongSelectController.StartPlay(info);
                 return;
             }
 
@@ -80,7 +80,7 @@ namespace Megaton.UI
             bestScore.ChangeTo(info.Score.BestRank == "" ? "" : $"{info.Score.BestScore.ToString().PadLeft(8,'0')}");
             cover.ChangeTo(CoverLoader.Path2Sprite(info.RootDir));
             musicPlayer.Pause();
-            musicPlayer.clip = MusicLoader.Path2Clip(info.RootDir);
+            musicPlayer.clip = MusicLoader.Path2Clip(info.RootDir, true);
             musicPlayer.Play();
         }
 

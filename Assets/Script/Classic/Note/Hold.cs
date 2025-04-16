@@ -44,6 +44,7 @@ namespace Megaton.Classic
 
         public override (bool success,bool ifcontinue) Judge(bool railState, bool formState)
         {
+            
             float Offset = MusicPlayer.ExactTime - ExactTime;
 
             if(Offset < ExactLength && Offset > 0 && railState) holdTime += Time.deltaTime;
@@ -58,7 +59,7 @@ namespace Megaton.Classic
             }
             
             //Hold结束时得到判定
-            if (Offset > ExactLength) return (true, true);
+            if (Offset > ExactLength) return (true, false);
             
             //Hold积累按下时长
             if (Offset > 0 && railState) return (false, true);

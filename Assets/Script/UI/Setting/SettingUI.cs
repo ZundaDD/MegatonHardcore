@@ -7,8 +7,9 @@ using UnityEngine.UI;
 
 namespace Megaton.UI
 {
-    public class SettingUI : MonoBehaviour
+    public class SettingUI : PanelUI
     {
+
         [Header("交互组件")]
         [SerializeField] Button exitButton;
         [SerializeField] Button resetButton;
@@ -21,14 +22,12 @@ namespace Megaton.UI
         [SerializeField] RectTransform plane;
         [SerializeField] EasyKeyBindConfig targetKeys;
 
-        private CanvasGroup canvasGroup;
         private float contentHeight = 0;
         private float transTime = 0.25f;
 
         void Start()
         {
-            canvasGroup = GetComponent<CanvasGroup>();
-            exitButton.onClick.AddListener(DisableAnimation);
+            exitButton.onClick.AddListener(Pop);
             resetButton.onClick.AddListener(() =>
             {
                 Setting.Reset();
@@ -37,18 +36,30 @@ namespace Megaton.UI
             AddConfigObject();
         }
 
-        public void DisableAnimation()
+        protected  override void EnableInteract()
+        {
+            base.EnableInteract();
+            InputManager.Input.UI.Escape.performed += ctx => Pop();
+        }
+
+        protected override void DisableInteract()
+        {
+            base.DisableInteract();
+            InputManager.rebind?.Cancel();
+            InputManager.Input.UI.Escape.performed -= ctx => Pop();
+        }
+
+        protected override void Close()
         {
             InputManager.rebind?.Cancel();
-            InputManager.Input.UI.Escape.performed -= ctx => DisableAnimation();
+
             GlobalEffectPlayer.PlayEffect(AudioEffect.OnSettingExit);
             plane.DOScale(new Vector3(1.2f, 1.2f, 1.2f), transTime).SetEase(Ease.InOutCubic);
             canvasGroup.DOFade(0, transTime).SetEase(Ease.InOutCubic).OnComplete(() => gameObject.SetActive(false));
         }
 
-        public void EnableAnimation()
+        protected override void Open()
         {
-            InputManager.Input.UI.Escape.performed += ctx => DisableAnimation();
             gameObject.SetActive(true);
             plane.DOScale(new Vector3(1f, 1f, 1f), transTime).SetEase(Ease.InOutCubic);
             canvasGroup.DOFade(1, transTime).SetEase(Ease.InOutCubic);

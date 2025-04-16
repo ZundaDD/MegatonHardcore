@@ -19,7 +19,6 @@ namespace Megaton.Classic
 
         public override void JudgeFeedback(bool success,bool @continue)
         {
-            return;
             if(success) feedback.Play();
             //缓冲
             if(@continue)

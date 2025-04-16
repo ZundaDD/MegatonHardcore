@@ -12,7 +12,8 @@ namespace Megaton
         public static string MusicPath;
         public static string MusicName = "music.mp3";
 
-        public static AudioClip Path2Clip(string path)
+
+        public static AudioClip Path2Clip(string path,bool stream = true)
         {
             MusicPath = Path.Combine(path, MusicName);
             string filename = System.IO.Path.GetFileNameWithoutExtension(MusicPath);
@@ -24,10 +25,9 @@ namespace Megaton
                                             (int)(mpeg.Length / sizeof(float) / mpeg.Channels),
                                             mpeg.Channels,
                                             mpeg.SampleRate,
-                                            true,
-                                            data => { int actualReadCount = mpeg.ReadSamples(data, 0, data.Length); },
-                                            position => { mpeg.Position = position * 4 * mpeg.Channels;}
-                                          );
+                                            stream,
+                                            data => { int actualReadCount = mpeg.ReadSamples(data, 0, data.Length); }
+                                            );
             return ac;
         }
 

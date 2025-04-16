@@ -6,8 +6,8 @@ namespace Megaton.UI
 {
     public class InOutImage : MonoBehaviour
     {
-        public static float limit = 0.1f;
-
+        public static float limit = 0.2f;
+        public static float loop = 20f;
         private Image image;
 
         private void Awake()
@@ -21,15 +21,27 @@ namespace Megaton.UI
 
             if (!ifTween) return;
 
-            //先变换
+            //变换初状态
+            DOTween.Kill(image.transform);
             var curColor = image.color;
             curColor.a = 0;
             image.color = curColor;
-            image.transform.Rotate(new Vector3(0, 0, 10));
+            image.transform.rotation = Quaternion.Euler(0, 0, 0);
 
-            //再恢复
+
+            //初始状态
             image.DOFade(1, limit).SetEase(Ease.InOutCubic);
-            image.transform.DORotate(image.transform.rotation.eulerAngles - new Vector3(0, 0, 10), limit).SetEase(Ease.InOutCubic);
+            image.transform
+                .DORotate(new Vector3(0, 0, -5), limit)
+                .SetEase(Ease.InOutCubic)
+                .OnComplete(() =>
+                {
+                    image.transform
+                    .DORotate(new Vector3(0, 0, 5), loop)
+                    .SetEase(Ease.Linear)
+                    .SetLoops(-1, LoopType.Yoyo);
+                }
+                );
         }
     }
 }

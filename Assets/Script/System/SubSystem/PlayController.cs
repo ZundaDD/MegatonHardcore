@@ -12,54 +12,39 @@ namespace Megaton
     /// </summary>
     public class PlayController : MonoBehaviour
     {
-        private static PlayController ins;
-        public static PlayController Ins => ins;
+        public static PlayController Ins { get; private set; }
 
         [SerializeField] private RailCollection rails;
-        [SerializeField] private Canvas canvasFar;
         [SerializeField] private MusicPlayer musicPlayer;
-        [SerializeField] private PauseUI pauseUI;
-        [SerializeField] private ScoreboardUI scoreboardUI;
 
         /// <summary>
         /// 初始化场景
         /// </summary>
         void Awake()
         {
-            if (!GameVar.IfInitialed)
-            {
-                SceneManager.LoadScene(0);
-                return;
-            }
-            ins = this;
+            if (!GameVar.IfInitialed) SceneManager.LoadScene(0);
+            Ins = this;
         }
 
         private void Start() => Initial();
+
         #region 流程控制
         /// <summary>
         /// 初始化游戏，加载资源和构建谱面
         /// </summary>
         public void Initial()
         {
-            InputManager.Input.Player.Escape.performed += ctx => pauseUI.SwitchState();
-
             //输入设置
             rails.CollectRails();
             GameVar.PlayMode.InputBinding(InputManager.Input, rails);
             InputManager.SwitchInputMode(true);
 
-            //场景配置
-            canvasFar.planeDistance = 100 + Setting.Ins.Board_Distance.Value * 10;
-
-            //UI显示
-            ScoreBoard.Clear(GameVar.CurPlay.Quantity, GameVar.CurPlay.Weight);
-            scoreboardUI.Bind();
-
             //给场景加载指令
             GameCamera.LoadCommands(GameVar.CurPlay.GetCameraCommands());
             rails.LoadNotes(GameVar.CurPlay.GetRailCommands());
 
-            musicPlayer.CommandPlay(MusicLoader.Path2Clip(GameVar.CurPlay.Info.RootDir));
+            //开始播放音乐，即开始游玩
+            musicPlayer.CommandPlay(MusicLoader.Path2Clip(GameVar.CurPlay.Info.RootDir, false));
         }
 
         /// <summary>
@@ -88,7 +73,7 @@ namespace Megaton
         public void EndPlay()
         {
             ResetGlobalState();
-            SceneSwitch.Ins.Ending(3);
+            SceneSwitch.Ending(3);
         }
 
         /// <summary>
@@ -97,7 +82,7 @@ namespace Megaton
         public void Restart()
         {
             ResetGlobalState();
-            SceneSwitch.Ins.Ending(SceneManager.GetActiveScene().name);
+            SceneSwitch.Ending(SceneManager.GetActiveScene().name);
         }
 
         /// <summary>
@@ -106,7 +91,7 @@ namespace Megaton
         public void Exit()
         {
             ResetGlobalState();
-            SceneSwitch.Ins.Ending(2);
+            SceneSwitch.Ending(2);
         }
 
         private void ResetGlobalState()

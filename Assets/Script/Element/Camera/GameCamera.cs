@@ -26,7 +26,7 @@ namespace Megaton
 
             Ins = this;
             JudgeLineZ = judgeLine.transform.position.z;
-            GameVar.Velocity = GameVar.CurPlay.Info.BPM * step * Setting.Ins.Speed.Value;
+            GameVar.Velocity = 160 * step * Setting.Ins.Speed.Value;
             Camera = GetComponent<Camera>();
         }
 

@@ -85,10 +85,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8432324761913067638}
   - component: {fileID: 6738385497871943889}
-  - component: {fileID: 8107929876505386397}
+  - component: {fileID: 2326748845280595527}
+  - component: {fileID: 902260365219222261}
+  - component: {fileID: 40021815369762507}
   - component: {fileID: -8176673424118857426}
   m_Layer: 5
-  m_Name: SceneSwitch
+  m_Name: Scene_Border_Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +105,7 @@ RectTransform:
   m_GameObject: {fileID: 2392984328269354300}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 27431238100765876}
@@ -128,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FillColor: {r: 1, g: 0.51078165, b: 0.87644947, a: 1}
---- !u!114 &8107929876505386397
+--- !u!114 &2326748845280595527
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,12 +139,57 @@ MonoBehaviour:
   m_GameObject: {fileID: 2392984328269354300}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4ec93fe42c355b48892ee4431cf0eb9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7849032362bff9a4fa566c7629ac341b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maskTime: 1.5
   leftMask: {fileID: 27431238100765876}
   rightMask: {fileID: 2078663115605199240}
+--- !u!223 &902260365219222261
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2392984328269354300}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 1
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &40021815369762507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2392984328269354300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0.5
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!225 &-8176673424118857426
 CanvasGroup:
   m_ObjectHideFlags: 0

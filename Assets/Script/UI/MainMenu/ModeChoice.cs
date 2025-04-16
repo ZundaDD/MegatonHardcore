@@ -8,7 +8,7 @@ namespace Megaton.UI
     /// <summary>
     /// 主界面每一个选项的单位视图
     /// </summary>
-    public class PageCellView : MonoBehaviour,ISelectCallback
+    public class ModeChoice : MonoBehaviour,ISelectCallback
     {
         public UnityEvent DoPage;
         private RectTransform rectT;
@@ -32,7 +32,5 @@ namespace Megaton.UI
             if (rectT == null) rectT = GetComponent<RectTransform>();
             rectT.DOScale(1f, 0.2f).SetEase(Ease.InOutCubic);
         }
-
-        public void Quit() => Application.Quit();
     }
 }

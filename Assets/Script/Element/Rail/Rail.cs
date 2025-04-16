@@ -113,6 +113,7 @@ namespace Megaton.Abstract
                 }
 
                 if (!judge.ifcontinue) break;
+                else idx++;
             }
         }
     }

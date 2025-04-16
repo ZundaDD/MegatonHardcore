@@ -576,8 +576,8 @@ MonoBehaviour:
   DoPage:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 896444315}
-        m_TargetAssemblyTypeName: Megaton.UI.PageCellView, Assembly-CSharp
+      - m_Target: {fileID: 1271956387}
+        m_TargetAssemblyTypeName: Megaton.MainMenuController, Assembly-CSharp
         m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
@@ -841,6 +841,7 @@ GameObject:
   - component: {fileID: 1249569324}
   - component: {fileID: 1249569323}
   - component: {fileID: 1249569327}
+  - component: {fileID: 1249569328}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -926,7 +927,6 @@ RectTransform:
   - {fileID: 1772610179}
   - {fileID: 1653222321}
   - {fileID: 2024482251}
-  - {fileID: 1488449243}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -947,6 +947,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FillColor: {r: 0.6401617, g: 0.65324783, b: 1, a: 1}
+--- !u!114 &1249569328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249569322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18e921be99723304e87d13eb04fb8a46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingCanvas: {fileID: 2077863941}
 --- !u!1 &1271956384
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,6 +970,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1271956386}
   - component: {fileID: 1271956385}
+  - component: {fileID: 1271956388}
   - component: {fileID: 1271956387}
   m_Layer: 0
   m_Name: System
@@ -1005,8 +1019,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70dd1ac104a27e44e9467c8bde8dcec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scroller: {fileID: 0}
-  contentRect: {fileID: 0}
+--- !u!114 &1271956388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1271956384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ec93fe42c355b48892ee4431cf0eb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1338755519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1092,59 +1116,71 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1249569326}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 40021815369762507, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 40021815369762507, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 902260365219222261, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1520222495}
+    - target: {fileID: 902260365219222261, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2392984328269354300, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_Name
       value: SceneSwitch
       objectReference: {fileID: 0}
-    - target: {fileID: 2392984328269354300, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.0000187
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.0000187
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.0000187
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1164,15 +1200,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1199,11 +1235,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
---- !u!224 &1488449243 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8432324761913067638, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
-  m_PrefabInstance: {fileID: 1488449242}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1520222493
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,17 +1372,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!114 &1526722561 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8107929876505386397, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
-  m_PrefabInstance: {fileID: 1488449242}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4ec93fe42c355b48892ee4431cf0eb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1653222320
 GameObject:
   m_ObjectHideFlags: 0
@@ -1564,7 +1584,7 @@ MonoBehaviour:
   DoPage:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1526722561}
+      - m_Target: {fileID: 1271956388}
         m_TargetAssemblyTypeName: Megaton.SceneSwitch, Assembly-CSharp
         m_MethodName: Ending
         m_Mode: 3
@@ -2087,9 +2107,9 @@ MonoBehaviour:
   DoPage:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2077863941}
-        m_TargetAssemblyTypeName: Megaton.UI.SettingUI, Assembly-CSharp
-        m_MethodName: EnableAnimation
+      - m_Target: {fileID: 1249569328}
+        m_TargetAssemblyTypeName: Megaton.UI.MainMenuUI, Assembly-CSharp
+        m_MethodName: OpenSetting
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2328,3 +2348,4 @@ SceneRoots:
   - {fileID: 1271956386}
   - {fileID: 1249569326}
   - {fileID: 3265414936693344345}
+  - {fileID: 1488449242}
