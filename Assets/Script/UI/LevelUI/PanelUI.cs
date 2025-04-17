@@ -7,11 +7,5 @@ namespace Megaton.UI
     /// </summary>
     public abstract class PanelUI : UICollection
     {
-        protected override void Awake()
-        {
-            base.Awake();
-            gameObject.SetActive(false);
-        }
-        
     }
 }

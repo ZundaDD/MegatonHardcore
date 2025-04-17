@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Megaton.UI
 {
@@ -30,8 +31,8 @@ namespace Megaton.UI
         {
             if (level.Count > 0) throw new Exception("重复添加最底层UI");
 
-            level.Push(ui);
             ui.Open();
+            level.Push(ui);
             ui.EnableInteract();
         }
 
@@ -49,6 +50,8 @@ namespace Megaton.UI
             }
         }
 
+        public static void Pop(InputAction.CallbackContext ctx) => Pop();
+        
         /// <summary>
         /// 弹出顶层UI，
         /// </summary>
@@ -57,38 +60,43 @@ namespace Megaton.UI
             if (level.Count < 2) throw new Exception("层级栈不满足最底层约束");
 
             //弹出顶层元素
-            var ui = level.Pop();
-            ui.Close();
-            ui.DisableInteract();
-
-            //恢复交互性
-            level.Peek().EnableInteract();
+           
+            var ui = level.Peek();
+            if(ui.Close())
+            { 
+                ui.DisableInteract();
+                level.Pop();
+                
+                level.Peek().EnableInteract();
+            }    
         }
 
         public void Push(UICollection ui)
         {
             if (level.Count < 1) throw new Exception("层级栈为空");
-            if (ui is BottomUI) throw new Exception("尝试插入底层UI，请使用BottomPush"); 
-            
-            //上级元素沉默
-            level.Peek().DisableInteract();
-            
-            //新元素入栈
-            level.Push(ui);
-            ui.Open();
-            ui.EnableInteract();
+            if (ui is BottomUI) throw new Exception("尝试插入底层UI，请使用BottomPush");
+
+            if (ui.Open())
+            {
+                //上级元素沉默
+                level.Peek().DisableInteract();
+
+                //新元素入栈
+                level.Push(ui);
+                ui.EnableInteract();
+            }
         }
         #endregion
 
         #region 交互设置
         protected virtual void EnableInteract()
         {
-            canvasGroup.interactable = false;
+            canvasGroup.interactable = true;
         }
 
         protected virtual void DisableInteract()
         {
-            canvasGroup.interactable = true;
+            canvasGroup.interactable = false;
         }
 
         #endregion
@@ -104,12 +112,14 @@ namespace Megaton.UI
         /// <summary>
         /// 打开层
         /// </summary>
-        protected abstract void Open();
+        /// <returns>是否成功打开</returns>
+        protected abstract bool Open();
         
         /// <summary>
         /// 关闭层
         /// </summary>
-        protected abstract void Close();
+        /// <returns>是否成功关闭</returns>
+        protected abstract bool Close();
         #endregion
     }
 }

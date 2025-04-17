@@ -8,7 +8,7 @@ namespace Megaton.UI
         [SerializeField] private PauseUI pauseUI;
         [SerializeField] private ScoreboardUI scoreboardUI;
 
-        protected override void Open()
+        protected override bool Open()
         {
             //场景配置
             canvasFar.planeDistance = 100 + Setting.Ins.Board_Distance.Value * 10;
@@ -16,18 +16,20 @@ namespace Megaton.UI
             //UI显示
             ScoreBoard.Clear(GameVar.CurPlay.Quantity, GameVar.CurPlay.Weight);
             scoreboardUI.Bind();
+
+            return true;
         }
 
         protected override void EnableInteract()
         {
             base.EnableInteract();
-            InputManager.Input.Player.Escape.performed += ctx => pauseUI.SwitchState();
+            InputManager.Input.Player.Escape.performed += ctx => Push(pauseUI);
         }
 
         protected override void DisableInteract()
         {
             base.DisableInteract();
-            InputManager.Input.Player.Escape.performed -= ctx => pauseUI.SwitchState();
+            InputManager.Input.Player.Escape.performed -= ctx => Push(pauseUI);
         }
     }
 }

@@ -26,10 +26,12 @@ namespace Megaton.UI
             InputManager.Input.UI.Escape.performed -= ctx => SceneSwitch.Ending(1);
         }
 
-        protected override void Open()
+        protected override bool Open()
         {
             settingButton.onClick.AddListener(() => Push(settingCanvas));
             exitButton.onClick.AddListener(() => SceneSwitch.Ending(1));
+
+            return true;
         }
 
     }

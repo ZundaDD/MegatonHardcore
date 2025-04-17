@@ -16,11 +16,13 @@ namespace Megaton.UI
 
             if (Instance != null) throw new Exception("场景最底层UI重复");
             Instance = this;
-            
+
+            if (!GameVar.IfInitialed) return;
+
             BottomPush(this);
         }
 
-        protected override void Open() { }
-        protected override void Close() { }
+        protected override bool Open() => true;
+        protected override bool Close() => true;
     }
 }
