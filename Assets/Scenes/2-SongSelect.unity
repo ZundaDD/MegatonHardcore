@@ -1119,7 +1119,6 @@ MonoBehaviour:
   settingCanvas: {fileID: 1689644791}
   exitButton: {fileID: 2101109526}
   settingButton: {fileID: 1912928145}
-  selectedHandler: {fileID: 474816130}
 --- !u!1 &1019481975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1843,7 +1842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1809647551937616253, guid: 2f004b9a98dfcf744993690f6b2392d4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6405326127930153162, guid: 2f004b9a98dfcf744993690f6b2392d4, type: 3}
       propertyPath: m_Name
@@ -1851,7 +1850,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6405326127930153162, guid: 2f004b9a98dfcf744993690f6b2392d4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6779628132278713466, guid: 2f004b9a98dfcf744993690f6b2392d4, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1869,6 +1868,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 414907207}
+    - target: {fileID: 8084429744311847232, guid: 2f004b9a98dfcf744993690f6b2392d4, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 99
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

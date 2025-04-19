@@ -12,6 +12,11 @@ namespace Megaton
     /// </summary>
     public class SongSelectController : MonoBehaviour
     {
+        private void Awake()
+        {
+            if(!GameVar.IfInitialed) SceneManager.LoadScene(0);
+        }
+
         /// <summary>
         /// 开始游玩
         /// </summary>

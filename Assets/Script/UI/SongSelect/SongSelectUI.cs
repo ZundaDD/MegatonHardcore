@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -17,13 +18,13 @@ namespace Megaton.UI
         protected override void EnableInteract()
         {
             base.EnableInteract();
-            InputManager.Input.UI.Escape.performed += ctx => SceneSwitch.Ending(1);
+            InputManager.Input.UI.Escape.performed += ReturnToMainMenu;
         }
 
         protected override void DisableInteract()
         {
             base.DisableInteract();
-            InputManager.Input.UI.Escape.performed -= ctx => SceneSwitch.Ending(1);
+            InputManager.Input.UI.Escape.performed -= ReturnToMainMenu;
         }
 
         protected override bool Open()
@@ -34,5 +35,6 @@ namespace Megaton.UI
             return true;
         }
 
+        private void ReturnToMainMenu(InputAction.CallbackContext ctx) => SceneSwitch.Ending(1);
     }
 }

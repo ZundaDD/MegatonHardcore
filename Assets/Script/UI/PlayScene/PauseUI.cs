@@ -13,7 +13,7 @@ namespace Megaton.UI
         [SerializeField] RectTransform plane;
 
         private float contentHeight = 0;
-        private float transTime = 0.25f;
+        private float transTime = 0.5f;
         private bool ifSwitchable = true;
 
         void Start()
@@ -27,18 +27,17 @@ namespace Megaton.UI
         protected override void EnableInteract()
         {
             base.EnableInteract();
-            InputManager.Input.Player.Escape.performed += Pop;
+            InputManager.Input.UI.Escape.performed += Pop;
         }
 
         protected override void DisableInteract()
         {
             base.DisableInteract();
-            InputManager.Input.Player.Escape.performed -= Pop;
+            InputManager.Input.UI.Escape.performed -= Pop;
         }
 
         protected override bool Close()
         {
-            if (!GameVar.IfStarted && !GameVar.IfPaused) return false;
             if (!ifSwitchable) return false;
 
             ifSwitchable = false;

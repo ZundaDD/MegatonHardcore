@@ -28,7 +28,7 @@ namespace Megaton.UI
         void Start()
         {
             BindEvents();
-            curSelection = EventSystem.current.currentSelectedGameObject;
+            EventSystem.current.SetSelectedGameObject(null);
         }
 
         public void OnDestroy()
@@ -53,6 +53,8 @@ namespace Megaton.UI
                     //绑定事件
                     BindEvent(eventTrigger, EventTriggerType.PointerEnter,
                         bed => ProcessHoverEnter(bed, cbk));
+                    BindEvent(eventTrigger, EventTriggerType.PointerExit,
+                        bed => ProcessHoverExit(bed, cbk));
 
                     BindEvent(eventTrigger, EventTriggerType.Submit, cbk.OnSubmit);
                     BindEvent(eventTrigger, EventTriggerType.PointerClick, cbk.OnSubmit);
@@ -75,11 +77,12 @@ namespace Megaton.UI
             }
         }
 
+
+
         /// <summary>
         /// 处理鼠标悬停事件
         /// </summary>
-        /// <param name="bed"></param>
-        public void ProcessHoverEnter(BaseEventData bed, ISelectCallback go)
+        private void ProcessHoverEnter(BaseEventData bed, ISelectCallback go)
         {
             if (curSelection != null)
             {
@@ -91,6 +94,20 @@ namespace Megaton.UI
             }
             EventSystem.current.SetSelectedGameObject(go.gameobject);
             curSelection = go.gameobject;
+        }
+
+        /// <summary>
+        /// 处理鼠标离开事件
+        /// </summary>
+        private void ProcessHoverExit(BaseEventData bed, ISelectCallback go)
+        {
+            if (EventSystem.current == null) return;
+            if (curSelection != null && go.gameobject != null && curSelection == go.gameobject)
+            {
+                go.DeSelect(bed);
+                EventSystem.current.SetSelectedGameObject(null);
+                curSelection = null;
+            }
         }
 
         /// <summary>

@@ -1944,6 +1944,10 @@ PrefabInstance:
       propertyPath: m_RenderMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 902260365219222261, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 99
+      objectReference: {fileID: 0}
     - target: {fileID: 2392984328269354300, guid: 0a86a36a0f186b445ae27eaa16673542, type: 3}
       propertyPath: m_Name
       value: Scene_Border_Canvas
@@ -2767,6 +2771,7 @@ GameObject:
   - component: {fileID: 1836579473}
   - component: {fileID: 1836579477}
   - component: {fileID: 1836579478}
+  - component: {fileID: 1836579479}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2886,6 +2891,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   exitButton: {fileID: 735627348}
+--- !u!225 &1836579479
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836579472}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1943870253
 GameObject:
   m_ObjectHideFlags: 0

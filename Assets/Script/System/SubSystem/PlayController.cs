@@ -1,6 +1,7 @@
 using Megaton.Abstract;
 using Megaton.Classic;
 using Megaton.UI;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -56,6 +57,7 @@ namespace Megaton
             GameVar.IfPrepare = false;
             GameVar.IfStarted = false;
             musicPlayer.Pause();
+            InputManager.SwitchInputMode(false);
         }
 
         /// <summary>
@@ -65,6 +67,7 @@ namespace Megaton
         {
             GameVar.IfPaused = false;
             musicPlayer.Restore();
+            InputManager.SwitchInputMode(true);
         }
 
         /// <summary>
@@ -82,6 +85,7 @@ namespace Megaton
         public void Restart()
         {
             ResetGlobalState();
+            GameVar.CurPlay = ChartLoader.Path2Play(GameVar.CurPlay.Info.RootDir, GameVar.CurPlay.Info);
             SceneSwitch.Ending(SceneManager.GetActiveScene().name);
         }
 

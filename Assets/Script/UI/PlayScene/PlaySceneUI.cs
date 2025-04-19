@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Megaton.UI
 {
@@ -23,13 +24,15 @@ namespace Megaton.UI
         protected override void EnableInteract()
         {
             base.EnableInteract();
-            InputManager.Input.Player.Escape.performed += ctx => Push(pauseUI);
+            InputManager.Input.Player.Escape.performed += SummonPauseUI;
         }
 
         protected override void DisableInteract()
         {
             base.DisableInteract();
-            InputManager.Input.Player.Escape.performed -= ctx => Push(pauseUI);
+            InputManager.Input.Player.Escape.performed -= SummonPauseUI;
         }
+
+        private void SummonPauseUI(InputAction.CallbackContext ctx) => Push(pauseUI);
     }
 }
