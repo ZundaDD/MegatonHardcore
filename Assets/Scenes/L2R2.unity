@@ -1102,6 +1102,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &930622258 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1351463797454823895, guid: e42b8bdafecd50f45b5642f23de170eb, type: 3}
+  m_PrefabInstance: {fileID: 5237424844676277261}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &930622260 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2945667394376637205, guid: e42b8bdafecd50f45b5642f23de170eb, type: 3}
@@ -1906,6 +1917,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1481801526}
   m_CullTransparentMesh: 1
+--- !u!114 &1570929744 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8821930692425177828, guid: e42b8bdafecd50f45b5642f23de170eb, type: 3}
+  m_PrefabInstance: {fileID: 5237424844676277261}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1570929746 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5818320565899482212, guid: e42b8bdafecd50f45b5642f23de170eb, type: 3}
@@ -2513,6 +2535,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2945667394376637205, guid: e42b8bdafecd50f45b5642f23de170eb, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 930622258}
+    - target: {fileID: 2945667394376637205, guid: e42b8bdafecd50f45b5642f23de170eb, type: 3}
       propertyPath: m_Navigation.m_Mode
       value: 4
       objectReference: {fileID: 0}
@@ -2640,6 +2666,10 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5818320565899482212, guid: e42b8bdafecd50f45b5642f23de170eb, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 1570929744}
     - target: {fileID: 5818320565899482212, guid: e42b8bdafecd50f45b5642f23de170eb, type: 3}
       propertyPath: m_Navigation.m_Mode
       value: 4

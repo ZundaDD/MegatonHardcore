@@ -40,7 +40,7 @@ namespace Megaton
         {
             string chartPath = Path.Combine(path, ChartName);
             ChartInfo info = new ChartInfo();
-
+            
             using (StreamReader sr = new StreamReader(chartPath))
             {
 
