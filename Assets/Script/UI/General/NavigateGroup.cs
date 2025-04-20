@@ -24,11 +24,12 @@ namespace Megaton.UI
     {
         private GameObject curSelection;
         private EventTrigger eventTrigger;
+        [SerializeField] private GameObject defaultScelection;
+
 
         void Start()
         {
             BindEvents();
-            EventSystem.current.SetSelectedGameObject(null);
         }
 
         public void OnDestroy()
@@ -71,13 +72,10 @@ namespace Megaton.UI
         {
             if (EventSystem.current.currentSelectedGameObject == null)
             {
-                var fso = EventSystem.current.firstSelectedGameObject;
-                EventSystem.current.SetSelectedGameObject(fso);
-                curSelection = fso;
+                EventSystem.current.SetSelectedGameObject(defaultScelection);
+                curSelection = defaultScelection;
             }
         }
-
-
 
         /// <summary>
         /// 处理鼠标悬停事件

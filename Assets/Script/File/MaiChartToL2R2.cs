@@ -147,9 +147,9 @@ namespace Megaton.Chart
                         //写入检测
                         for (int i = 0; i < each.Count; i++)
                         {
-                            Debug.Log($"Mai: {each[i]}");
+                            //Debug.Log($"Mai: {each[i]}");
                             each[i] = Mai2L2R2(each[i]);
-                            Debug.Log($"L2R2: {each[i]}");
+                            //Debug.Log($"L2R2: {each[i]}");
                         }
                         each.RemoveAll(x => x == ",");
                         if (each.Count > 0)

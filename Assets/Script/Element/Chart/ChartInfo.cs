@@ -9,7 +9,10 @@ namespace Megaton
     [Serializable]
     public class ChartInfo
     {
+        
+
         // 由路径得到的信息
+        [NonSerialized] public Sprite Cover = null;
         public string RootDir = "Null";
         public string Pack = "Null";
         public string Folder = "Null";
@@ -49,6 +52,12 @@ namespace Megaton
             int round = (int)Level;
             float af = Level - round;
             return (af > .59f) ? round + "+" : round.ToString();
+        }
+
+        public Sprite GetCoverSprite()
+        {
+            if(Cover == null) Cover = CoverLoader.Path2Sprite(RootDir);
+            return Cover;
         }
     }
 }

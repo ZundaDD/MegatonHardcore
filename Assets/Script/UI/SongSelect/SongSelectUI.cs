@@ -1,3 +1,4 @@
+using DanielLochner.Assets.SimpleScrollSnap;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -11,20 +12,27 @@ namespace Megaton.UI
     public class SongSelectUI : BottomUI
     {
         [SerializeField] private SettingUI settingCanvas;
+        [SerializeField] private SongList songList;
+        [SerializeField] private SimpleScrollSnap scroller;
         [SerializeField] private Button exitButton;
         [SerializeField] private Button settingButton;
         //[SerializeField] private SelectChartInfoUI selectedHandler;
 
+        #region 交互这一块
         protected override void EnableInteract()
         {
             base.EnableInteract();
             InputManager.Input.UI.Escape.performed += ReturnToMainMenu;
+            InputManager.Input.UI.Scroll.performed += songList.OnScroll;
+            InputManager.Input.UI.Navigation.performed += songList.OnNavigation;
         }
 
         protected override void DisableInteract()
         {
             base.DisableInteract();
             InputManager.Input.UI.Escape.performed -= ReturnToMainMenu;
+            InputManager.Input.UI.Scroll.performed -= songList.OnScroll;
+            InputManager.Input.UI.Navigation.performed -= songList.OnNavigation;
         }
 
         protected override bool Open()
@@ -36,5 +44,6 @@ namespace Megaton.UI
         }
 
         private void ReturnToMainMenu(InputAction.CallbackContext ctx) => SceneSwitch.Ending(1);
+        #endregion
     }
 }

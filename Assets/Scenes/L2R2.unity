@@ -1539,7 +1539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 1848554400}
+  m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1269560469
@@ -2666,6 +2666,10 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4818108768503654746, guid: e42b8bdafecd50f45b5642f23de170eb, type: 3}
+      propertyPath: defaultScelection
+      value: 
+      objectReference: {fileID: 1848554400}
     - target: {fileID: 5818320565899482212, guid: e42b8bdafecd50f45b5642f23de170eb, type: 3}
       propertyPath: m_TargetGraphic
       value: 

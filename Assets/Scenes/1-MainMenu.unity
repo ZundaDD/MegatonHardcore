@@ -1530,7 +1530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 1722183945}
+  m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1695504535
@@ -2049,6 +2049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d781532a607aa4a48854c39b9e86afc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultScelection: {fileID: 1722183945}
 --- !u!114 &2077863941 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1666922240990993044, guid: 2f004b9a98dfcf744993690f6b2392d4, type: 3}
