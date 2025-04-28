@@ -20,11 +20,13 @@ namespace Megaton.UI
         [SerializeField] private InOutText bestRank;
         private AudioSource musicPlayer;
 
-
         void Start()
         {
             musicPlayer = GetComponent<AudioSource>();
+        }
 
+        public void SetToNull()
+        {
             //初始默认，防止没有歌的时候什么也不显示
             title.ChangeTo("", false);
             composer.ChangeTo("", false);
@@ -41,7 +43,7 @@ namespace Megaton.UI
             bpm.ChangeTo("BPM:" + info.BPM);
             bestRank.ChangeTo(info.Score.BestRank);
             bestScore.ChangeTo(info.Score.BestRank == "" ? "" : $"{info.Score.BestScore.ToString().PadLeft(8,'0')}");
-            cover.ChangeTo(info.Cover);
+            cover.ChangeTo(info.GetCoverSprite());
             
             //重新播放音乐
             musicPlayer.Stop();
