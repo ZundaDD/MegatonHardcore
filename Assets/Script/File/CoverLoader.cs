@@ -19,6 +19,7 @@ namespace Megaton
             Texture2D texture = new Texture2D(2, 2);
             ImageConversion.LoadImage(texture, data);
             texture.wrapMode = TextureWrapMode.Clamp;
+            texture.filterMode = FilterMode.Point;
             return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100);
         }
     }

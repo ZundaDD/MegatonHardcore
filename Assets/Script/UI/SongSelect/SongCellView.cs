@@ -13,37 +13,38 @@ namespace Megaton.UI
         [SerializeField] private Text titleText;
         [SerializeField] private Text rankText;
         [SerializeField] private Text modeText;
-        [SerializeField] private Image coverImage;
-        
+        [SerializeField] private Image coverImage;        
         [SerializeField] private Button selectedButton;
-
-        private bool isSelected = false;
-        //[SerializeField] public Image selectHint;
-
+        [SerializeField] public Animator selectHint;
         
+        
+        public int PanelIndex { get; set; }
+        public int RealIndex { get; set; }
+
+        public void SetAnimation(bool on)
+        {
+            if (on) selectHint.SetTrigger("FadeIn");
+            else selectHint.SetTrigger("FadeOut");
+        }
+        
+
+        private void Start()
+        {
+            selectedButton.onClick.AddListener(() =>
+            {
+                GlobalEffectPlayer.PlayEffect(AudioEffect.OnSongSelect);
+                SongList.Ins.ProcessPress(PanelIndex);
+            });
+        }
+
         public void Bind(ChartInfo chartInfo)
         {
-            /*恢复闪
-            if(SelectChartInfoUI.Ins.IfSelected(chartInfo))
-            {
-                SelectChartInfoUI.Ins.RealertSelected(selectHint);
-            }*/
-
             //显示数据
             levelText.text = chartInfo.GetLevelString();
             titleText.text = chartInfo.Title;
             rankText.text = chartInfo.Score.BestRank;
             modeText.text = chartInfo.PlayMode.ToString();
             coverImage.sprite = chartInfo.GetCoverSprite();
-
-            //绑定点击事件
-            selectedButton.onClick.RemoveAllListeners();
-            selectedButton.onClick.AddListener(() => 
-            {
-                GlobalEffectPlayer.PlayEffect(AudioEffect.OnSongSelect);
-                SongSelectController.StartPlay(chartInfo);
-            });
-            
         }
     }
 }

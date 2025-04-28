@@ -13,6 +13,8 @@ namespace Megaton.UI
     /// </summary>
     public class SongList : MonoBehaviour
     {
+        public static SongList Ins { get; private set; }
+
         private float scrollInput = 0f;
         private float clearTime = 0f;
 
@@ -34,20 +36,45 @@ namespace Megaton.UI
 
         private void Start()
         {
-            if(GameVar.ChartInfos.Count == 0) return;
-            
-            for(int i = 0;i < maxPanelCount ; ++i) 
+            Ins = this;
+            InitScroller();
+        }
+
+        /// <summary>
+        /// 初始化滚动视图
+        /// </summary>
+        public void InitScroller()
+        {
+            if (GameVar.ChartInfos.Count == 0) return;
+
+            for (int i = 0; i < maxPanelCount; ++i)
             {
                 var cell = Instantiate(cellPrefab, contentRect);
                 cell.name = $"Song {i}";
                 cells.Add(cell.GetComponent<SongCellView>());
-                //保证一定有足够的cell以形成完整的视图
+                
+                cell.PanelIndex = i;
+                cell.RealIndex = i % GameVar.ChartInfos.Count;
+
                 cell.Bind(GameVar.ChartInfos[i % GameVar.ChartInfos.Count]);
             }
+            
+            //绑定回调函数
+            scroller.Bind +=
+                (cellidx, realidx) =>
+                {
+                    cells[cellidx].Bind(GameVar.ChartInfos[realidx]);
+                    cells[cellidx].RealIndex = realidx;
+                };
 
-            //手动进行panel的排布
-            scroller.Bind += 
-                (cellidx, realidx) => cells[cellidx].Bind(GameVar.ChartInfos[realidx]);
+            scroller.OnPanelCentered.AddListener(
+                (cellidx, precellidx) =>
+                {
+                    cells[cellidx].SetAnimation(true);
+                    if(precellidx > -1) cells[precellidx].SetAnimation(false);
+                });
+
+            //手动设置panel排布参数
             scroller.StartingPanel = firstSelectPanel;
             scroller.RealIndex = firstSelectPanel % GameVar.ChartInfos.Count;
             scroller.RealPanels = GameVar.ChartInfos.Count;
@@ -55,6 +82,24 @@ namespace Megaton.UI
             scroller.ArrangePanel();
         }
 
+        /// <summary>
+        /// 处理子项的点击事件
+        /// </summary>
+        /// <param name="idx">创建时的索引</param>
+        public void ProcessPress(int idx)
+        {
+            //如果是正确的
+            if (cells[idx].RealIndex == scroller.RealIndex)
+            {
+                SongSelectController.StartPlay(GameVar.ChartInfos[scroller.RealIndex]);
+            }
+            //否则转移
+            else
+            {
+                scroller.GoIdx(idx);
+            }
+        }
+        #region 输入这一块
         public void Update()
         {
             clearTime = Mathf.Max(reserveTime - Time.deltaTime, 0f);
@@ -115,6 +160,8 @@ namespace Megaton.UI
 
             navigationInput = delta;
         }
+        #endregion
 
+        
     }
 }
