@@ -71,6 +71,7 @@ namespace Megaton.UI
                 (cellidx, precellidx) =>
                 {
                     cells[cellidx].SetAnimation(true);
+                    GlobalEffectPlayer.PlayEffect(AudioEffect.OnSongSelect);
                     if(precellidx > -1) cells[precellidx].SetAnimation(false);
                 });
 
