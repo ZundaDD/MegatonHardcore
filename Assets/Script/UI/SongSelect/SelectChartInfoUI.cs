@@ -44,11 +44,27 @@ namespace Megaton.UI
             bestRank.ChangeTo(info.Score.BestRank);
             bestScore.ChangeTo(info.Score.BestRank == "" ? "" : $"{info.Score.BestScore.ToString().PadLeft(8,'0')}");
             cover.ChangeTo(info.GetCoverSprite());
+
+            GC();
             
-            //重新播放音乐
-            musicPlayer.Stop();
             musicPlayer.clip = MusicLoader.Path2Clip(info.RootDir, true);
             musicPlayer.Play();
+        }
+
+        public void OnDestroy() => GC();
+
+        /// <summary>
+        /// 释放读取的AudioClip资源
+        /// </summary>
+        public void GC()
+        {
+            musicPlayer.Stop();
+
+            var clip = musicPlayer.clip;
+            musicPlayer.clip = null;
+            Destroy(clip);
+            
+            MusicLoader.ReadStream?.Dispose();
         }
 
     }

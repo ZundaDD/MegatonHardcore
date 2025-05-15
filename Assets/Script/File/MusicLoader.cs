@@ -1,6 +1,8 @@
 using System.IO;
 using UnityEngine;
 using NLayer;
+using NVorbis;
+using System.IO.Enumeration;
 
 namespace Megaton
 {
@@ -9,25 +11,42 @@ namespace Megaton
     /// </summary>
     public static class MusicLoader
     {
-        public static string MusicPath;
-        public static string MusicName = "music.mp3";
-
+        public static string MusicName = "music";
+        public static VorbisReader ReadStream = null;
 
         public static AudioClip Path2Clip(string path,bool stream = true)
         {
-            MusicPath = Path.Combine(path, MusicName);
-            string filename = System.IO.Path.GetFileNameWithoutExtension(MusicPath);
+            string filename = Path.Combine(path, MusicName);
+            AudioClip ac = null;
+            if (File.Exists($"{filename}.mp3"))
+            {
+                filename = $"{filename}.mp3";
+                MpegFile mpeg = new MpegFile(filename);
 
-            MpegFile mpeg = new MpegFile(MusicPath);
-            
-            // assign samples into AudioClip
-            AudioClip ac = AudioClip.Create(filename,
-                                            (int)(mpeg.Length / sizeof(float) / mpeg.Channels),
-                                            mpeg.Channels,
-                                            mpeg.SampleRate,
+                // assign samples into AudioClip
+                ac = AudioClip.Create(filename,
+                                                (int)(mpeg.Length / sizeof(float) / mpeg.Channels),
+                                                mpeg.Channels,
+                                                mpeg.SampleRate,
+                                                stream,
+                                                data => { int actualReadCount = mpeg.ReadSamples(data, 0, data.Length); }
+                                                );
+            }
+            else
+            {
+                filename = $"{filename}.ogg";
+                var vorbis = new VorbisReader(filename);
+                ReadStream = vorbis;
+                ac = AudioClip.Create(filename,
+                                            (int)(vorbis.SampleRate * vorbis.TotalTime.TotalSeconds),
+                                            vorbis.Channels,
+                                            vorbis.SampleRate,
                                             stream,
-                                            data => { int actualReadCount = mpeg.ReadSamples(data, 0, data.Length); }
+                                            data => { int actualReadCount = vorbis.ReadSamples(data, 0, data.Length); }
                                             );
+            }
+            
+
             return ac;
         }
 

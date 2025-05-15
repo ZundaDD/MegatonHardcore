@@ -98,6 +98,9 @@ namespace Megaton
             SceneSwitch.Ending(2);
         }
 
+        /// <summary>
+        /// 切换场景时
+        /// </summary>
         private void ResetGlobalState()
         {
             InputManager.SwitchInputMode(false);

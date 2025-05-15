@@ -36,7 +36,7 @@ namespace Megaton.Classic
             inputActions.Player.Right2.canceled -= rails[RailEnum.Right2].Release;
         }
 
-        public override Command ParseCommand(string token,int bpm,int divide)
+        public override Command ParseCommand(string token,int bpm)
         {
             switch (token[0])
             {
@@ -50,13 +50,22 @@ namespace Megaton.Classic
                         float length;
                         try
                         {
-                            length = float.Parse(token.Substring(1));
+                            //带$表示直接给出时值
+                            if (token[0] == '$')
+                            {
+                                length = int.Parse(token.Substring(1)) / 1000;
+                            }
+                            //否则表示四分音的个数
+                            else
+                            {
+                                length = float.Parse(token) * 60 / bpm;
+                            }
                         }
                         catch
                         {
                             return null;
                         }
-                        return new Hold() {  ExactLength = length * 60 / (bpm * divide / 4)};
+                        return new Hold() {  ExactLength = length };
                     }
                     return null;
                 default:

@@ -188,7 +188,7 @@ namespace Megaton.Chart
                 {
                     int div = int.Parse(match.Groups[1].Value);
                     int len = int.Parse(match.Groups[2].Value);
-                    return $"{rail}H{Division / div * len}";
+                    return $"{rail}H{4 / div * len}";
                 }
             }
             catch

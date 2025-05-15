@@ -59,6 +59,7 @@ namespace Megaton.UI
             return true;
         }
 
+        
         private void ReturnToMainMenu(InputAction.CallbackContext ctx) => SceneSwitch.Ending(1);
         #endregion
     }

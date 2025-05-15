@@ -28,6 +28,8 @@ namespace Megaton.Web
         
         private List<int> downLoadList = new();
         private bool isDownloading = false;
+
+
         private string baseurl = "https://txy1.sayobot.cn/beatmaps/download/full/{0}?server=0";
         private string savePath;
         private string tempPath;
@@ -81,6 +83,7 @@ namespace Megaton.Web
             //下载完成，设置状态
             isDownloading = false;
             Status = "当前没有下载任务！";
+            Progress = 0f;
         }
 
         private IEnumerator DownLoadZipChart(int id)
@@ -124,7 +127,10 @@ namespace Megaton.Web
                     Status = successMsg;
                     Progress = 1f;
                 }
+
+                OSUConverter.Path2Path(tempFullpath, savePath);
             }
+            
         }
     }
 }

@@ -21,7 +21,9 @@ namespace Megaton
         private void Start()
         {
             osuHandler.DownLoadChart(2342660);
-            osuHandler.DownLoadChart(1);
+            osuHandler.DownLoadChart(2340628);
+            osuHandler.DownLoadChart(1872276);
+            osuHandler.DownLoadChart(1107469);
         }
     }
 }

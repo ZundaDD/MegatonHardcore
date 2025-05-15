@@ -110,6 +110,7 @@ namespace Megaton
             musicSource.Stop();
             Destroy(musicSource.clip);
             musicSource.clip = null;
+            MusicLoader.ReadStream?.Dispose();
         }
 
         /// <summary>

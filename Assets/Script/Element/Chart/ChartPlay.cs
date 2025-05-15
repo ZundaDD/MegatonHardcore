@@ -24,12 +24,27 @@ namespace Megaton
         /// <param name="command">谱面单行内容</param>
         public void ParseCommand(string command)
         {
+            if(command == "") return;
+            
             string[] token = command.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            int divide = int.Parse(token[0]);
+
+            //解析元时间
+            float delta = 0;
+            if (token[0][0] == '$')
+            {
+                token[0] = token[0].Substring(1);
+                delta = int.Parse(token[0]) / 1000f;
+            }
+            else
+            {
+                int divide = int.Parse(token[0]);
+                delta = 60f / (Info.BPM * divide / 4);
+            }
+
             for (int i = 1; i < token.Length; i++)
             {
                 //一个子音符组加时一次
-                if(divide != 0) timeAcc += 60f / (Info.BPM * divide / 4);
+                if(delta != 0) timeAcc += delta;
                 
                 //拆分音符组
                 string[] subToken = token[i].Split("/");
@@ -39,7 +54,7 @@ namespace Megaton
                     
                     //解析内容
                     RailEnum rail = GameVar.PlayMode.ParseRailRelection(split[0]);
-                    var item = GameVar.PlayMode.ParseCommand(split[1], Info.BPM, divide);
+                    var item = GameVar.PlayMode.ParseCommand(split[1], Info.BPM);
 
                     //添加到列表
                     if (item != null && rail != RailEnum.Undefined)
