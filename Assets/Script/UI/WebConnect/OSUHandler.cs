@@ -1,6 +1,9 @@
+using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using UnityEditor;
 using UnityEditor.Overlays;
 using UnityEngine;
@@ -14,30 +17,48 @@ namespace Megaton.Web
     /// </summary>
     public class OSUHandler : MonoBehaviour
     {
+        #region Fields
         /// <summary>
         /// 下载状态
         /// </summary>
         public string Status { get; private set; } = "";
 
         /// <summary>
+        /// 是否发生错误，包括取消和网络错误
+        /// </summary>
+        public bool Error { get; private set; } = false;
+
+        /// <summary>
         /// 进度条
         /// </summary>
         public float Progress { get; private set; } = 0f;
 
+        /// <summary>
+        /// 剩余任务数
+        /// </summary>
+        public int LeftTasks { get => isDownloading ? downLoadList.Count: 0; }
+        #endregion
+
         [SerializeField] private float downloadSpace = 2f;
-        
+
         private List<int> downLoadList = new();
         private bool isDownloading = false;
-
+        private CancellationTokenSource cancelSource;
 
         private string baseurl = "https://txy1.sayobot.cn/beatmaps/download/full/{0}?server=0";
         private string savePath;
         private string tempPath;
 
-        void Awake()
+        private void Awake()
         {
             tempPath = Path.Combine(Application.persistentDataPath, "OSU");
             savePath = Path.Combine(Application.persistentDataPath, "Data", "Charts", "OSU");
+        }
+
+        private void OnDestroy()
+        {
+            cancelSource?.Cancel();
+            cancelSource?.Dispose();
         }
 
         private void Update()
@@ -49,88 +70,159 @@ namespace Megaton.Web
             // 4. 如果有，间隔短时间后继续下载
             // 5. 直到队列中没有任务
             // 6. 如果没有任务，设置状态为“空闲”
-            if(!isDownloading && downLoadList.Count > 0)
+            if (!isDownloading && downLoadList.Count > 0)
             {
                 isDownloading = true;
-                StartCoroutine(DownLoadCharts());
+                DownLoadList().Forget();
             }
         }
 
         public void DownLoadChart(int id) => downLoadList.Add(id);
 
+        #region 下载异步函数
         /// <summary>
-        /// 下载zip形式的谱面
+        /// 下载队列中的所有谱面
         /// </summary>
         /// <param name="id">谱面ID</param>
-        private IEnumerator DownLoadCharts()
+        async private UniTask DownLoadList()
         {
+            //设置取消状态
+            cancelSource?.Cancel();
+            cancelSource?.Dispose();
+            cancelSource = new();
+
+            var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(
+                cancelSource.Token,
+                this.GetCancellationTokenOnDestroy());
+            CancellationToken combinedToken = linkedCts.Token;
+            
             while (downLoadList.Count > 0)
             {
+                Progress = 0;
+
                 //获取ID
                 int id = downLoadList[0];
-                downLoadList.RemoveAt(0);
 
-                //下载谱面
-                yield return StartCoroutine(DownLoadZipChart(id));
+                //取消设置状态位并结束
+                if (combinedToken.IsCancellationRequested)
+                {
+                    Error = true;
+                    break;
+                }
 
-                //等待一段时间，避免过于频繁的请求
-                yield return new WaitForSeconds(downloadSpace);
+                //执行流程
+                try
+                {
+                    //下载谱面
+                    await DownloadChart(id, combinedToken);
 
-                //重置进度条
-                if (downLoadList.Count != 0) Progress = 0;
+                    //如果下载出错，跳过至下一次，如果下载取消在循环开始会处理
+                    if (Error)
+                    {
+                        downLoadList.RemoveAt(0);
+                        continue;
+                    }
+
+                    Progress = 1f;
+                    Status = $"下载谱面{id}成功！转化文件中";
+                    
+                    //处理谱面，不可取消
+                    string tempFullpath = Path.Combine(tempPath, id + ".osz");
+                    await OSUConverter.Path2Path(tempFullpath, savePath);
+
+                    Status = $"谱面{id}转化完成！";
+
+                    //等待一段时间，避免过于频繁的请求
+                    await UniTask.Delay(System.TimeSpan.FromSeconds(downloadSpace),
+                        cancellationToken: combinedToken);
+
+                    downLoadList.RemoveAt(0);
+                }
+                catch (OperationCanceledException)
+                {
+                    Error = true;
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Status = $"处理谱面 {id} 时发生意外错误: {ex.Message}";
+                    Error = true;
+                    if (downLoadList.Count > 0 && downLoadList[0] == id) downLoadList.RemoveAt(0);
+                    continue;
+                }
             }
 
-            //下载完成，设置状态
+            //下载完成，设置结束状态，在下一次执行前不会改变
             isDownloading = false;
-            Status = "当前没有下载任务！";
-            Progress = 0f;
+            Progress = 0;
+            if(Error && combinedToken.IsCancellationRequested) Status = "下载被取消...";
+            else Status = "当前没有下载任务！";
+
+            linkedCts.Dispose();
         }
 
-        private IEnumerator DownLoadZipChart(int id)
+        /// <summary>
+        /// 仅处理下载的逻辑
+        /// </summary>
+        async private UniTask DownloadChart(int id,CancellationToken cancellation)
         {
+            Error = false;
+
             //计算路径
             string fullurl = string.Format(baseurl, id);
             string tempFullpath = Path.Combine(tempPath, id + ".osz");
 
             string downloadMsg = $"正在下载谱面: {id}" + "({0}%)";
-            using (UnityWebRequest request = UnityWebRequest.Get(fullurl))
-            {
-                request.downloadHandler = new DownloadHandlerFile(tempFullpath);
-                var asyncOperation =  request.SendWebRequest();
 
-                //等待下载完成，同时设置进度
-                while (!asyncOperation.isDone)
+            try
+            {
+                if (cancellation.IsCancellationRequested)
                 {
-                    Status = string.Format(downloadMsg, (int)(request.downloadProgress * 100));
-                    Progress = request.downloadProgress;
-                    yield return null;
+                    Error = true;
+                    return;
                 }
 
-                //处理错误
-                if (request.result == UnityWebRequest.Result.ConnectionError ||
-                    request.result == UnityWebRequest.Result.ProtocolError)
+                using (UnityWebRequest request = UnityWebRequest.Get(fullurl))
                 {
-                    string errorMsg = $"下载错误: {request.error} (HTTP Code: {request.responseCode})";
-                    Status = errorMsg;
+                    request.downloadHandler = new DownloadHandlerFile(tempFullpath);
 
-                    //删除已下载的文件
-                    if (File.Exists(tempFullpath))
+                    var reporter = new System.Progress<float>(p =>
                     {
-                        File.Delete(tempFullpath);
-                        Debug.Log($"删除已下载的文件: {tempFullpath}");
+                        if (!cancellation.IsCancellationRequested)
+                        {
+                            Progress = p;
+                            Status = string.Format(downloadMsg, (int)(request.downloadProgress * 100));
+                        }
+                    });
+
+                    Status = string.Format(downloadMsg, 0);
+
+                    //等待下载完成，同时设置进度
+                    await request.SendWebRequest().ToUniTask(reporter, cancellationToken: cancellation);
+
+                    //处理错误
+                    if (request.result != UnityWebRequest.Result.Success)
+                    {
+                        Status = $"下载错误: {request.error} {request.responseCode}";
+                        Error = true;
+                        if (File.Exists(tempFullpath)) File.Delete(tempFullpath);
                     }
                 }
-                //处理成功
-                else
-                {
-                    string successMsg = $"下载谱面{id}成功！转化文件中......";
-                    Status = successMsg;
-                    Progress = 1f;
-                }
-
-                OSUConverter.Path2Path(tempFullpath, savePath);
             }
-            
+            catch(System.OperationCanceledException)
+            {
+                Error = true;
+                if (File.Exists(tempFullpath)) File.Delete(tempFullpath);
+                return;
+            }
+            catch (System.Exception ex)
+            {
+                Status = $"下载错误: {ex.Message}";
+                Error = true;
+                if (File.Exists(tempFullpath)) File.Delete(tempFullpath);
+                return;
+            }
         }
+        #endregion
     }
 }

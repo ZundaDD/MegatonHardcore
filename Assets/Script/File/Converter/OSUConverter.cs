@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using UnityEngine;
 
 namespace Megaton
@@ -94,7 +96,7 @@ namespace Megaton
         /// </summary>
         /// <param name="src">压缩包路径</param>
         /// <param name="dst">目标分类文件夹，即OSU</param>
-        public static void Path2Path(string src,string dst)
+        public static async UniTask Path2Path(string src,string dst)
         {
             if(!File.Exists(src))
             {
@@ -111,7 +113,7 @@ namespace Megaton
 
             //解析不同难度的谱面文件
             foreach(var file in Directory.GetFiles(tempDirectory, "*.osu"))
-                ParseOneDifficulty(file, dst);
+                await ParseOneDifficulty(file, dst);
 
             //生成完谱面后删除临时文件
             Directory.Delete(tempDirectory, true);
@@ -122,7 +124,7 @@ namespace Megaton
         /// </summary>
         /// <param name="filePath">谱面文件路径</param>
         /// <param name="dstPath">目标分类路径</param>
-        private static void ParseOneDifficulty(string filePath,string dstPath)
+        async private static UniTask ParseOneDifficulty(string filePath,string dstPath)
         {
             //解析是否成功
             ChartFile file = new();
@@ -196,6 +198,7 @@ namespace Megaton
                     }
                 }
             }
+
             //验证谱面有效性
             if (!file.IfValid()) 
             { 
@@ -214,7 +217,7 @@ namespace Megaton
             }
 
             //有效则进行构建
-            SetDiffcultyFolder(
+            await SetDiffcultyFolder(
                 Path.GetDirectoryName(filePath),
                 Path.Combine(dstPath, file.ID.ToString()),
                 file);
@@ -302,19 +305,20 @@ namespace Megaton
         }
 
         #endregion
+        
         /// <summary>
         /// 构建一个难度的谱面
         /// </summary>
         /// <param name="srcPath">源谱面文件夹</param>
         /// <param name="dstPath">目标谱面文件夹</param>
         /// <param name="fileContent">谱面内容</param>
-        private static void SetDiffcultyFolder(string srcPath, string dstPath, ChartFile fileContent)
+        private static async UniTask SetDiffcultyFolder(string srcPath, string dstPath, ChartFile fileContent)
         {
             //创建目标谱面文件夹
             if (Directory.Exists(dstPath)) Directory.Delete(dstPath, true);
             Directory.CreateDirectory(dstPath);
 
-            ResizeCover(Path.Combine(srcPath, fileContent.CoverPath));
+            await ResizeCover(Path.Combine(srcPath, fileContent.CoverPath));
             //复制封面音频
             File.Copy(Path.Combine(srcPath, fileContent.CoverPath), Path.Combine(dstPath, "cover.png"));
             File.Copy(Path.Combine(srcPath, fileContent.AudioPath), Path.Combine(dstPath, $"music.{fileContent.AudioPath.Split(".")[1]}"));
@@ -362,13 +366,16 @@ namespace Megaton
         /// 重新裁剪封面
         /// </summary>
         /// <param name="filePath"></param>
-        private static void ResizeCover(string filePath)
+        private static async UniTask ResizeCover(string filePath)
         {
+            await UniTask.SwitchToMainThread();
+            Texture2D originalTexture = new Texture2D(2, 2);
+            Texture2D targetTexture = new Texture2D(400, 400, TextureFormat.RGB24, false);
             try
             {
                 //读取
                 byte[] bytes = File.ReadAllBytes(filePath);
-                Texture2D originalTexture = new Texture2D(2, 2);
+                originalTexture = new Texture2D(2, 2);
                 originalTexture.LoadImage(bytes);
 
                 int width = originalTexture.width;
@@ -378,7 +385,7 @@ namespace Megaton
                 int centerY = height / 2;
 
                 //出厂设置
-                Texture2D targetTexture = new Texture2D(400, 400, TextureFormat.RGB24, false);
+                targetTexture = new Texture2D(400, 400, TextureFormat.RGB24, false);
                 Color32[] whitePixels = new Color32[400 * 400];
                 for (int i = 0; i < whitePixels.Length; i++)
                 {
@@ -406,10 +413,15 @@ namespace Megaton
                 byte[] writeBytes = targetTexture.EncodeToPNG();
                 File.WriteAllBytes(filePath, writeBytes);
             }
-            catch
+            catch (Exception e)
             {
-                Debug.Log($"{filePath} Resize Failed!");
+                Debug.Log($"{filePath} Resize Failed with {e.Message}!");
                 return;
+            }
+            finally
+            {
+                UnityEngine.Object.Destroy(originalTexture);
+                UnityEngine.Object.Destroy(targetTexture);
             }
         }
     }
