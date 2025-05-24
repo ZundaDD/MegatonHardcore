@@ -21,7 +21,7 @@ namespace Megaton.Web
         /// <summary>
         /// 下载状态
         /// </summary>
-        public string Status { get; private set; } = "";
+        public string Status { get; private set; } = "当前没有下载任务！";
 
         /// <summary>
         /// 是否发生错误，包括取消和网络错误
@@ -126,7 +126,7 @@ namespace Megaton.Web
                     Progress = 1f;
                     Status = $"下载谱面{id}成功！转化文件中";
                     
-                    //处理谱面，不可取消
+                    //处理谱面，不可取消以保证所有生成的谱面文件完整
                     string tempFullpath = Path.Combine(tempPath, id + ".osz");
                     await OSUConverter.Path2Path(tempFullpath, savePath);
 

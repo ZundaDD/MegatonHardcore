@@ -32,8 +32,8 @@ namespace Megaton.UI
             late.text = ScoreBoard.Ins.Late.ToString();
             critical.text = ScoreBoard.QWeight(SimplifyJudgeEnum.CRITICAL).ToString();
             perfect.text = ScoreBoard.QWeight(SimplifyJudgeEnum.PERFECT).ToString();
-            great.text = ScoreBoard.QWeight(SimplifyJudgeEnum.PERFECT).ToString();
-            good.text = ScoreBoard.QWeight(SimplifyJudgeEnum.PERFECT).ToString();
+            great.text = ScoreBoard.QWeight(SimplifyJudgeEnum.GREAT).ToString();
+            good.text = ScoreBoard.QWeight(SimplifyJudgeEnum.GOOD).ToString();
             miss.text = ScoreBoard.QWeight(SimplifyJudgeEnum.MISS).ToString();
             rank.text = ChartScore.GetRank(ScoreBoard.Ins.Score);
             combo.text = $"{ScoreBoard.Ins.MaxCombo}/{ScoreBoard.Ins.ComboSum}";
