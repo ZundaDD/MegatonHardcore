@@ -111,7 +111,7 @@ namespace Megaton
         {
             var info = await sayoHandler.GetManiaInfo(sid);
             var cover = await sayoHandler.GetCover(sid);
-            cover = await ResizeCover(cover);
+            //cover = await ResizeCover(cover);
             if (info == null || cover == null) return null;
 
             FullChart chart = new();
@@ -125,57 +125,6 @@ namespace Megaton
             chart.info = chartInfo;
 
             return chart;
-        }
-
-
-        private static async UniTask<Texture2D> ResizeCover(Texture2D cover)
-        {
-            await UniTask.SwitchToMainThread();
-            Texture2D originalTexture = cover;
-            Texture2D targetTexture = new Texture2D(400, 400, TextureFormat.RGB24, false);
-            try
-            {
-                int width = originalTexture.width;
-                int height = originalTexture.height;
-
-                int centerX = width / 2;
-                int centerY = height / 2;
-
-                //出厂设置
-                targetTexture = new Texture2D(400, 400, TextureFormat.RGB24, false);
-                Color32[] whitePixels = new Color32[400 * 400];
-                for (int i = 0; i < whitePixels.Length; i++)
-                {
-                    whitePixels[i] = Color.white;
-                }
-                targetTexture.SetPixels32(0, 0, 400, 400, whitePixels);
-
-                //裁剪
-                var pixels = originalTexture.GetPixels(
-                    Math.Max(0, centerX - 200),
-                    Math.Max(0, centerY - 200),
-                    Math.Min(400, width),
-                    Math.Min(400, height));
-
-                targetTexture.SetPixels(
-                    Math.Max(0, 200 - centerX),
-                    Math.Max(0, 200 - centerY),
-                    Math.Min(400, width),
-                    Math.Min(400, height),
-                    pixels);
-
-                targetTexture.Apply();
-
-                return targetTexture;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-            finally
-            {
-                UnityEngine.Object.Destroy(originalTexture);
-            }
         }
     }
 }

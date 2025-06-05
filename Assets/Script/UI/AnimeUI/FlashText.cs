@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace Megaton.UI
 {
+    /// <summary>
+    /// 判定闪动文字
+    /// </summary>
     public class FlashText : MonoBehaviour
     {
         private static float exist_time = 0.8f;

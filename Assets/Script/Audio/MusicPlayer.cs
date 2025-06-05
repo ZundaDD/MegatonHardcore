@@ -26,7 +26,7 @@ namespace Megaton
             ExactTime = 0;
         }
 
-        private void  Update()
+        private void Update()
         {
             //这里的顺序是，command置状态，再下一次Update时
             //实际地执行Play的指令，但此次攻击中不累计时间，也不移动摄像头

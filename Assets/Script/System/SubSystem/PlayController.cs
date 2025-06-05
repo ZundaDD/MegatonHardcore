@@ -1,5 +1,6 @@
 using Megaton.Abstract;
 using Megaton.Classic;
+using Megaton.Effect;
 using Megaton.UI;
 using TMPro;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace Megaton
 
         [SerializeField] private RailCollection rails;
         [SerializeField] private MusicPlayer musicPlayer;
+        [SerializeField] private SplitManager splitManager;
 
         /// <summary>
         /// 初始化场景
@@ -43,6 +45,7 @@ namespace Megaton
             //给场景加载指令
             GameCamera.LoadCommands(GameVar.CurPlay.GetCameraCommands());
             rails.LoadNotes(GameVar.CurPlay.GetRailCommands());
+            splitManager.GenerateSplits();
 
             //开始播放音乐，即开始游玩
             musicPlayer.CommandPlay(MusicLoader.Path2Clip(GameVar.CurPlay.Info.RootDir, false));

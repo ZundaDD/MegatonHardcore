@@ -124,13 +124,13 @@ namespace Megaton.Web
                     }
 
                     Progress = 1f;
-                    Status = $"下载谱面{id}成功！转化文件中";
+                    Status = $"下载谱面{id}成功 转化文件中";
                     
                     //处理谱面，不可取消以保证所有生成的谱面文件完整
                     string tempFullpath = Path.Combine(tempPath, id + ".osz");
                     await OSUConverter.Path2Path(tempFullpath, savePath);
 
-                    Status = $"谱面{id}转化完成！";
+                    Status = $"谱面{id}转化完成";
 
                     //等待一段时间，避免过于频繁的请求
                     await UniTask.Delay(System.TimeSpan.FromSeconds(downloadSpace),
@@ -156,7 +156,7 @@ namespace Megaton.Web
             isDownloading = false;
             Progress = 0;
             if(Error && combinedToken.IsCancellationRequested) Status = "下载被取消...";
-            else Status = "当前没有下载任务！";
+            else Status = "当前没有下载任务";
 
             linkedCts.Dispose();
         }

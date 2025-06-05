@@ -1,6 +1,8 @@
 using UnityEngine;
 using EnhancedUI.EnhancedScroller;
 using UnityEngine.UI;
+using Cysharp.Threading.Tasks;
+using System;
 
 namespace Megaton.UI
 {
@@ -9,6 +11,8 @@ namespace Megaton.UI
     /// </summary>
     public class SongCellView : MonoBehaviour
     {
+        
+        [Header("UI组件")]
         [SerializeField] private Text levelText;
         [SerializeField] private Text titleText;
         [SerializeField] private Text rankText;
@@ -16,7 +20,6 @@ namespace Megaton.UI
         [SerializeField] private Image coverImage;        
         [SerializeField] private Button selectedButton;
         [SerializeField] public Animator selectHint;
-        
         
         public int PanelIndex { get; set; }
         public int RealIndex { get; set; }
@@ -26,8 +29,8 @@ namespace Megaton.UI
             if (on) selectHint.SetTrigger("FadeIn");
             else selectHint.SetTrigger("FadeOut");
         }
-        
 
+        
         private void Start()
         {
             selectedButton.onClick.AddListener(() =>

@@ -112,7 +112,7 @@ namespace Megaton
                 ));
 
             //反馈
-            GlobalEffectPlayer.PlayEffect(AudioEffect.OnJudge);
+            if(judge != JudgeEnum.MISS) GlobalEffectPlayer.PlayEffect(AudioEffect.OnJudge);
             Ins.onAdded?.Invoke();
         }
     }

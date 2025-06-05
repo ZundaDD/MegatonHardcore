@@ -176,6 +176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 900f4bff5e6efd74583fa89853f9cc47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target_width: 250
+  target_height: 250
   sid: {fileID: 2281403908023403822}
   title: {fileID: 2208043402202211875}
   artist: {fileID: 2918299252512388783}
@@ -456,8 +458,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 100, y: -25}
-  m_SizeDelta: {x: 75, y: 75}
+  m_AnchoredPosition: {x: 90, y: -15}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3542858303217736125
 CanvasRenderer:
@@ -930,7 +932,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -65.6, y: 9.7}
+  m_AnchoredPosition: {x: -65.6, y: -16.6}
   m_SizeDelta: {x: 400, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1222298086322148720
